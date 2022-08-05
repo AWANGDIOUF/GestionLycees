@@ -1,0 +1,105 @@
+{
+  "name": "Apprenant",
+  "fields": [
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateNaissance",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lieuNaissance",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "adresse",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sexe",
+      "fieldType": "Genre",
+      "fieldValues": "F,M",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "option",
+      "fieldType": "Option",
+      "fieldValues": "ENSEIGNEMENT_TECHNIQUE,FORMATION_PROFESSIONNELLE"
+    },
+    {
+      "fieldName": "situationMatrimoniale",
+      "fieldType": "Situation",
+      "fieldValues": "MARIE,MARIEE,CELIBATAIRE,VEUVE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tuteur",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "contactTuteur",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "serie",
+      "otherEntityRelationshipName": "apprenant",
+      "relationshipName": "serie",
+      "otherEntityField": "nomSerie",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "apprenant",
+      "relationshipName": "filiere",
+      "otherEntityField": "nomFiliere",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "examen",
+      "otherEntityRelationshipName": "apprenant",
+      "relationshipName": "examen"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "apprenant",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "apprenant",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "apprenant",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115801"
+}

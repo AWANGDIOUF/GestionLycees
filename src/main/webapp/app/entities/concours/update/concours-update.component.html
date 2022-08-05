@@ -1,0 +1,202 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-concours-heading" data-cy="ConcoursCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier un concours
+      </h2>
+
+      <br />
+      <br />
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+        <div class="row">
+          <div class="col-md-6">
+            <br />
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nomConcours">Nom concours</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nomConcours"
+                id="field_nomConcours"
+                data-cy="nomConcours"
+                formControlName="nomConcours"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_dateOuverture">Date d'ouverture</label>
+              <div class="input-group">
+                <input
+                  id="field_dateOuverture"
+                  data-cy="dateOuverture"
+                  type="text"
+                  class="form-control"
+                  name="dateOuverture"
+                  ngbDatepicker
+                  #dateOuvertureDp="ngbDatepicker"
+                  formControlName="dateOuverture"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateOuvertureDp.toggle()">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_dateCloture">Date de cloture</label>
+              <div class="input-group">
+                <input
+                  id="field_dateCloture"
+                  data-cy="dateCloture"
+                  type="text"
+                  class="form-control"
+                  name="dateCloture"
+                  ngbDatepicker
+                  #dateClotureDp="ngbDatepicker"
+                  formControlName="dateCloture"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateClotureDp.toggle()">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <br />
+            <div class="form-group">
+              <label class="form-control-label" for="field_nbreCandidats">Nombre de candidats</label>
+              <input
+                type="number"
+                class="form-control"
+                name="nbreCandidats"
+                id="field_nbreCandidats"
+                data-cy="nbreCandidats"
+                formControlName="nbreCandidats"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_dateConcours">Date concours</label>
+              <div class="input-group">
+                <input
+                  id="field_dateConcours"
+                  data-cy="dateConcours"
+                  type="text"
+                  class="form-control"
+                  name="dateConcours"
+                  ngbDatepicker
+                  #dateConcoursDp="ngbDatepicker"
+                  formControlName="dateConcours"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateConcoursDp.toggle()">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_dateDeliberation">Date de délibération</label>
+              <div class="input-group">
+                <input
+                  id="field_dateDeliberation"
+                  data-cy="dateDeliberation"
+                  type="text"
+                  class="form-control"
+                  name="dateDeliberation"
+                  ngbDatepicker
+                  #dateDeliberationDp="ngbDatepicker"
+                  formControlName="dateDeliberation"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateDeliberationDp.toggle()">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nbreAdmis">Nombre d'admis</label>
+              <input
+                type="number"
+                class="form-control"
+                name="nbreAdmis"
+                id="field_nbreAdmis"
+                data-cy="nbreAdmis"
+                formControlName="nbreAdmis"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_directeur">Directeur</label>
+          <select class="form-control" id="field_directeur" data-cy="directeur" name="directeur" formControlName="directeur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                directeurEtudeOption.id === editForm.get('directeur')!.value?.id ? editForm.get('directeur')!.value : directeurEtudeOption
+              "
+              *ngFor="let directeurEtudeOption of directeurEtudesSharedCollection; trackBy: trackDirecteurEtudeById"
+            >
+              {{ directeurEtudeOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

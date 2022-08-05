@@ -1,0 +1,23 @@
+package mefpai.gouv.sn.domain.enumeration;
+
+/**
+ * The FonctionPersAd enumeration.
+ */
+public enum FonctionPersAd {
+    PROVISEUR,
+    SECRETAIRE,
+    DIRECTEURDESETUDES,
+    AUDITEUR_INTERNE,
+    CHEF_DESTRAVAUX,
+    COMPTABLE_DESMATIERES,
+    INTENDANT,
+    RESPONSABLE_CELLULE_PEDAGOGIQUE,
+    SURVEIILLANT_GENERAL,
+    SURVEILLANT_SIMPLE,
+    INFIRMIER,
+    COMPTABLE,
+    ASSISTANTE_SOCIAL,
+    ANIMATION_CULTUREL,
+    BIBLIOTHECIAIRE,
+    AUTRES,
+}

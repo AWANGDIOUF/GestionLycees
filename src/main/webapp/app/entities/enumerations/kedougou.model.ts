@@ -1,0 +1,9 @@
+export enum KEDOUGOU {
+  KEDOUGOU = 'KEDOUGOU',
+
+  SALAMATA = 'SALAMATA',
+
+  SARAYA = 'SARAYA',
+
+  AUTRE = 'AUTRE',
+}

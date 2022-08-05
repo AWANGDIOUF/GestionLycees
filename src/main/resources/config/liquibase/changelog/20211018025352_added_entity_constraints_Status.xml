@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Status.
+    -->
+    <changeSet id="20211018025352-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="apprenant_id"
+                                 baseTableName="status"
+                                 constraintName="fk_status__apprenant_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="apprenant"/>
+
+        <addForeignKeyConstraint baseColumnNames="lycee_technique_id"
+                                 baseTableName="status"
+                                 constraintName="fk_status__lycee_technique_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lycee_technique"/>
+    </changeSet>
+</databaseChangeLog>

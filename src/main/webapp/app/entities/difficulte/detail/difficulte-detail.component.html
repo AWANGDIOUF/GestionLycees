@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="difficulte">
+      <h2 data-cy="difficulteDetailsHeading" style="font-weight: bold"><span>Difficulté</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ difficulte.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="difficulte.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', difficulte.lyceesTechniques?.id, 'view']">{{
+                  difficulte.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Nature</span></dt>
+            <dd>
+              <span>{{ difficulte.nature }}</span>
+            </dd>
+            <dt><span>Autre nature</span></dt>
+            <dd>
+              <span>{{ difficulte.autreNature }}</span>
+            </dd>
+            <dt><span>Description</span></dt>
+            <dd>
+              <span>{{ difficulte.description }}</span>
+            </dd>
+            <dt><span>Solution envisagée</span></dt>
+            <dd>
+              <span>{{ difficulte.solution }}</span>
+            </dd>
+            <dt><span>Observation</span></dt>
+            <dd>
+              <span>{{ difficulte.observation }}</span>
+            </dd>
+
+            <!-- <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="difficulte.proviseur">
+            <a [routerLink]="['/proviseur', difficulte.proviseur?.id, 'view']">{{ difficulte.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <br />
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/difficulte', difficulte.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

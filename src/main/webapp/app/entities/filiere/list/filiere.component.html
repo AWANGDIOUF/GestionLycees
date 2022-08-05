@@ -1,0 +1,127 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="FiliereHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Filiére</p>
+
+    <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-filiere"
+        [routerLink]="['/filiere/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau filiere </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="filieres?.length === 0">
+    <span>Aucun filieres trouvé</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="table-responsive" id="entities" *ngIf="filieres && filieres.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomFiliere"><span>Nom de la filiére</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="nomAutre"><span>Autre nom</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let filiere of filieres; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/filiere', filiere.id, 'view']">{{ filiere.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="filiere.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', filiere.lyceesTechniques?.id, 'view']">{{
+                    filiere.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="filiere.nomFiliere != 'AUTRES'">
+                  {{ filiere.nomFiliere }}
+                </div>
+                <div *ngIf="filiere.nomFiliere === 'AUTRES'">
+                  {{ filiere.nomAutre }}
+                </div>
+              </td>
+              <!-- <td>{{ filiere.nomFiliere }}</td>
+          <td>{{ filiere.nomAutre }}</td>
+           -->
+              <!-- <td>
+            <div *ngIf="filiere.directeur">
+              <a [routerLink]="['/directeur-etude', filiere.directeur?.id, 'view']">{{ filiere.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/filiere', filiere.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/filiere', filiere.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(filiere)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagi" *ngIf="filieres && filieres.length > 0">
+        <div class="row justify-content-center">
+          <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+        </div>
+
+        <div class="row justify-content-center">
+          <ngb-pagination
+            [collectionSize]="totalItems"
+            [(page)]="ngbPaginationPage"
+            [pageSize]="itemsPerPage"
+            [maxSize]="5"
+            [rotate]="true"
+            [boundaryLinks]="true"
+            (pageChange)="loadPage($event)"
+          ></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

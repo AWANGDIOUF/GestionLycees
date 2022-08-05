@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Apprenant.
+    -->
+    <changeSet id="20210910115801-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="serie_id"
+                                 baseTableName="apprenant"
+                                 constraintName="fk_apprenant__serie_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="serie"/>
+
+        <addForeignKeyConstraint baseColumnNames="filiere_id"
+                                 baseTableName="apprenant"
+                                 constraintName="fk_apprenant__filiere_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="filiere"/>
+
+        <addForeignKeyConstraint baseColumnNames="lycees_techniques_id"
+                                 baseTableName="apprenant"
+                                 constraintName="fk_apprenant__lycees_techniques_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lycees_techniques"/>
+
+        <addForeignKeyConstraint baseColumnNames="directeur_id"
+                                 baseTableName="apprenant"
+                                 constraintName="fk_apprenant__directeur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="directeur_etude"/>
+    </changeSet>
+</databaseChangeLog>

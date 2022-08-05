@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="iventaireDesMatetiere">
+      <h2 data-cy="iventaireDesMatetiereDetailsHeading" style="font-weight: bold"><span>Inventaire des matière</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ iventaireDesMatetiere.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="iventaireDesMatetiere.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', iventaireDesMatetiere.lyceesTechniques?.id, 'view']">{{
+                  iventaireDesMatetiere.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Groupe</span></dt>
+            <dd>
+              <span>{{ iventaireDesMatetiere.group }}</span>
+            </dd>
+            <dt><span>Désignation membre</span></dt>
+            <dd>
+              <div *ngIf="iventaireDesMatetiere.designationMembre">
+                <a (click)="openFile(iventaireDesMatetiere.designationMembre, iventaireDesMatetiere.designationMembreContentType)">open</a>
+                {{ iventaireDesMatetiere.designationMembreContentType }}, {{ byteSize(iventaireDesMatetiere.designationMembre) }}
+              </div>
+            </dd>
+            <dt><span>PV d'inventaire</span></dt>
+            <dd>
+              <div *ngIf="iventaireDesMatetiere.pvDinventaire">
+                <a (click)="openFile(iventaireDesMatetiere.pvDinventaire, iventaireDesMatetiere.pvDinventaireContentType)">open</a>
+                {{ iventaireDesMatetiere.pvDinventaireContentType }}, {{ byteSize(iventaireDesMatetiere.pvDinventaire) }}
+              </div>
+            </dd>
+
+            <!-- <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="iventaireDesMatetiere.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', iventaireDesMatetiere.comptableMatiere?.id, 'view']">{{
+              iventaireDesMatetiere.comptableMatiere?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/iventaire-des-matetiere', iventaireDesMatetiere.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

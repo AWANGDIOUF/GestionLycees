@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="recette">
+      <h2 data-cy="recetteDetailsHeading" style="font-weight: bold"><span>Recette</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ recette.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="recette.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', recette.lyceesTechniques?.id, 'view']">{{ recette.lyceesTechniques?.nomLycee }}</a>
+              </div>
+            </dd>
+            <dt><span>Type</span></dt>
+            <dd>
+              <span>{{ recette.type }}</span>
+            </dd>
+            <dt><span>Autre recette</span></dt>
+            <dd>
+              <span>{{ recette.autreRecette }}</span>
+            </dd>
+            <dt><span>Type ressource</span></dt>
+            <dd>
+              <span>{{ recette.typeRessource }}</span>
+            </dd>
+            <dt><span>Montant</span></dt>
+            <dd>
+              <span>{{ recette.montant }}</span>
+            </dd>
+            <dt><span>Date</span></dt>
+            <dd>
+              <span>{{ recette.date | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Depense</span></dt>
+            <dd>
+              <div *ngIf="recette.depense">
+                <a [routerLink]="['/depense', recette.depense?.id, 'view']">{{ recette.depense?.id }}</a>
+              </div>
+            </dd>
+
+            <!-- <dt><span>Comptable Financier</span></dt>
+        <dd>
+          <div *ngIf="recette.comptableFinancier">
+            <a [routerLink]="['/comptable-financier', recette.comptableFinancier?.id, 'view']">{{
+              recette.comptableFinancier?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/recette', recette.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

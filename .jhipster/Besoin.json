@@ -1,0 +1,62 @@
+{
+  "name": "Besoin",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "TypeB",
+      "fieldValues": "PERSONNEL_APPOINT,PERSONNEL_ADMINISTRATIF,RENFORCEMENT_CAPACITE,PERSONNE_RESSOURCE,SOCIAUX,INFRASTRUCTURE,EQUIPEMENT,FORMATION,INFRASTRUCTURES,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreBesoin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "etatActuel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "interventionSouhaitee",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "justification",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "besoin",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "besoin",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "besoin",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115802"
+}

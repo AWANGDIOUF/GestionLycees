@@ -1,0 +1,72 @@
+{
+  "name": "Examen",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "TypeExam",
+      "fieldValues": "S3,S4,S5,STEG,T1,T2,F6,STIDD,CAP,BEP,BT,BTS,CPS,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autres",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "option",
+      "fieldType": "Option",
+      "fieldValues": "ENSEIGNEMENT_TECHNIQUE,FORMATION_PROFESSIONNELLE"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "StatusApp",
+      "fieldValues": "REUSSI,ECHEC,ABSENT"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "examen",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "examen",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "serie",
+      "otherEntityRelationshipName": "examen",
+      "relationshipName": "serie",
+      "otherEntityField": "nomSerie"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "examen",
+      "relationshipName": "filiere",
+      "otherEntityField": "nomFiliere"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "apprenant",
+      "otherEntityRelationshipName": "examen",
+      "relationshipName": "apprenant",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "examen",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115806"
+}

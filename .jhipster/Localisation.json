@@ -1,0 +1,110 @@
+{
+  "name": "Localisation",
+  "fields": [
+    {
+      "fieldName": "region",
+      "fieldType": "Region",
+      "fieldValues": "DAKAR,DIOURBEL,FATICK,KAFFRINE,KAOLACK,KEDOUGOU,KOLDA,LOUGA,MATAM,SAINT_LOUIS,SEDHIOU,TAMBACOUNDA,THIES,ZIGINCHOR"
+    },
+    {
+      "fieldName": "departementDakar",
+      "fieldType": "DAKAR",
+      "fieldValues": "DAKAR,GUEDIAWAYE,PIKINE,RUFISQUE"
+    },
+    {
+      "fieldName": "departementDiourbel",
+      "fieldType": "DIOURBEL",
+      "fieldValues": "BAMBAEY,DIOURBEL,MBACKE"
+    },
+    {
+      "fieldName": "departementFatick",
+      "fieldType": "FATICK",
+      "fieldValues": "FATICK,FOUNDIOUGNE,GOSSAS"
+    },
+    {
+      "fieldName": "departementKaffrine",
+      "fieldType": "KAFFRINE",
+      "fieldValues": "BIRKILANE,KAFFRINE,KOUNGHEUR,MALEM_HODAR"
+    },
+    {
+      "fieldName": "departementKaolack",
+      "fieldType": "KAOLACK",
+      "fieldValues": "GUINGUINEO,KAOLOACK,NIORO"
+    },
+    {
+      "fieldName": "departementKedougou",
+      "fieldType": "KEDOUGOU",
+      "fieldValues": "KEDOUGOU,SALAMATA,SARAYA"
+    },
+    {
+      "fieldName": "departementKolda",
+      "fieldType": "KOLDA",
+      "fieldValues": "KOLDA,MEDINA_YORO_FOULAH,VELINGARA"
+    },
+    {
+      "fieldName": "departementLouga",
+      "fieldType": "LOUGA",
+      "fieldValues": "KEBEMERE,LINGUERE,LOUGA"
+    },
+    {
+      "fieldName": "departementMatam",
+      "fieldType": "MATAM",
+      "fieldValues": "KANELKANEL,MATAM,RANEROU_FERLO"
+    },
+    {
+      "fieldName": "departementSaint",
+      "fieldType": "SAINTLOUIS",
+      "fieldValues": "DAGANA,PODOR,SAINT_LOUIS"
+    },
+    {
+      "fieldName": "departementSedhiou",
+      "fieldType": "SEDHIOU",
+      "fieldValues": "BOUNKILING,GOUDOMP,SEDHIOU"
+    },
+    {
+      "fieldName": "departementTambacounda",
+      "fieldType": "TAMBACOUNDA",
+      "fieldValues": "BAKEL,GOUDIRY,KOUMPENTOUM,TAMBACOUNDA"
+    },
+    {
+      "fieldName": "departementThis",
+      "fieldType": "THIES",
+      "fieldValues": "MBOUR,THIES,TIVAOUANE"
+    },
+    {
+      "fieldName": "departementZic",
+      "fieldType": "ZIGINCHOR",
+      "fieldValues": "BIGNONA,OUSSOUYE,ZICHUINCHOR"
+    },
+    {
+      "fieldName": "ia",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "localisation",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "localisation",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "localisation",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115808"
+}

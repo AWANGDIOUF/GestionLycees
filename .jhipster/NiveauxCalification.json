@@ -1,0 +1,43 @@
+{
+  "name": "NiveauxCalification",
+  "fields": [
+    {
+      "fieldName": "niveauCalification",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "niveaucalification",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "niveauCalification",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "programme",
+      "otherEntityRelationshipName": "niveauCalification",
+      "relationshipName": "programme",
+      "otherEntityField": "nomProgramme"
+    }
+  ],
+  "entityTableName": "niveaux_calification",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211209124815"
+}

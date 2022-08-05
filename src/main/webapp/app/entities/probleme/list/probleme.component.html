@@ -1,0 +1,88 @@
+<div>
+  <h2 id="page-heading" data-cy="ProblemeHeading">
+    <span>Problemes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-probleme"
+        [routerLink]="['/probleme/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Probleme </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="problemes?.length === 0">
+    <span>No problemes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="problemes && problemes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Nature</span></th>
+          <th scope="col"><span>Description</span></th>
+          <th scope="col"><span>Solution</span></th>
+          <th scope="col"><span>Lycee Technique</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let probleme of problemes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/probleme', probleme.id, 'view']">{{ probleme.id }}</a>
+          </td>
+          <td>{{ probleme.nature }}</td>
+          <td>{{ probleme.description }}</td>
+          <td>{{ probleme.solution }}</td>
+          <td>
+            <div *ngIf="probleme.lyceeTechnique">
+              <a [routerLink]="['/lycee-technique', probleme.lyceeTechnique?.id, 'view']">{{ probleme.lyceeTechnique?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/probleme', probleme.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/probleme', probleme.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(probleme)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

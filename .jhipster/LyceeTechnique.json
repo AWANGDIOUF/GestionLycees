@@ -1,0 +1,218 @@
+{
+  "name": "LyceeTechnique",
+  "fields": [
+    {
+      "fieldName": "prenomNom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "adresse",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mail",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tel1",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "tel2",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "boitePostal",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "decretCreation",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dateCreation",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "region",
+      "fieldType": "Region",
+      "fieldValues": "DAKAR,DIOURBEL,FATICK,KAFFRINE,KAOLACK,KEDOUGOU,KOLDA,LOUGA,MATAM,SAINT_LOUIS,SEDHIOU,TAMBACOUNDA,THIES,ZIGINCHOR,AUTRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreRegion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "departementDakar",
+      "fieldType": "DAKAR",
+      "fieldValues": "DAKAR,GUEDIAWAYE,PIKINE,RUFISQUE,AUTRE"
+    },
+    {
+      "fieldName": "departementDiourbel",
+      "fieldType": "DIOURBEL",
+      "fieldValues": "BAMBAEY,DIOURBEL,MBACKE,AUTRE"
+    },
+    {
+      "fieldName": "departementFatick",
+      "fieldType": "FATICK",
+      "fieldValues": "FATICK,FOUNDIOUGNE,GOSSAS,AUTRE"
+    },
+    {
+      "fieldName": "departementKaffrine",
+      "fieldType": "KAFFRINE",
+      "fieldValues": "BIRKILANE,KAFFRINE,KOUNGHEUR,MALEM_HODAR,AUTRE"
+    },
+    {
+      "fieldName": "departementKaolack",
+      "fieldType": "KAOLACK",
+      "fieldValues": "GUINGUINEO,KAOLOACK,NIORO,AUTRE"
+    },
+    {
+      "fieldName": "departementKedougou",
+      "fieldType": "KEDOUGOU",
+      "fieldValues": "KEDOUGOU,SALAMATA,SARAYA,AUTRE"
+    },
+    {
+      "fieldName": "departementKolda",
+      "fieldType": "KOLDA",
+      "fieldValues": "KOLDA,MEDINA_YORO_FOULAH,VELINGARA,AUTRE"
+    },
+    {
+      "fieldName": "departementLouga",
+      "fieldType": "LOUGA",
+      "fieldValues": "KEBEMERE,LINGUERE,LOUGA,AUTRE"
+    },
+    {
+      "fieldName": "departementMatam",
+      "fieldType": "MATAM",
+      "fieldValues": "KANELKANEL,MATAM,RANEROU_FERLO,AUTRE"
+    },
+    {
+      "fieldName": "departementSaint",
+      "fieldType": "SAINTLOUIS",
+      "fieldValues": "DAGANA,PODOR,SAINT_LOUIS,AUTRE"
+    },
+    {
+      "fieldName": "departementSedhiou",
+      "fieldType": "SEDHIOU",
+      "fieldValues": "BOUNKILING,GOUDOMP,SEDHIOU,AUTRE"
+    },
+    {
+      "fieldName": "departementTambacounda",
+      "fieldType": "TAMBACOUNDA",
+      "fieldValues": "BAKEL,GOUDIRY,KOUMPENTOUM,TAMBACOUNDA,AUTRE"
+    },
+    {
+      "fieldName": "departementThis",
+      "fieldType": "THIES",
+      "fieldValues": "MBOUR,THIES,TIVAOUANE,AUTRE"
+    },
+    {
+      "fieldName": "departementZiguinchor",
+      "fieldType": "ZIGINCHOR",
+      "fieldValues": "BIGNONA,OUSSOUYE,ZICHUINCHOR,AUTRE"
+    },
+    {
+      "fieldName": "autredepartementDakar",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementDiourbel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementFatick",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementKaffrine",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementKaolack",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementKedougou",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementKolda",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementLouga",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementMatam",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementSaint",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementSedhiou",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementTambacounda",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementThis",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "autredepartementZiguinchor",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commune",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "ia",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "lyceeTechnique",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "lyceeTechnique",
+      "relationshipName": "nomLycee",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "lycee_technique",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115815"
+}

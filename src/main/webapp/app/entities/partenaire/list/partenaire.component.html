@@ -1,0 +1,146 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="PartenaireHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Partenaires</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-partenaire"
+        [routerLink]="['/partenaire/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau partenaire </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="partenaires?.length === 0">
+    <span>Aucun partenaire trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <br />>
+
+      <div class="table-responsive" id="entities" *ngIf="partenaires && partenaires.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="denominationPartenaire">
+                <span>Dénomination du partenaire</span> <fa-icon icon="sort"></fa-icon>
+              </th>
+              <th scope="col" jhiSortBy="categorieProvenaire"><span>Catégorie de la provenaire</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autreCategorie"><span>Autre Categorie</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="nature"><span>Nature du partenaire</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autreNature"><span>Autre Nature</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <!-- <th scope="col" jhiSortBy="proviseur.nomPrenom"><span>Proviseur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let partenaire of partenaires; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/partenaire', partenaire.id, 'view']">{{ partenaire.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="partenaire.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', partenaire.lyceesTechniques?.id, 'view']">{{
+                    partenaire.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ partenaire.denominationPartenaire }}</td>
+              <td>
+                <div *ngIf="partenaire.categorieProvenaire != 'AUTRES'">
+                  {{ partenaire.categorieProvenaire }}
+                </div>
+                <div *ngIf="partenaire.categorieProvenaire === 'AUTRES'">
+                  {{ partenaire.autreCategorie }}
+                </div>
+              </td>
+              <!-- <td>{{ partenaire.categorieProvenaire }}</td>
+          <td>{{ partenaire.autreCategorie }}</td> -->
+              <td>
+                <div *ngIf="partenaire.nature != 'AUTRES'">
+                  {{ partenaire.nature }}
+                </div>
+                <div *ngIf="partenaire.nature === 'AUTRES'">
+                  {{ partenaire.autreNature }}
+                </div>
+              </td>
+              <!-- <td>{{ partenaire.nature }}</td>
+          <td>{{ partenaire.autreNature }}</td> -->
+
+              <!-- <td>
+            <div *ngIf="partenaire.proviseur">
+              <a [routerLink]="['/proviseur', partenaire.proviseur?.id, 'view']">{{ partenaire.proviseur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/partenaire', partenaire.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/partenaire', partenaire.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(partenaire)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="partenaires && partenaires.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

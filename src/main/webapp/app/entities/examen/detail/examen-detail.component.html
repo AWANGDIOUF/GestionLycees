@@ -1,0 +1,81 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="examen">
+      <h2 data-cy="examenDetailsHeading" style="font-weight: bold"><span>Examen</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ examen.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="examen.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', examen.lyceesTechniques?.id, 'view']">{{ examen.lyceesTechniques?.nomLycee }}</a>
+              </div>
+            </dd>
+            <dt><span>Type d'examen</span></dt>
+            <dd>
+              <span>{{ examen.type }}</span>
+            </dd>
+            <dt><span>Autres</span></dt>
+            <dd>
+              <span>{{ examen.autres }}</span>
+            </dd>
+            <dt><span>Apprenant</span></dt>
+            <dd>
+              <div *ngIf="examen.apprenant">
+                <a [routerLink]="['/apprenant', examen.apprenant?.id, 'view']">{{ examen.apprenant?.nomPrenom }}</a>
+              </div>
+            </dd>
+
+            <dt><span>Status</span></dt>
+            <dd>
+              <span>{{ examen.status }}</span>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+        <dd>
+          <div *ngIf="examen.directeur">
+            <a [routerLink]="['/directeur-etude', examen.directeur?.id, 'view']">{{ examen.directeur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+            <dt><span>Option</span></dt>
+            <dd>
+              <span>{{ examen.option }}</span>
+            </dd>
+            <dt><span>Série</span></dt>
+            <dd>
+              <div *ngIf="examen.serie">
+                <a [routerLink]="['/serie', examen.serie?.id, 'view']">{{ examen.serie?.nomSerie }}</a>
+              </div>
+            </dd>
+            <dt><span>Filiére</span></dt>
+            <dd>
+              <div *ngIf="examen.filiere">
+                <a [routerLink]="['/filiere', examen.filiere?.id, 'view']">{{ examen.filiere?.nomFiliere }}</a>
+              </div>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <br />
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/examen', examen.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

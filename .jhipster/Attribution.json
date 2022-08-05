@@ -1,0 +1,53 @@
+{
+  "name": "Attribution",
+  "fields": [
+    {
+      "fieldName": "beneficiaire",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fonction",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "attribution",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "attribution",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "reception",
+      "otherEntityRelationshipName": "attribution",
+      "relationshipName": "reception",
+      "otherEntityField": "libelleMateriel"
+    }
+  ],
+  "entityTableName": "attribution",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211209124817"
+}

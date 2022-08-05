@@ -1,0 +1,59 @@
+{
+  "name": "Concours",
+  "fields": [
+    {
+      "fieldName": "nomConcours",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dateOuverture",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateCloture",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "nbreCandidats",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "dateConcours",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "dateDeliberation",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "nbreAdmis",
+      "fieldType": "Long"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "concours",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "concours",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "concours",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220613130027"
+}

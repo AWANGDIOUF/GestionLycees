@@ -1,0 +1,233 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="LyceeTechniqueHeading">
+    <p class="list">Identification du lycée technique</p>
+
+    <div *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-lycee-technique"
+        [routerLink]="['/lycee-technique/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Renseigner les identification du lycée technique </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="lyceeTechniques?.length === 0">
+    <span>Aucun lycée technique trouvé</span>
+  </div>
+
+  <div class="row">
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-12">
+      <div class="table-responsive" id="entities" *ngIf="lyceeTechniques && lyceeTechniques.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="nomLycee.id"><span>Nom du lycée</span> <fa-icon icon="sort"></fa-icon></th>
+              <th *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" scope="col" jhiSortBy="prenomNom">
+                <span>Prénom et nom du chef d'établissement</span> <fa-icon icon="sort"></fa-icon>
+              </th>
+              <th scope="col" jhiSortBy="adresse"><span>Adresse</span> <fa-icon icon="sort"></fa-icon></th>
+              <th *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" scope="col" jhiSortBy="mail">
+                <span>E-mail</span> <fa-icon icon="sort"></fa-icon>
+              </th>
+              <th scope="col" jhiSortBy="tel1"><span>Téléphone 1</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="tel2"><span>Téléphone 1</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="boitePostal"><span>Boite Postal</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="decretCreation"><span>Decret Creation</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="dateCreation"><span>Date Creation</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="region"><span>Région</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autreRegion"><span>Autre Region</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="departementDakar"><span>Département </span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="departementDiourbel"><span>Departement Diourbel</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementFatick"><span>Departement Fatick</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKaffrine"><span>Departement Kaffrine</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKaolack"><span>Departement Kaolack</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKedougou"><span>Departement Kedougou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKolda"><span>Departement Kolda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementLouga"><span>Departement Louga</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementMatam"><span>Departement Matam</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementSaint"><span>Departement Saint</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementSedhiou"><span>Departement Sedhiou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementTambacounda"><span>Departement Tambacounda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementThis"><span>Departement This</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementZiguinchor"><span>Departement Ziguinchor</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementDakar"><span>Autredepartement Dakar</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementDiourbel"><span>Autredepartement Diourbel</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementFatick"><span>Autredepartement Fatick</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementKaffrine"><span>Autredepartement Kaffrine</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementKaolack"><span>Autredepartement Kaolack</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementKedougou"><span>Autredepartement Kedougou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementKolda"><span>Autredepartement Kolda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementLouga"><span>Autredepartement Louga</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementMatam"><span>Autredepartement Matam</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementSaint"><span>Autredepartement Saint</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementSedhiou"><span>Autredepartement Sedhiou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementTambacounda">
+            <span>Autredepartement Tambacounda</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="autredepartementThis"><span>Autredepartement This</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="autredepartementZiguinchor">
+            <span>Autredepartement Ziguinchor</span> <fa-icon icon="sort"></fa-icon>
+          </th> -->
+              <th scope="col" jhiSortBy="commune"><span>Commune</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="ia"><span>IA</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="proviseur.nomPrenom"><span>Proviseur</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let lyceeTechnique of lyceeTechniques; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/lycee-technique', lyceeTechnique.id, 'view']">{{ lyceeTechnique.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="lyceeTechnique.nomLycee">
+                  <a [routerLink]="['/lycees-techniques', lyceeTechnique.nomLycee?.nomLycee, 'view']">{{
+                    lyceeTechnique.nomLycee?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']">{{ lyceeTechnique.prenomNom }}</td>
+              <td>{{ lyceeTechnique.adresse }}</td>
+              <td *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']">{{ lyceeTechnique.mail }}</td>
+              <td>{{ lyceeTechnique.tel1 }}</td>
+              <td>{{ lyceeTechnique.tel2 }}</td>
+              <!-- <td>{{ lyceeTechnique.boitePostal }}</td>
+          <td>{{ lyceeTechnique.decretCreation }}</td>
+          <td>{{ lyceeTechnique.dateCreation | formatMediumDate }}</td> -->
+              <td>{{ lyceeTechnique.region }}</td>
+              <!-- <td>{{ lyceeTechnique.autreRegion }}</td> -->
+              <td>
+                {{ lyceeTechnique.departementDakar }}
+                {{ lyceeTechnique.departementDiourbel }}
+                {{ lyceeTechnique.departementFatick }}
+                {{ lyceeTechnique.departementKaffrine }}
+                {{ lyceeTechnique.departementKaolack }}
+                {{ lyceeTechnique.departementKedougou }}
+                {{ lyceeTechnique.departementKolda }}
+                {{ lyceeTechnique.departementLouga }}
+                {{ lyceeTechnique.departementMatam }}
+                {{ lyceeTechnique.departementSaint }}
+                {{ lyceeTechnique.departementSedhiou }}
+                {{ lyceeTechnique.departementTambacounda }}
+                {{ lyceeTechnique.departementThis }}
+                {{ lyceeTechnique.departementZiguinchor }}
+                {{ lyceeTechnique.autredepartementDakar }}
+                {{ lyceeTechnique.autredepartementDiourbel }}
+                {{ lyceeTechnique.autredepartementFatick }}
+                {{ lyceeTechnique.autredepartementKaffrine }}
+                {{ lyceeTechnique.autredepartementKaolack }}
+                {{ lyceeTechnique.autredepartementKedougou }}
+                {{ lyceeTechnique.autredepartementKolda }}
+                {{ lyceeTechnique.autredepartementLouga }}
+                {{ lyceeTechnique.autredepartementMatam }}
+                {{ lyceeTechnique.autredepartementSaint }}
+                {{ lyceeTechnique.autredepartementSedhiou }}
+                {{ lyceeTechnique.autredepartementTambacounda }}
+                {{ lyceeTechnique.autredepartementThis }}
+                {{ lyceeTechnique.autredepartementZiguinchor }}
+              </td>
+              <!-- <td>{{ lyceeTechnique.departementDiourbel }}</td>
+          <td>{{ lyceeTechnique.departementFatick }}</td>
+          <td>{{ lyceeTechnique.departementKaffrine }}</td>
+          <td>{{ lyceeTechnique.departementKaolack }}</td>
+          <td>{{ lyceeTechnique.departementKedougou }}</td>
+          <td>{{ lyceeTechnique.departementKolda }}</td>
+          <td>{{ lyceeTechnique.departementLouga }}</td>
+          <td>{{ lyceeTechnique.departementMatam }}</td>
+          <td>{{ lyceeTechnique.departementSaint }}</td>
+          <td>{{ lyceeTechnique.departementSedhiou }}</td>
+          <td>{{ lyceeTechnique.departementTambacounda }}</td>
+          <td>{{ lyceeTechnique.departementThis }}</td>
+          <td>{{ lyceeTechnique.departementZiguinchor }}</td>
+          <td>{{ lyceeTechnique.autredepartementDakar }}</td>
+          <td>{{ lyceeTechnique.autredepartementDiourbel }}</td>
+          <td>{{ lyceeTechnique.autredepartementFatick }}</td>
+          <td>{{ lyceeTechnique.autredepartementKaffrine }}</td>
+          <td>{{ lyceeTechnique.autredepartementKaolack }}</td>
+          <td>{{ lyceeTechnique.autredepartementKedougou }}</td>
+          <td>{{ lyceeTechnique.autredepartementKolda }}</td>
+          <td>{{ lyceeTechnique.autredepartementLouga }}</td>
+          <td>{{ lyceeTechnique.autredepartementMatam }}</td>
+          <td>{{ lyceeTechnique.autredepartementSaint }}</td>
+          <td>{{ lyceeTechnique.autredepartementSedhiou }}</td>
+          <td>{{ lyceeTechnique.autredepartementTambacounda }}</td>
+          <td>{{ lyceeTechnique.autredepartementThis }}</td>
+          <td>{{ lyceeTechnique.autredepartementZiguinchor }}</td> -->
+              <td>{{ lyceeTechnique.commune }}</td>
+              <td>{{ lyceeTechnique.ia }}</td>
+              <!-- <td>
+            <div *ngIf="lyceeTechnique.proviseur">
+              <a [routerLink]="['/proviseur', lyceeTechnique.proviseur?.id, 'view']">{{ lyceeTechnique.proviseur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+
+              <td *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_PROVISEUR']" class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/lycee-technique', lyceeTechnique.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/lycee-technique', lyceeTechnique.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(lyceeTechnique)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"></span>
+                  </button>
+                </div>
+              </td>
+              <!-- </li> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="pagi" *ngIf="lyceeTechniques && lyceeTechniques.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

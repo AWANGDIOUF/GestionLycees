@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="niveauxCalification">
+      <h2 data-cy="niveauxCalificationDetailsHeading" style="font-weight: bold"><span>Niveaux Calification</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ niveauxCalification.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="niveauxCalification.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', niveauxCalification.lyceesTechniques?.id, 'view']">{{
+                  niveauxCalification.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Programme</span></dt>
+            <dd>
+              <div *ngIf="niveauxCalification.programme">
+                <a [routerLink]="['/programme', niveauxCalification.programme?.id, 'view']">{{
+                  niveauxCalification.programme?.nomProgramme
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Niveau de calification</span></dt>
+            <dd>
+              <span>{{ niveauxCalification.niveauCalification }}</span>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+        <dd>
+          <div *ngIf="niveauxCalification.directeur">
+            <a [routerLink]="['/directeur-etude', niveauxCalification.directeur?.id, 'view']">{{
+              niveauxCalification.directeur?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/niveaux-calification', niveauxCalification.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

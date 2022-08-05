@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Programme.
+    -->
+    <changeSet id="20211007123935-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lycees_techniques_id"
+                                 baseTableName="programme"
+                                 constraintName="fk_programme__lycees_techniques_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lycees_techniques"/>
+
+        <addForeignKeyConstraint baseColumnNames="directeur_id"
+                                 baseTableName="programme"
+                                 constraintName="fk_programme__directeur_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="directeur_etude"/>
+
+        <addForeignKeyConstraint baseColumnNames="filiere_id"
+                                 baseTableName="programme"
+                                 constraintName="fk_programme__filiere_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="filiere"/>
+    </changeSet>
+</databaseChangeLog>

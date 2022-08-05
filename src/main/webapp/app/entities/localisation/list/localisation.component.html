@@ -1,0 +1,140 @@
+<div>
+  <h2 id="page-heading" data-cy="LocalisationHeading">
+    <span>Localisations</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-localisation"
+        [routerLink]="['/localisation/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Localisation </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="localisations?.length === 0">
+    <span>No localisations found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="localisations && localisations.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="region"><span>Region</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementDakar"><span>Departement Dakar</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementDiourbel"><span>Departement Diourbel</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementFatick"><span>Departement Fatick</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKaffrine"><span>Departement Kaffrine</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKaolack"><span>Departement Kaolack</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKedougou"><span>Departement Kedougou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementKolda"><span>Departement Kolda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementLouga"><span>Departement Louga</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementMatam"><span>Departement Matam</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementSaint"><span>Departement Saint</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementSedhiou"><span>Departement Sedhiou</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementTambacounda"><span>Departement Tambacounda</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementThis"><span>Departement This</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="departementZic"><span>Departement Zic</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="ia"><span>Ia</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycees Techniques</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="proviseur.nomPrenom"><span>Proviseur</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let localisation of localisations; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/localisation', localisation.id, 'view']">{{ localisation.id }}</a>
+          </td>
+          <td>{{ localisation.region }}</td>
+          <td>{{ localisation.departementDakar }}</td>
+          <td>{{ localisation.departementDiourbel }}</td>
+          <td>{{ localisation.departementFatick }}</td>
+          <td>{{ localisation.departementKaffrine }}</td>
+          <td>{{ localisation.departementKaolack }}</td>
+          <td>{{ localisation.departementKedougou }}</td>
+          <td>{{ localisation.departementKolda }}</td>
+          <td>{{ localisation.departementLouga }}</td>
+          <td>{{ localisation.departementMatam }}</td>
+          <td>{{ localisation.departementSaint }}</td>
+          <td>{{ localisation.departementSedhiou }}</td>
+          <td>{{ localisation.departementTambacounda }}</td>
+          <td>{{ localisation.departementThis }}</td>
+          <td>{{ localisation.departementZic }}</td>
+          <td>{{ localisation.ia }}</td>
+          <td>
+            <div *ngIf="localisation.lyceesTechniques">
+              <a [routerLink]="['/lycees-techniques', localisation.lyceesTechniques?.id, 'view']">{{
+                localisation.lyceesTechniques?.nomLycee
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="localisation.proviseur">
+              <a [routerLink]="['/proviseur', localisation.proviseur?.id, 'view']">{{ localisation.proviseur?.nomPrenom }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/localisation', localisation.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/localisation', localisation.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(localisation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="localisations && localisations.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,85 @@
+{
+  "name": "Proviseur",
+  "fields": [
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "nomLycee",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "personnelAdministratif",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "personnelAdmiistratif"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "partenaire",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "partenaire"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "besoin",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "besoin"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "organeGestion",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "organe"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "visite",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "visite"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "difficulte",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "difficulte"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "enseignant",
+      "otherEntityRelationshipName": "proviseur",
+      "relationshipName": "enseignant"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "personnelAppui",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "personnelAppui"
+    }
+  ],
+  "entityTableName": "proviseur",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211216163413"
+}

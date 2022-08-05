@@ -1,0 +1,393 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-mouvement-matiere-heading" data-cy="MouvementMatiereCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier un mouvement des matières
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="field_typeMouvement">Type de mouvement</label>
+              <select
+                class="form-control"
+                name="typeMouvement"
+                formControlName="typeMouvement"
+                id="field_typeMouvement"
+                data-cy="typeMouvement"
+              >
+                <option [ngValue]="null"></option>
+                <option value="RECEPTION">Réception</option>
+                <option value="SORTIE_DEFINITIVE">Sortie définitive</option>
+              </select>
+            </div>
+
+            <div *ngIf="editForm.value.typeMouvement === 'RECEPTION'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_group">Groupe</label>
+                <select class="form-control" name="group" formControlName="group" id="field_group" data-cy="group">
+                  <option [ngValue]="null"></option>
+                  <option value="GROUP1">GROUP1</option>
+                  <option value="GROUP2">GROUP2</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_organisation">Organisation</label>
+                <select
+                  class="form-control"
+                  name="organisation"
+                  formControlName="organisation"
+                  id="field_organisation"
+                  data-cy="organisation"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="ETAT">ETAT</option>
+                  <option value="PATENAIRE">PATENAIRE</option>
+                  <option value="AUTRES">AUTRES</option>
+                </select>
+              </div>
+
+              <div *ngIf="editForm.value.organisation === 'AUTRES'">
+                <div class="form-group">
+                  <label class="form-control-label" for="field_autreOrganisation">Autre organisation</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="autreOrganisation"
+                    id="field_autreOrganisation"
+                    data-cy="autreOrganisation"
+                    formControlName="autreOrganisation"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_ressource">Ressource</label>
+                <select class="form-control" name="ressource" formControlName="ressource" id="field_ressource" data-cy="ressource">
+                  <option [ngValue]="null"></option>
+                  <option value="BUDGET">BUDGET</option>
+                  <option value="AUTRES">AUTRES</option>
+                </select>
+              </div>
+
+              <div *ngIf="editForm.value.ressource === 'AUTRES'">
+                <div class="form-group">
+                  <label class="form-control-label" for="field_autreRessource">Autre ressource</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="autreRessource"
+                    id="field_autreRessource"
+                    data-cy="autreRessource"
+                    formControlName="autreRessource"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_designation">Désignation</label>
+                <div>
+                  <div *ngIf="editForm.get('designation')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('designation')!.value, editForm.get('designationContentType')!.value)"
+                      >open</a
+                    ><br />
+                    <span class="pull-left"
+                      >{{ editForm.get('designationContentType')!.value }}, {{ byteSize(editForm.get('designation')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="editForm.patchValue({ designation: null }); editForm.patchValue({ designationContentType: null })"
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input type="file" id="file_designation" data-cy="designation" (change)="setFileData($event, 'designation', false)" />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="designation"
+                  id="field_designation"
+                  data-cy="designation"
+                  formControlName="designation"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="designationContentType"
+                  id="field_designationContentType"
+                  formControlName="designationContentType"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_pvReception">PV de réception</label>
+                <div>
+                  <div *ngIf="editForm.get('pvReception')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('pvReception')!.value, editForm.get('pvReceptionContentType')!.value)"
+                      >open</a
+                    ><br />
+                    <span class="pull-left"
+                      >{{ editForm.get('pvReceptionContentType')!.value }}, {{ byteSize(editForm.get('pvReception')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="editForm.patchValue({ pvReception: null }); editForm.patchValue({ pvReceptionContentType: null })"
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input type="file" id="file_pvReception" data-cy="pvReception" (change)="setFileData($event, 'pvReception', false)" />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="pvReception"
+                  id="field_pvReception"
+                  data-cy="pvReception"
+                  formControlName="pvReception"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="pvReceptionContentType"
+                  id="field_pvReceptionContentType"
+                  formControlName="pvReceptionContentType"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_bordeauDeLivraison">Bordeau de livraison</label>
+                <div>
+                  <div *ngIf="editForm.get('bordeauDeLivraison')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('bordeauDeLivraison')!.value, editForm.get('bordeauDeLivraisonContentType')!.value)"
+                      >open</a
+                    ><br />
+                    <span class="pull-left"
+                      >{{ editForm.get('bordeauDeLivraisonContentType')!.value }},
+                      {{ byteSize(editForm.get('bordeauDeLivraison')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="
+                        editForm.patchValue({ bordeauDeLivraison: null }); editForm.patchValue({ bordeauDeLivraisonContentType: null })
+                      "
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    id="file_bordeauDeLivraison"
+                    data-cy="bordeauDeLivraison"
+                    (change)="setFileData($event, 'bordeauDeLivraison', false)"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="bordeauDeLivraison"
+                  id="field_bordeauDeLivraison"
+                  data-cy="bordeauDeLivraison"
+                  formControlName="bordeauDeLivraison"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="bordeauDeLivraisonContentType"
+                  id="field_bordeauDeLivraisonContentType"
+                  formControlName="bordeauDeLivraisonContentType"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.typeMouvement === 'SORTIE_DEFINITIVE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_groupe">Groupe</label>
+                <select class="form-control" name="groupe" formControlName="groupe" id="field_groupe" data-cy="groupe">
+                  <option [ngValue]="null"></option>
+                  <option value="GROUPE1">GROUPE 1</option>
+                  <option value="GROUPE2">GROUPE 2</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_bonDeSortie">Bon de sortie</label>
+                <div>
+                  <div *ngIf="editForm.get('bonDeSortie')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="openFile(editForm.get('bonDeSortie')!.value, editForm.get('bonDeSortieContentType')!.value)"
+                      >open</a
+                    ><br />
+                    <span class="pull-left"
+                      >{{ editForm.get('bonDeSortieContentType')!.value }}, {{ byteSize(editForm.get('bonDeSortie')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="editForm.patchValue({ bonDeSortie: null }); editForm.patchValue({ bonDeSortieContentType: null })"
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input type="file" id="file_bonDeSortie" data-cy="bonDeSortie" (change)="setFileData($event, 'bonDeSortie', false)" />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="bonDeSortie"
+                  id="field_bonDeSortie"
+                  data-cy="bonDeSortie"
+                  formControlName="bonDeSortie"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="bonDeSortieContentType"
+                  id="field_bonDeSortieContentType"
+                  formControlName="bonDeSortieContentType"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-control-label" for="field_certificatAdministratif">Certificat administratif</label>
+                <div>
+                  <div *ngIf="editForm.get('certificatAdministratif')!.value" class="form-text text-danger clearfix">
+                    <a
+                      class="pull-left"
+                      (click)="
+                        openFile(editForm.get('certificatAdministratif')!.value, editForm.get('certificatAdministratifContentType')!.value)
+                      "
+                      >open</a
+                    ><br />
+                    <span class="pull-left"
+                      >{{ editForm.get('certificatAdministratifContentType')!.value }},
+                      {{ byteSize(editForm.get('certificatAdministratif')!.value) }}</span
+                    >
+                    <button
+                      type="button"
+                      (click)="
+                        editForm.patchValue({ certificatAdministratif: null });
+                        editForm.patchValue({ certificatAdministratifContentType: null })
+                      "
+                      class="btn btn-secondary btn-xs pull-right"
+                    >
+                      <fa-icon icon="times"></fa-icon>
+                    </button>
+                  </div>
+                  <input
+                    type="file"
+                    id="file_certificatAdministratif"
+                    data-cy="certificatAdministratif"
+                    (change)="setFileData($event, 'certificatAdministratif', false)"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="certificatAdministratif"
+                  id="field_certificatAdministratif"
+                  data-cy="certificatAdministratif"
+                  formControlName="certificatAdministratif"
+                />
+                <input
+                  type="hidden"
+                  class="form-control"
+                  name="certificatAdministratifContentType"
+                  id="field_certificatAdministratifContentType"
+                  formControlName="certificatAdministratifContentType"
+                />
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_comptableMatiere">Comptable Matiere</label>
+          <select
+            class="form-control"
+            id="field_comptableMatiere"
+            data-cy="comptableMatiere"
+            name="comptableMatiere"
+            formControlName="comptableMatiere"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                comptableMatiereOption.id === editForm.get('comptableMatiere')!.value?.id
+                  ? editForm.get('comptableMatiere')!.value
+                  : comptableMatiereOption
+              "
+              *ngFor="let comptableMatiereOption of comptableMatieresSharedCollection; trackBy: trackComptableMatiereById"
+            >
+              {{ comptableMatiereOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

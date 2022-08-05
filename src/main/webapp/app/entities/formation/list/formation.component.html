@@ -1,0 +1,127 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="FormationHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Formation</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-formation"
+        [routerLink]="['/formation/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouvelle formation </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="formations?.length === 0">
+    <span>Aucune formation trouvée</span>
+  </div>
+
+  <div class="row">
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-12">
+      <div class="table-responsive" id="entities" *ngIf="formations && formations.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomFormation"><span>Nom de la formation</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="typeFormation"><span>Type de formation</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="niveauFormation"><span>Niveau de la formation</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="duree"><span>Durée</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="secteur"><span>Secteur</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="modalite"><span>Modalité</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let formation of formations; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/formation', formation.id, 'view']">{{ formation.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="formation.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', formation.lyceesTechniques?.id, 'view']">{{
+                    formation.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ formation.nomFormation }}</td>
+              <td>{{ formation.typeFormation }}</td>
+              <td>{{ formation.niveauFormation }}</td>
+              <td title="{{ formation.duree }}">{{ formation.duree | duration }}</td>
+              <td>{{ formation.secteur }}</td>
+              <td>{{ formation.modalite }}</td>
+
+              <!-- <td>
+            <div *ngIf="formation.directeur">
+              <a [routerLink]="['/directeur-etude', formation.directeur?.id, 'view']">{{ formation.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/formation', formation.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/formation', formation.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(formation)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="formations && formations.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

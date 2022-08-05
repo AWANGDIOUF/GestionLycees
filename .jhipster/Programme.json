@@ -1,0 +1,48 @@
+{
+  "name": "Programme",
+  "fields": [
+    {
+      "fieldName": "nomProgramme",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "niveauxCalification",
+      "otherEntityRelationshipName": "programme",
+      "relationshipName": "niveauCalification"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "programme",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "programme",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "programme",
+      "relationshipName": "filiere",
+      "otherEntityField": "nomFiliere"
+    }
+  ],
+  "entityTableName": "programme",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211007123935"
+}

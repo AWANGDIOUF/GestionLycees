@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-niveaux-etudes-heading" data-cy="NiveauxEtudesCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier un niveau d'étude
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-5">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_serie">Série</label>
+              <select class="form-control" id="field_serie" data-cy="serie" name="serie" formControlName="serie">
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="serieOption.id === editForm.get('serie')!.value?.id ? editForm.get('serie')!.value : serieOption"
+                  *ngFor="let serieOption of seriesSharedCollection; trackBy: trackSerieById"
+                >
+                  {{ serieOption.nomSerie }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nomNiveau">Niveau d'étude</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nomNiveau"
+                id="field_nomNiveau"
+                data-cy="nomNiveau"
+                formControlName="nomNiveau"
+              />
+              <div *ngIf="editForm.get('nomNiveau')!.invalid && (editForm.get('nomNiveau')!.dirty || editForm.get('nomNiveau')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('nomNiveau')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_directeur">Directeur</label>
+          <select class="form-control" id="field_directeur" data-cy="directeur" name="directeur" formControlName="directeur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                directeurEtudeOption.id === editForm.get('directeur')!.value?.id ? editForm.get('directeur')!.value : directeurEtudeOption
+              "
+              *ngFor="let directeurEtudeOption of directeurEtudesSharedCollection; trackBy: trackDirecteurEtudeById"
+            >
+              {{ directeurEtudeOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+      <br />
+    </form>
+    <br />
+  </div>
+</div>

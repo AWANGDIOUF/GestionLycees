@@ -1,0 +1,70 @@
+{
+  "name": "Reception",
+  "fields": [
+    {
+      "fieldName": "libelleMateriel",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "typeGroup",
+      "fieldType": "Group",
+      "fieldValues": "GROUP1,GROUP2",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "provenance",
+      "fieldType": "ProvenanceMat",
+      "fieldValues": "ETAT,PARTENAIRE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fournisseur",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "materiel",
+      "otherEntityRelationshipName": "reception",
+      "relationshipName": "materiel"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "attribution",
+      "otherEntityRelationshipName": "reception",
+      "relationshipName": "attribution"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "reception",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "reception",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "reception",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211209124816"
+}

@@ -1,0 +1,55 @@
+{
+  "name": "Formation",
+  "fields": [
+    {
+      "fieldName": "nomFormation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "typeFormation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "niveauFormation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "duree",
+      "fieldType": "Duration"
+    },
+    {
+      "fieldName": "secteur",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modalite",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "formation",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "formation",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "formation",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220613130028"
+}

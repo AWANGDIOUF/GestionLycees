@@ -1,0 +1,115 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="mouvementMatiere">
+      <h2 data-cy="mouvementMatiereDetailsHeading" style="font-weight: bold"><span>Mouvement des matiéres</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ mouvementMatiere.id }}</span>
+        </dd> -->
+            <!-- <dt><span>Lycees Techniques</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.lyceesTechniques">
+            <a [routerLink]="['/lycees-techniques', mouvementMatiere.lyceesTechniques?.id, 'view']">{{
+              mouvementMatiere.lyceesTechniques?.nomLycee
+            }}</a>
+          </div>
+        </dd> -->
+            <dt><span>Type mouvement</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.typeMouvement }}</span>
+            </dd>
+            <dt><span>Groupe</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.group }}</span>
+            </dd>
+            <dt><span>Organisation</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.organisation }}</span>
+            </dd>
+            <dt><span>Autre organisation</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.autreOrganisation }}</span>
+            </dd>
+            <dt><span>Ressource</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.ressource }}</span>
+            </dd>
+            <dt><span>Autre ressource</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.autreRessource }}</span>
+            </dd>
+            <!-- <dt><span>Désignation des membre</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.designation">
+            <a (click)="openFile(mouvementMatiere.designation, mouvementMatiere.designationContentType)">open</a>
+            {{ mouvementMatiere.designationContentType }}, {{ byteSize(mouvementMatiere.designation) }}
+          </div>
+        </dd>
+        <dt><span>PV de réception</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.pvReception">
+            <a (click)="openFile(mouvementMatiere.pvReception, mouvementMatiere.pvReceptionContentType)">open</a>
+            {{ mouvementMatiere.pvReceptionContentType }}, {{ byteSize(mouvementMatiere.pvReception) }}
+          </div>
+        </dd>
+        <dt><span>Bordeau de livraison</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.bordeauDeLivraison">
+            <a (click)="openFile(mouvementMatiere.bordeauDeLivraison, mouvementMatiere.bordeauDeLivraisonContentType)">open</a>
+            {{ mouvementMatiere.bordeauDeLivraisonContentType }}, {{ byteSize(mouvementMatiere.bordeauDeLivraison) }}
+          </div>
+        </dd> -->
+            <dt><span>Groupe</span></dt>
+            <dd>
+              <span>{{ mouvementMatiere.groupe }}</span>
+            </dd>
+            <!--<dt><span>Bon de sortie</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.bonDeSortie">
+            <a (click)="openFile(mouvementMatiere.bonDeSortie, mouvementMatiere.bonDeSortieContentType)">open</a>
+            {{ mouvementMatiere.bonDeSortieContentType }}, {{ byteSize(mouvementMatiere.bonDeSortie) }}
+          </div>
+        </dd>
+        <dt><span>Certificat administratif</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.certificatAdministratif">
+            <a (click)="openFile(mouvementMatiere.certificatAdministratif, mouvementMatiere.certificatAdministratifContentType)">open</a>
+            {{ mouvementMatiere.certificatAdministratifContentType }}, {{ byteSize(mouvementMatiere.certificatAdministratif) }}
+          </div>
+        </dd> -->
+
+            <!-- <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="mouvementMatiere.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', mouvementMatiere.comptableMatiere?.id, 'view']">{{
+              mouvementMatiere.comptableMatiere?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/mouvement-matiere', mouvementMatiere.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+    <br />
+  </div>
+  <br />
+</div>

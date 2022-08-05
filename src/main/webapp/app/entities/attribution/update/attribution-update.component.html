@@ -1,0 +1,138 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-attribution-heading" data-cy="AttributionCreateUpdateHeading">Create or edit a Attribution</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_beneficiaire">Beneficiaire</label>
+          <input
+            type="text"
+            class="form-control"
+            name="beneficiaire"
+            id="field_beneficiaire"
+            data-cy="beneficiaire"
+            formControlName="beneficiaire"
+          />
+          <div
+            *ngIf="editForm.get('beneficiaire')!.invalid && (editForm.get('beneficiaire')!.dirty || editForm.get('beneficiaire')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('beneficiaire')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fonction">Fonction</label>
+          <input type="text" class="form-control" name="fonction" id="field_fonction" data-cy="fonction" formControlName="fonction" />
+          <div *ngIf="editForm.get('fonction')!.invalid && (editForm.get('fonction')!.dirty || editForm.get('fonction')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('fonction')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+          <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_lyceesTechniques">Lycees Techniques</label>
+          <select
+            class="form-control"
+            id="field_lyceesTechniques"
+            data-cy="lyceesTechniques"
+            name="lyceesTechniques"
+            formControlName="lyceesTechniques"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                  ? editForm.get('lyceesTechniques')!.value
+                  : lyceesTechniquesOption
+              "
+              *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+            >
+              {{ lyceesTechniquesOption.nomLycee }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_comptableMatiere">Comptable Matiere</label>
+          <select
+            class="form-control"
+            id="field_comptableMatiere"
+            data-cy="comptableMatiere"
+            name="comptableMatiere"
+            formControlName="comptableMatiere"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                comptableMatiereOption.id === editForm.get('comptableMatiere')!.value?.id
+                  ? editForm.get('comptableMatiere')!.value
+                  : comptableMatiereOption
+              "
+              *ngFor="let comptableMatiereOption of comptableMatieresSharedCollection; trackBy: trackComptableMatiereById"
+            >
+              {{ comptableMatiereOption.nomPrenom }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_reception">Reception</label>
+          <select class="form-control" id="field_reception" data-cy="reception" name="reception" formControlName="reception">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="receptionOption.id === editForm.get('reception')!.value?.id ? editForm.get('reception')!.value : receptionOption"
+              *ngFor="let receptionOption of receptionsSharedCollection; trackBy: trackReceptionById"
+            >
+              {{ receptionOption.libelleMateriel }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

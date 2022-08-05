@@ -1,0 +1,75 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="personnelAppui">
+      <h2 data-cy="personnelAppuiDetailsHeading" style="font-weight: bold"><span>Personnel d'appui</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ personnelAppui.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="personnelAppui.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', personnelAppui.lyceesTechniques?.id, 'view']">{{
+                  personnelAppui.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Nom</span></dt>
+            <dd>
+              <span>{{ personnelAppui.nom }}</span>
+            </dd>
+            <dt><span>Prénom</span></dt>
+            <dd>
+              <span>{{ personnelAppui.prenom }}</span>
+            </dd>
+            <dt><span>Situation matrimoniale</span></dt>
+            <dd>
+              <span>{{ personnelAppui.situationMatrimoniale }}</span>
+            </dd>
+            <dt><span>Fonction</span></dt>
+            <dd>
+              <span>{{ personnelAppui.fonction }}</span>
+            </dd>
+            <dt><span>Autre fonction</span></dt>
+            <dd>
+              <span>{{ personnelAppui.autreFoction }}</span>
+            </dd>
+            <dt><span>Téléphone</span></dt>
+            <dd>
+              <span>{{ personnelAppui.telephone }}</span>
+            </dd>
+            <dt><span>E-mail</span></dt>
+            <dd>
+              <span>{{ personnelAppui.mail }}</span>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+        <dd>
+          <div *ngIf="personnelAppui.directeur">
+            <a [routerLink]="['/proviseur', personnelAppui.directeur?.id, 'view']">{{ personnelAppui.directeur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/personnel-appui', personnelAppui.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

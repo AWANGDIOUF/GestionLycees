@@ -1,0 +1,176 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-reception-heading" data-cy="ReceptionCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier une réceptions
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_libelleMateriel">Libelle matériel</label>
+              <input
+                type="text"
+                class="form-control"
+                name="libelleMateriel"
+                id="field_libelleMateriel"
+                data-cy="libelleMateriel"
+                formControlName="libelleMateriel"
+              />
+              <div
+                *ngIf="
+                  editForm.get('libelleMateriel')!.invalid &&
+                  (editForm.get('libelleMateriel')!.dirty || editForm.get('libelleMateriel')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('libelleMateriel')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_typeGroup">Groupe</label>
+              <select class="form-control" name="typeGroup" formControlName="typeGroup" id="field_typeGroup" data-cy="typeGroup">
+                <option [ngValue]="null"></option>
+                <option value="GROUP1">GROUPE 1</option>
+                <option value="GROUP2">GROUPE 2</option>
+              </select>
+              <div *ngIf="editForm.get('typeGroup')!.invalid && (editForm.get('typeGroup')!.dirty || editForm.get('typeGroup')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('typeGroup')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_provenance">Provenance</label>
+              <select class="form-control" name="provenance" formControlName="provenance" id="field_provenance" data-cy="provenance">
+                <option [ngValue]="null"></option>
+                <option value="ETAT">ETAT</option>
+                <option value="PARTENAIRE">PARTENAIRE</option>
+              </select>
+              <div
+                *ngIf="editForm.get('provenance')!.invalid && (editForm.get('provenance')!.dirty || editForm.get('provenance')!.touched)"
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('provenance')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_fournisseur">Fournisseur</label>
+              <input
+                type="text"
+                class="form-control"
+                name="fournisseur"
+                id="field_fournisseur"
+                data-cy="fournisseur"
+                formControlName="fournisseur"
+              />
+              <div
+                *ngIf="editForm.get('fournisseur')!.invalid && (editForm.get('fournisseur')!.dirty || editForm.get('fournisseur')!.touched)"
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('fournisseur')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_date">Date</label>
+              <div class="input-group">
+                <input
+                  id="field_date"
+                  data-cy="date"
+                  type="text"
+                  class="form-control"
+                  name="date"
+                  ngbDatepicker
+                  #dateDp="ngbDatepicker"
+                  formControlName="date"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+                </span>
+              </div>
+              <div *ngIf="editForm.get('date')!.invalid && (editForm.get('date')!.dirty || editForm.get('date')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('date')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_comptableMatiere">Comptable Matiere</label>
+          <select
+            class="form-control"
+            id="field_comptableMatiere"
+            data-cy="comptableMatiere"
+            name="comptableMatiere"
+            formControlName="comptableMatiere"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                comptableMatiereOption.id === editForm.get('comptableMatiere')!.value?.id
+                  ? editForm.get('comptableMatiere')!.value
+                  : comptableMatiereOption
+              "
+              *ngFor="let comptableMatiereOption of comptableMatieresSharedCollection; trackBy: trackComptableMatiereById"
+            >
+              {{ comptableMatiereOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+  <br />
+</div>

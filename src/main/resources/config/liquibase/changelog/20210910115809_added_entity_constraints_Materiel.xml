@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Materiel.
+    -->
+    <changeSet id="20210910115809-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lycees_techniques_id"
+                                 baseTableName="materiel"
+                                 constraintName="fk_materiel__lycees_techniques_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lycees_techniques"/>
+
+        <addForeignKeyConstraint baseColumnNames="comptable_matiere_id"
+                                 baseTableName="materiel"
+                                 constraintName="fk_materiel__comptable_matiere_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="comptable_matiere"/>
+
+        <addForeignKeyConstraint baseColumnNames="reception_id"
+                                 baseTableName="materiel"
+                                 constraintName="fk_materiel__reception_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="reception"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,72 @@
+{
+  "name": "PersonnelAdministratif",
+  "fields": [
+    {
+      "fieldName": "matricule",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "prenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "situationMatrimoniale",
+      "fieldType": "Situation",
+      "fieldValues": "MARIE,MARIEE,CELIBATAIRE,VEUVE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "fonction",
+      "fieldType": "FonctionPersAd",
+      "fieldValues": "PROVISEUR,SECRETAIRE,DIRECTEURDESETUDES,AUDITEUR_INTERNE,CHEF_DESTRAVAUX,COMPTABLE_DESMATIERES,INTENDANT,RESPONSABLE_CELLULE_PEDAGOGIQUE,SURVEIILLANT_GENERAL,SURVEILLANT_SIMPLE,INFIRMIER,COMPTABLE,ASSISTANTE_SOCIAL,ANIMATION_CULTUREL,BIBLIOTHECIAIRE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreFonction",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mail",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "personnelAdmiistratif",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "personnelAdmiistratif",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "personnel_administratif",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115813"
+}

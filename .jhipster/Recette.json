@@ -1,0 +1,60 @@
+{
+  "name": "Recette",
+  "fields": [
+    {
+      "fieldName": "type",
+      "fieldType": "TypeR",
+      "fieldValues": "SUBVENTION_ETAT,RESSOURCES_GENEREES,DONS,PRESTATIONS_DIVERSES,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreRecette",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "typeRessource",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "montant",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "depense",
+      "otherEntityRelationshipName": "recette",
+      "relationshipName": "depense"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "recette",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableFinancier",
+      "otherEntityRelationshipName": "recette",
+      "relationshipName": "comptableFinancier",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "recette",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115803"
+}

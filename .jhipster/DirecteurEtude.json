@@ -1,0 +1,97 @@
+{
+  "name": "DirecteurEtude",
+  "fields": [
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "directeurEtude",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "directeurEtude",
+      "relationshipName": "nomLycee",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "concours",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "concours"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "formation",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "formation"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "salle",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "salle"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "serie",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "serie"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "niveauxEtudes",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "niveau"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "filiere"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "programme",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "programme"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "niveauxCalification",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "niveauCalification"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "apprenant",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "apprenant"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "examen",
+      "otherEntityRelationshipName": "directeur",
+      "relationshipName": "examen"
+    }
+  ],
+  "entityTableName": "directeur_etude",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211216163414"
+}

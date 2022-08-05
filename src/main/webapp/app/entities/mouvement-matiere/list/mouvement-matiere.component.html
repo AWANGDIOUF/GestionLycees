@@ -1,0 +1,204 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="MouvementMatiereHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Mouvement des matières</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-mouvement-matiere"
+        [routerLink]="['/mouvement-matiere/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouveau mouvement des matières</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="mouvementMatieres?.length === 0">
+    <span>Aucun mouvement des matières trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <!-- <div class="col-md-1"></div> -->
+    <div class="col-md-12">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="mouvementMatieres && mouvementMatieres.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycees Techniques</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="typeMouvement"><span>Type Mouvement</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="group"><span>Groupe</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="organisation"><span>Organisation</span> <fa-icon icon="sort"></fa-icon></th>
+           <th scope="col" jhiSortBy="autreOrganisation"><span>Autre Organisation</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="ressource"><span>Ressource</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="autreRessource"><span>Autre Ressource</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="designation"><span>Désignation des membre</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="pvReception"><span>Pv de réception</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="bordeauDeLivraison"><span>Bordeau de livraison</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="groupe"><span>Groupe</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="bonDeSortie"><span>Bon de sortie</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="certificatAdministratif"><span>Certificat administratif</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="comptableMatiere.nomPrenom"><span>Comptable Matiere</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mouvementMatiere of mouvementMatieres; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/mouvement-matiere', mouvementMatiere.id, 'view']">{{ mouvementMatiere.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="mouvementMatiere.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', mouvementMatiere.lyceesTechniques?.id, 'view']">{{
+                    mouvementMatiere.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ mouvementMatiere.typeMouvement }}</td>
+              <!-- <td>{{ mouvementMatiere.group }}</td> -->
+              <!-- <td>{{ mouvementMatiere.organisation }}</td>
+          <td>{{ mouvementMatiere.autreOrganisation }}</td> -->
+              <!-- <td>
+            <div *ngIf="mouvementMatiere.organisation!= 'AUTRES'">
+              {{ mouvementMatiere.organisation }}
+            </div>
+            <div *ngIf="mouvementMatiere.organisation === 'AUTRES'">
+              {{ mouvementMatiere.autreOrganisation }}
+            </div>
+          </td> -->
+              <!-- <td>{{ mouvementMatiere.ressource }}</td>
+          <td>{{ mouvementMatiere.autreRessource }}</td> -->
+              <!-- <td>
+            <div *ngIf="mouvementMatiere.ressource != 'AUTRES'">
+              {{ mouvementMatiere.ressource }}
+            </div>
+            <div *ngIf="mouvementMatiere.ressource === 'AUTRES'">
+              {{ mouvementMatiere.autreRessource }}
+            </div>
+          </td> -->
+              <td>
+                <a
+                  *ngIf="mouvementMatiere.designation"
+                  (click)="openFile(mouvementMatiere.designation, mouvementMatiere.designationContentType)"
+                  >open</a
+                >
+                <span *ngIf="mouvementMatiere.designation"
+                  >{{ mouvementMatiere.designationContentType }}, {{ byteSize(mouvementMatiere.designation) }}</span
+                >
+              </td>
+              <td>
+                <a
+                  *ngIf="mouvementMatiere.pvReception"
+                  (click)="openFile(mouvementMatiere.pvReception, mouvementMatiere.pvReceptionContentType)"
+                  >open</a
+                >
+                <span *ngIf="mouvementMatiere.pvReception"
+                  >{{ mouvementMatiere.pvReceptionContentType }}, {{ byteSize(mouvementMatiere.pvReception) }}</span
+                >
+              </td>
+              <td>
+                <a
+                  *ngIf="mouvementMatiere.bordeauDeLivraison"
+                  (click)="openFile(mouvementMatiere.bordeauDeLivraison, mouvementMatiere.bordeauDeLivraisonContentType)"
+                  >open</a
+                >
+                <span *ngIf="mouvementMatiere.bordeauDeLivraison"
+                  >{{ mouvementMatiere.bordeauDeLivraisonContentType }}, {{ byteSize(mouvementMatiere.bordeauDeLivraison) }}</span
+                >
+              </td>
+              <!-- <td>{{ mouvementMatiere.groupe }}</td> -->
+              <td>
+                <a
+                  *ngIf="mouvementMatiere.bonDeSortie"
+                  (click)="openFile(mouvementMatiere.bonDeSortie, mouvementMatiere.bonDeSortieContentType)"
+                  >open</a
+                >
+                <span *ngIf="mouvementMatiere.bonDeSortie"
+                  >{{ mouvementMatiere.bonDeSortieContentType }}, {{ byteSize(mouvementMatiere.bonDeSortie) }}</span
+                >
+              </td>
+              <td>
+                <a
+                  *ngIf="mouvementMatiere.certificatAdministratif"
+                  (click)="openFile(mouvementMatiere.certificatAdministratif, mouvementMatiere.certificatAdministratifContentType)"
+                  >open</a
+                >
+                <span *ngIf="mouvementMatiere.certificatAdministratif"
+                  >{{ mouvementMatiere.certificatAdministratifContentType }}, {{ byteSize(mouvementMatiere.certificatAdministratif) }}</span
+                >
+              </td>
+
+              <!-- <td>
+            <div *ngIf="mouvementMatiere.comptableMatiere">
+              <a [routerLink]="['/comptable-matiere', mouvementMatiere.comptableMatiere?.id, 'view']">{{
+                mouvementMatiere.comptableMatiere?.nomPrenom
+              }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/mouvement-matiere', mouvementMatiere.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/mouvement-matiere', mouvementMatiere.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(mouvementMatiere)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="mouvementMatieres && mouvementMatieres.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

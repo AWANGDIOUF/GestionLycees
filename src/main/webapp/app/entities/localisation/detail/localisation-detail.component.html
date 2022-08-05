@@ -1,0 +1,106 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="localisation">
+      <h2 data-cy="localisationDetailsHeading"><span>Localisation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ localisation.id }}</span>
+        </dd>
+        <dt><span>Region</span></dt>
+        <dd>
+          <span>{{ localisation.region }}</span>
+        </dd>
+        <dt><span>Departement Dakar</span></dt>
+        <dd>
+          <span>{{ localisation.departementDakar }}</span>
+        </dd>
+        <dt><span>Departement Diourbel</span></dt>
+        <dd>
+          <span>{{ localisation.departementDiourbel }}</span>
+        </dd>
+        <dt><span>Departement Fatick</span></dt>
+        <dd>
+          <span>{{ localisation.departementFatick }}</span>
+        </dd>
+        <dt><span>Departement Kaffrine</span></dt>
+        <dd>
+          <span>{{ localisation.departementKaffrine }}</span>
+        </dd>
+        <dt><span>Departement Kaolack</span></dt>
+        <dd>
+          <span>{{ localisation.departementKaolack }}</span>
+        </dd>
+        <dt><span>Departement Kedougou</span></dt>
+        <dd>
+          <span>{{ localisation.departementKedougou }}</span>
+        </dd>
+        <dt><span>Departement Kolda</span></dt>
+        <dd>
+          <span>{{ localisation.departementKolda }}</span>
+        </dd>
+        <dt><span>Departement Louga</span></dt>
+        <dd>
+          <span>{{ localisation.departementLouga }}</span>
+        </dd>
+        <dt><span>Departement Matam</span></dt>
+        <dd>
+          <span>{{ localisation.departementMatam }}</span>
+        </dd>
+        <dt><span>Departement Saint</span></dt>
+        <dd>
+          <span>{{ localisation.departementSaint }}</span>
+        </dd>
+        <dt><span>Departement Sedhiou</span></dt>
+        <dd>
+          <span>{{ localisation.departementSedhiou }}</span>
+        </dd>
+        <dt><span>Departement Tambacounda</span></dt>
+        <dd>
+          <span>{{ localisation.departementTambacounda }}</span>
+        </dd>
+        <dt><span>Departement This</span></dt>
+        <dd>
+          <span>{{ localisation.departementThis }}</span>
+        </dd>
+        <dt><span>Departement Zic</span></dt>
+        <dd>
+          <span>{{ localisation.departementZic }}</span>
+        </dd>
+        <dt><span>Ia</span></dt>
+        <dd>
+          <span>{{ localisation.ia }}</span>
+        </dd>
+        <dt><span>Lycees Techniques</span></dt>
+        <dd>
+          <div *ngIf="localisation.lyceesTechniques">
+            <a [routerLink]="['/lycees-techniques', localisation.lyceesTechniques?.id, 'view']">{{
+              localisation.lyceesTechniques?.nomLycee
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="localisation.proviseur">
+            <a [routerLink]="['/proviseur', localisation.proviseur?.id, 'view']">{{ localisation.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/localisation', localisation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

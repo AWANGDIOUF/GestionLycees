@@ -1,0 +1,68 @@
+{
+  "name": "Visite",
+  "fields": [
+    {
+      "fieldName": "nature",
+      "fieldType": "NatureV",
+      "fieldValues": "ADMINITRATIVE,PEDAGOGIQUE,TECHNIQUE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreNature",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "provenance",
+      "fieldType": "ProvenanceV",
+      "fieldValues": "NIVEAU_CENTRAL,PEDAGOGIQUE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreProvenance",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "objet",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "resultats",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "periode",
+      "fieldType": "LocalDate",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "visite",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "visite",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "visite",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115819"
+}

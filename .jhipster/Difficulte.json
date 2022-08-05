@@ -1,0 +1,59 @@
+{
+  "name": "Difficulte",
+  "fields": [
+    {
+      "fieldName": "nature",
+      "fieldType": "NatureDif",
+      "fieldValues": "TECHNIQUE,RH,PEDAGOGIQUE,SOCIAUX,ADMINISTRATIVE,FINANCIERE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreNature",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "solution",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "observation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "difficulte",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "difficulte",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "difficulte",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211018025353"
+}

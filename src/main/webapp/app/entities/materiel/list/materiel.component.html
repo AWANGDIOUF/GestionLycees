@@ -1,0 +1,129 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="MaterielHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Matériels</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-materiel"
+        [routerLink]="['/materiel/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau matériel </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="materiels?.length === 0">
+    <span>Aucun matériel trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="materiels && materiels.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="reception.libelleMateriel"><span>Libelle materiel</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="categorieMateriel"><span>Categorie m t ateriel</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="etatMateriel"><span>Etat materiel</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="comptableMatiere.nomPrenom"><span>Comptable Matiere</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let materiel of materiels; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/materiel', materiel.id, 'view']">{{ materiel.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="materiel.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', materiel.lyceesTechniques?.id, 'view']">{{
+                    materiel.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="materiel.reception">
+                  <a [routerLink]="['/reception', materiel.reception?.id, 'view']">{{ materiel.reception?.libelleMateriel }}</a>
+                </div>
+              </td>
+              <td>{{ materiel.categorieMateriel }}</td>
+              <td>{{ materiel.etatMateriel }}</td>
+
+              <!-- <td>
+            <div *ngIf="materiel.comptableMatiere">
+              <a [routerLink]="['/comptable-matiere', materiel.comptableMatiere?.id, 'view']">{{ materiel.comptableMatiere?.nomPrenom }}</a>
+            </div>
+          </td>
+           -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/materiel', materiel.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/materiel', materiel.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(materiel)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="materiels && materiels.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

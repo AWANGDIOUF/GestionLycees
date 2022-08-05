@@ -1,0 +1,9 @@
+export enum SAINTLOUIS {
+  DAGANA = 'DAGANA',
+
+  PODOR = 'PODOR',
+
+  SAINT_LOUIS = 'SAINT_LOUIS',
+
+  AUTRE = 'AUTRE',
+}

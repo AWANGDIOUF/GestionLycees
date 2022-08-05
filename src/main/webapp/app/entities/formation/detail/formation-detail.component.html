@@ -1,0 +1,72 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="formation">
+      <h2 data-cy="formationDetailsHeading" style="font-weight: bold"><span>Formation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ formation.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="formation.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', formation.lyceesTechniques?.id, 'view']">{{
+                  formation.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Nom de la formation</span></dt>
+            <dd>
+              <span>{{ formation.nomFormation }}</span>
+            </dd>
+            <dt><span>Type de formation</span></dt>
+            <dd>
+              <span>{{ formation.typeFormation }}</span>
+            </dd>
+            <dt><span>Niveau de la formation</span></dt>
+            <dd>
+              <span>{{ formation.niveauFormation }}</span>
+            </dd>
+            <dt><span>Durée</span></dt>
+            <dd>
+              <span>{{ formation.duree | duration }} ({{ formation.duree }})</span>
+            </dd>
+            <dt><span>Secteur</span></dt>
+            <dd>
+              <span>{{ formation.secteur }}</span>
+            </dd>
+            <dt><span>Modalité</span></dt>
+            <dd>
+              <span>{{ formation.modalite }}</span>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+        <dd>
+          <div *ngIf="formation.directeur">
+            <a [routerLink]="['/directeur-etude', formation.directeur?.id, 'view']">{{ formation.directeur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Reour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/formation', formation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

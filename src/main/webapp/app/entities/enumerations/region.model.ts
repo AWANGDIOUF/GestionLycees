@@ -1,0 +1,31 @@
+export enum Region {
+  DAKAR = 'DAKAR',
+
+  DIOURBEL = 'DIOURBEL',
+
+  FATICK = 'FATICK',
+
+  KAFFRINE = 'KAFFRINE',
+
+  KAOLACK = 'KAOLACK',
+
+  KEDOUGOU = 'KEDOUGOU',
+
+  KOLDA = 'KOLDA',
+
+  LOUGA = 'LOUGA',
+
+  MATAM = 'MATAM',
+
+  SAINT_LOUIS = 'SAINT_LOUIS',
+
+  SEDHIOU = 'SEDHIOU',
+
+  TAMBACOUNDA = 'TAMBACOUNDA',
+
+  THIES = 'THIES',
+
+  ZIGINCHOR = 'ZIGINCHOR',
+
+  AUTRE = 'AUTRE',
+}

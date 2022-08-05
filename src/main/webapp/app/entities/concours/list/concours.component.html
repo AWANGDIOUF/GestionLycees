@@ -1,0 +1,128 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="ConcoursHeading">
+    <p class="list">Concours</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-concours"
+        [routerLink]="['/concours/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau concours </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="concours?.length === 0">
+    <span>Aucun concours trouvé</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="table-responsive" id="entities" *ngIf="concours && concours.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomConcours"><span>Nom concours</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="dateOuverture"><span>Date d'ouverture</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="dateCloture"><span>Date de cloture</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nbreCandidats"><span>Nombre candidats</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="dateConcours"><span>Date concours</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="dateDeliberation"><span>Date de délibération</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nbreAdmis"><span>Nombre d'admis</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let concours of concours; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/concours', concours.id, 'view']">{{ concours.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="concours.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', concours.lyceesTechniques?.id, 'view']">{{
+                    concours.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ concours.nomConcours }}</td>
+              <td>{{ concours.dateOuverture | formatMediumDate }}</td>
+              <td>{{ concours.dateCloture | formatMediumDate }}</td>
+              <td>{{ concours.nbreCandidats }}</td>
+              <td>{{ concours.dateConcours | formatMediumDate }}</td>
+              <td>{{ concours.dateDeliberation | formatMediumDate }}</td>
+              <td>{{ concours.nbreAdmis }}</td>
+              <!-- <td>
+            <div *ngIf="concours.directeur">
+              <a [routerLink]="['/directeur-etude', concours.directeur?.id, 'view']">{{ concours.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/concours', concours.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/concours', concours.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(concours)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="concours && concours.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

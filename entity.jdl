@@ -1,0 +1,510 @@
+entity Apprenant {
+	nomPrenom String required,
+	dateNaissance LocalDate required,
+	lieuNaissance String required,
+	telephone String required ,
+	adresse String required,
+	sexe Genre required,
+    option Option ,
+    situationMatrimoniale Situation required,
+    tuteur String required,
+    contactTuteur String required 	
+}
+enum Genre {
+    F, M
+}
+
+
+entity Besoin {
+	type TypeB required,
+        autreBesoin String,
+	designation TextBlob,
+        etatActuel String,
+        interventionSouhaitee TextBlob required, 
+justification TextBlob required
+
+}
+enum TypeB {
+    PERSONNEL_APPOINT, PERSONNEL_ADMINISTRATIF, RENFORCEMENT_CAPACITE, PERSONNE_RESSOURCE, 
+    SOCIAUX, INFRASTRUCTURE, EQUIPEMENT, FORMATION,  INFRASTRUCTURES, AUTRES
+}
+
+entity Recette {
+    type TypeR required ,
+    autreRecette String ,
+    typeRessource String ,
+    montant String , 
+    date LocalDate required
+}
+
+enum TypeR {
+    SUBVENTION_ETAT, RESSOURCES_GENEREES,  DONS, PRESTATIONS_DIVERSES, AUTRES
+}
+
+entity NiveauxEtudes {
+	nomNiveau String required
+}
+
+
+entity NiveauxCalification {
+	niveauCalification String required
+}
+
+entity Enseignant {
+	matriculeEns String required,
+	nomPrenom String required,
+	sexe Genre required,
+	telephone String required,
+    mail String unique required,
+    grade String required,
+    option Option,
+    situationMatrimoniale Situation required,
+    status StatusEns ,    
+    fonction String required,
+}
+enum Option{
+ ENSEIGNEMENT_TECHNIQUE, FORMATION_PROFESSIONNELLE
+}
+enum Situation {
+   MARIE, MARIEE, CELIBATAIRE, VEUVE, AUTRES
+}
+enum StatusEns {
+    FONCTIONNAIRE, CONTRACTUEL, VOCATAIRE , PROFESSIONNEL, AUTRES
+}
+
+entity Examen {
+    type TypeExam required,
+autres String,
+option Option,
+    status StatusApp 
+}
+
+enum StatusApp {
+   REUSSI, ECHEC, ABSENT
+}
+enum TypeExam {
+  S3, S4, S5, STEG, T1, T2, F6, 
+  STIDD, CAP, BEP, BT, BTS, CPS , AUTRES
+}
+
+entity Filiere {
+nomFiliere Filieres required
+nomAutre String 
+} 
+
+enum Filieres {
+AGRICULTURE, BATIMENTS_ET_TRAVAUX_PUBLICS,
+MINES_ET_CARRIERES, MECANIQUE, 
+ELECTROTECHNIQUE_ELECTRONIQUE_ENERGETIQUE, HYDRAULIQUE, 
+STRUCTURE_METALLIQUE, STRUCTURE_PLASTIQUE, 
+ECONOMIE_GESTION_COMMERCE_ET_LOGISTIQUE,  AUTRES
+
+}
+entity IventaireDesMatetiere {
+group Group ,
+designationMembre AnyBlob ,
+pvDinventaire AnyBlob 
+
+}
+
+enum Group {
+GROUP1, GROUP2
+}
+
+entity MouvementMatiere {
+typeMouvement Mouvement ,
+group Group ,
+organisation Organisation ,
+autreOrganisation String ,
+ressource Ressouces ,
+autreRessource String ,
+designation AnyBlob ,
+pvReception AnyBlob ,
+bordeauDeLivraison AnyBlob , 
+groupe Groupe ,
+bonDeSortie AnyBlob ,
+certificatAdministratif AnyBlob
+}
+
+entity ReformeMatiere {
+group Group ,
+designationDesmembre AnyBlob ,
+pvReforme AnyBlob ,
+sortieDefinitive AnyBlob ,
+certificatAdministratif AnyBlob
+
+}
+enum Mouvement {
+RECEPTION, SORTIE_DEFINITIVE
+}
+ enum Organisation {
+ETAT, PATENAIRE, AUTRES
+}
+enum Ressouces {
+BUDGET , AUTRES
+}
+
+enum Groupe {
+GROUPE1 , GROUPE2
+}
+
+entity Programme {
+nomProgramme String
+}
+
+entity OrganeGestion {
+	type TypeO required ,
+        autreType String,
+	fonctionnel Fonctionnment,
+        activite TextBlob required ,
+dateActivite LocalDate required,
+rapport AnyBlob   
+}
+enum Fonctionnment {
+       OUI, NON
+}
+
+enum TypeO {
+    CONSEIL_ADMINISTRATION, CONSEIL_ETABLISSEMENT,
+    CONSEIL_PEDAGOGIQUE, COMITE_GESTION, AUTRES
+}
+
+entity Partenaire {
+	denominationPartenaire String required ,
+	categorieProvenaire Provenance required ,
+        autreCategorie String,
+        nature NaturePart required, 
+        autreNature String,
+}
+enum NaturePart {
+       TECHNIQUE, FINANCIER,
+        TECHNIQUEETFINANCIER,
+        FORMATION, AUTRES
+}
+
+enum Provenance {
+    ENTREPRISE, ONG, ORGANISATION_SOCIALE, 
+    ORGANISATION_PROFESSIONNELLE, PATRONAT, APE, SYNDICAT,
+    COLLECTIVITE_TERRITORIALE, SERVICE_DECONCENTRE,
+    COOPERATION_DECENTRALISEE, AUTRES
+}
+entity Difficulte {
+nature NatureDif required ,
+autreNature String,
+description TextBlob required,
+solution TextBlob required,
+observation TextBlob required
+}
+
+enum NatureDif {
+   TECHNIQUE, RH, PEDAGOGIQUE, SOCIAUX, 
+   ADMINISTRATIVE, FINANCIERE, AUTRES
+}
+entity PersonnelAdministratif {
+	matricule String required,
+	nom String required,
+        prenom String required,
+    situationMatrimoniale Situation required ,
+	fonction FonctionPersAd required,
+autreFonction String,
+	telephone String required,
+    mail String required
+}
+enum FonctionPersAd {
+PROVISEUR, SECRETAIRE, DIRECTEURDESETUDES, AUDITEUR_INTERNE, 
+CHEF_DESTRAVAUX, COMPTABLE_DESMATIERES, INTENDANT, RESPONSABLE_CELLULE_PEDAGOGIQUE
+SURVEIILLANT_GENERAL, SURVEILLANT_SIMPLE, INFIRMIER, COMPTABLE, ASSISTANTE_SOCIAL, 
+ANIMATION_CULTUREL, BIBLIOTHECIAIRE, AUTRES
+}
+entity PersonnelAppui {
+	nom String required,
+        prenom String required,
+        situationMatrimoniale Situation required,
+	fonction FonctionPersApp required,
+autreFoction String,
+	telephone String required,
+        mail String required
+}
+enum FonctionPersApp {
+GARDIEN, TECHNICIENSURFACE, LABORANTIN, REPROGRAPHE, AUTRES
+
+}
+entity LyceesTechniques {
+    nomLycee  String required
+}
+
+entity LyceeTechnique{
+    prenomNom String required ,
+    adresse String required ,
+    mail String required ,
+    tel1 String required ,
+    tel2 String required ,
+    boitePostal String required,
+    decretCreation String required,
+    dateCreation LocalDate required,
+    region Region required ,
+    autreRegion String ,
+    departementDakar DAKAR ,
+departementDiourbel DIOURBEL ,
+departementFatick FATICK ,
+departementKaffrine KAFFRINE ,
+departementKaolack KAOLACK , 
+departementKedougou KEDOUGOU ,
+departementKolda KOLDA ,
+departementLouga LOUGA ,
+departementMatam MATAM ,
+departementSaint SAINTLOUIS,
+departementSedhiou SEDHIOU ,
+departementTambacounda TAMBACOUNDA,
+departementThis THIES ,
+departementZiguinchor ZIGINCHOR ,
+autredepartementDakar String,
+autredepartementDiourbel String,
+autredepartementFatick String,
+autredepartementKaffrine String,
+autredepartementKaolack String, 
+autredepartementKedougou String,
+autredepartementKolda String,
+autredepartementLouga String,
+autredepartementMatam String,
+autredepartementSaint String
+autredepartementSedhiou String,
+autredepartementTambacounda String
+autredepartementThis String ,
+autredepartementZiguinchor String ,
+    commune String required ,
+    ia String required
+}
+enum Region{
+DAKAR, DIOURBEL, FATICK, KAFFRINE, KAOLACK, KEDOUGOU, KOLDA,
+LOUGA, MATAM, SAINT_LOUIS, SEDHIOU, TAMBACOUNDA, THIES, ZIGINCHOR, AUTRE
+}
+enum DAKAR {
+DAKAR, GUEDIAWAYE, PIKINE, RUFISQUE, AUTRE
+}
+enum DIOURBEL {
+BAMBAEY, DIOURBEL, MBACKE, AUTRE
+}
+enum FATICK {
+FATICK, FOUNDIOUGNE, GOSSAS, AUTRE
+}
+enum KAFFRINE {
+BIRKILANE, KAFFRINE, KOUNGHEUR, MALEM_HODAR, AUTRE
+}
+enum KAOLACK {
+GUINGUINEO, KAOLOACK, NIORO, AUTRE
+}
+enum KEDOUGOU{
+KEDOUGOU, SALAMATA, SARAYA, AUTRE
+}
+enum KOLDA {
+KOLDA, MEDINA_YORO_FOULAH, VELINGARA, AUTRE
+}
+enum LOUGA {
+KEBEMERE, LINGUERE, LOUGA, AUTRE
+}
+enum MATAM {
+KANELKANEL, MATAM, RANEROU_FERLO, AUTRE 
+}
+enum SAINTLOUIS {
+DAGANA, PODOR ,SAINT_LOUIS, AUTRE
+}
+enum SEDHIOU {
+BOUNKILING, GOUDOMP, SEDHIOU, AUTRE 
+}
+enum TAMBACOUNDA {
+BAKEL, GOUDIRY, KOUMPENTOUM, TAMBACOUNDA, AUTRE 
+}
+enum THIES {
+MBOUR, THIES, TIVAOUANE, AUTRE
+}
+enum ZIGINCHOR {
+BIGNONA, OUSSOUYE, ZICHUINCHOR, AUTRE
+}
+    
+entity Salle {
+nombreSalleclasse String required,
+nombreAteliers String required,
+specialiase Specialise,
+nombreSalleSpecialise String required,
+justificationSalleSpe TextBlob,
+cdi Cdi,
+nombreCDI String ,
+justifiactifSalleCDI  TextBlob,
+jum Jum,
+salleJum String , 
+justifiactifSalleJum TextBlob,  
+autreSalle String   
+}
+enum Jum{
+    OUI, NON
+}
+enum Cdi {
+    OUI, NON
+}
+enum Specialise{
+    OUI, NON
+}
+
+entity Serie {
+	nomSerie Series required , 
+autreSerie String
+} 
+enum Series {
+   S3, S4, S5, STEG, T1, T2, F6, 
+   STIDD, AUTRES
+}
+
+entity Depense {
+	typeDepense TypeDepense  required ,
+        autreDepense String,
+        description TextBlob required,
+	montantDepense String required
+        
+
+}
+ enum TypeDepense  {
+    INVESTISSEMENT, PERSONNEL, BIENS_ET_SERVICES, 
+    TRANSFERTS_COURANTS, AUTRES
+}
+
+entity Visite {
+	nature NatureV required ,
+autreNature String,
+	provenance ProvenanceV required ,
+autreProvenance String,
+        objet TextBlob required ,
+        resultats TextBlob required ,
+        periode LocalDate required
+}
+enum NatureV {
+    ADMINITRATIVE, PEDAGOGIQUE, TECHNIQUE, AUTRES
+}
+
+enum ProvenanceV {
+    NIVEAU_CENTRAL, PEDAGOGIQUE, AUTRES
+}
+entity Proviseur {
+ nomPrenom  String required
+}
+entity DirecteurEtude {
+nomPrenom  String required
+}
+entity ComptableMatiere {
+nomPrenom  String required
+}
+entity ComptableFinancier {
+nomPrenom  String required
+ 
+}
+
+entity Concours {
+	nomConcours String,
+	dateOuverture LocalDate,
+	dateCloture LocalDate,
+	nbreCandidats Long,
+	dateConcours LocalDate,
+	dateDeliberation LocalDate,
+	nbreAdmis Long
+}
+
+entity Formation {
+	nomFormation String,
+	typeFormation String,
+	niveauFormation String,
+	duree Duration,
+	secteur String,
+	modalite String
+}
+
+
+relationship ManyToOne {
+    Recette{depense} to Depense{recette(type)}
+}
+
+relationship OneToOne{
+   Apprenant{serie(nomSerie)} to Serie
+   Apprenant{filiere(nomFiliere)} to Filiere 
+}
+
+relationship OneToMany {
+LyceesTechniques{concours} to Concours{LyceesTechniques(nomLycee)}
+LyceesTechniques{formation} to Formation{LyceesTechniques(nomLycee)}
+    LyceesTechniques{examen} to Examen{LyceesTechniques(nomLycee)}
+    LyceesTechniques{recette} to Recette{LyceesTechniques(nomLycee)}
+LyceesTechniques{depense} to Depense{LyceesTechniques(nomLycee)}
+    LyceesTechniques{visite} to Visite{LyceesTechniques(nomLycee)}
+    LyceesTechniques{organe} to OrganeGestion{LyceesTechniques(nomLycee)}
+    LyceesTechniques{mouvementMatiere} to MouvementMatiere{LyceesTechniques(nomLycee)}
+    LyceesTechniques{partenaire} to Partenaire{LyceesTechniques(nomLycee)}
+    LyceesTechniques{besoin} to Besoin{LyceesTechniques(nomLycee)}
+    LyceesTechniques{personnelAdmiistratif} to PersonnelAdministratif{LyceesTechniques(nomLycee)}
+    LyceesTechniques{personnelAppui} to PersonnelAppui{LyceesTechniques(nomLycee)}
+    LyceesTechniques{serie} to Serie{LyceesTechniques(nomLycee)}
+    LyceesTechniques{filiere} to Filiere{LyceesTechniques(nomLycee)}
+    LyceesTechniques{salle} to Salle{LyceesTechniques(nomLycee)}
+    LyceesTechniques{apprenant} to Apprenant{LyceesTechniques(nomLycee)}
+    LyceesTechniques{enseignant} to Enseignant{LyceesTechniques(nomLycee)}
+    LyceesTechniques{difficulte} to Difficulte{LyceesTechniques(nomLycee)}
+    LyceesTechniques{niveaucalification} to NiveauxCalification{LyceesTechniques(nomLycee)}
+   LyceesTechniques{reformeMatiere} to ReformeMatiere{LyceesTechniques(nomLycee)}
+  LyceesTechniques{iventaireDesMatetiere} to IventaireDesMatetiere{LyceesTechniques(nomLycee)}
+LyceesTechniques{programme} to Programme{LyceesTechniques(nomLycee)}
+ LyceesTechniques{niveauetude} to NiveauxEtudes{LyceesTechniques(nomLycee)} 
+Serie{enseignant} to Enseignant{Serie(nomSerie)}
+    Filiere{enseignant} to Enseignant{Filiere(nomFiliere)}
+}
+
+relationship OneToMany {
+Proviseur{personnelAdmiistratif} to PersonnelAdministratif{proviseur(nomPrenom)}
+Proviseur{partenaire} to Partenaire{proviseur(nomPrenom)}
+Proviseur{besoin} to Besoin{proviseur(nomPrenom)}
+Proviseur{organe} to OrganeGestion{proviseur(nomPrenom)}
+Proviseur{visite} to Visite{proviseur(nomPrenom)}
+Proviseur{difficulte} to Difficulte{proviseur(nomPrenom)}
+DirecteurEtude{concours} to Concours{directeur(nomPrenom)}
+DirecteurEtude{formation} to Formation{directeur(nomPrenom)}
+DirecteurEtude{salle} to Salle{directeur(nomPrenom)}
+DirecteurEtude{serie} to Serie{directeur(nomPrenom)}
+DirecteurEtude{niveau} to NiveauxEtudes{directeur(nomPrenom)}
+DirecteurEtude{filiere} to Filiere{directeur(nomPrenom)}
+DirecteurEtude{programme} to Programme{directeur(nomPrenom)}
+DirecteurEtude{niveauCalification} to NiveauxCalification{directeur(nomPrenom)}
+DirecteurEtude{apprenant} to Apprenant{directeur(nomPrenom)}
+Proviseur{enseignant} to Enseignant{proviseur(nomPrenom)}
+DirecteurEtude{examen} to Examen{directeur(nomPrenom)}
+Proviseur{personnelAppui} to PersonnelAppui{directeur(nomPrenom)}
+ComptableFinancier{recette} to Recette{ComptableFinancier(nomPrenom)}
+ComptableFinancier{depense} to Depense{ComptableFinancier(nomPrenom)}
+ComptableMatiere{iventaireDesMatetiere} to IventaireDesMatetiere{ComptableMatiere(nomPrenom)}
+ComptableMatiere{mouvementMatiere} to MouvementMatiere{ComptableMatiere(nomPrenom)}
+ComptableMatiere{reformeMatiere} to ReformeMatiere{ComptableMatiere(nomPrenom)}
+}
+
+relationship OneToOne {
+LyceeTechnique{Proviseur(nomPrenom)} to Proviseur
+Proviseur{User(login)} to User 
+DirecteurEtude{User(login)} to User
+ComptableMatiere{User(login)} to User
+ComptableFinancier{User(login)} to User
+LyceeTechnique{nomLycee} to LyceesTechniques{lyceeTechnique}
+Proviseur{nomLycee} to LyceesTechniques{proviseur}
+DirecteurEtude{nomLycee} to LyceesTechniques{directeurEtude}
+ComptableFinancier{nomLycee} to LyceesTechniques{comptableFinancie}
+ComptableMatiere{nomLycee} to LyceesTechniques{comptableMatiere}
+}
+
+
+relationship OneToMany{
+    Serie{niveau} to NiveauxEtudes{serie(nomSerie)}
+    Filiere{programme} to Programme{filiere(nomFiliere)}
+    Programme{niveauCalification} to NiveauxCalification{programme(nomProgramme)}
+Serie to Examen{Serie(nomSerie)}
+ Filiere to Examen{Filiere(nomFiliere)}
+ Apprenant to Examen{Apprenant(nomPrenom)}
+}
+
+
+paginate * with pagination
+
+service all with serviceImpl

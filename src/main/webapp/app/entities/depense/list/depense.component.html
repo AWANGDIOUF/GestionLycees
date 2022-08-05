@@ -1,0 +1,134 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="DepenseHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Dépenses</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-depense"
+        [routerLink]="['/depense/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouvelle dépense </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="depenses?.length === 0">
+    <span>Aucune dépense trouvée</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+
+    <div class="col-md-10">
+      <div class="table-responsive" id="entities" *ngIf="depenses && depenses.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="typeDepense"><span>Type de dépense</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autreDepense"><span>Autre dépense</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="description"><span>Description de la dépense</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="montantDepense"><span>Montant de la dépense</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="comptableFinancier.nomPrenom"><span>Comptable Financier</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let depense of depenses; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/depense', depense.id, 'view']">{{ depense.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="depense.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', depense.lyceesTechniques?.id, 'view']">{{
+                    depense.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="depense.typeDepense != 'AUTRES'">
+                  {{ depense.typeDepense }}
+                </div>
+                <div *ngIf="depense.typeDepense === 'AUTRES'">
+                  {{ depense.autreDepense }}
+                </div>
+              </td>
+              <!-- <td>{{ depense.typeDepense }}</td>
+          <td>{{ depense.autreDepense }}</td> -->
+              <td>{{ depense.description }}</td>
+              <td>{{ depense.montantDepense }}</td>
+
+              <!-- <td>
+            <div *ngIf="depense.comptableFinancier">
+              <a [routerLink]="['/comptable-financier', depense.comptableFinancier?.id, 'view']">{{
+                depense.comptableFinancier?.nomPrenom
+              }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/depense', depense.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/depense', depense.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(depense)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="depenses && depenses.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

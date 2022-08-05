@@ -1,0 +1,152 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="RecetteHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Recettes</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-recette"
+        [routerLink]="['/recette/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouvelle recette </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="recettes?.length === 0">
+    <span>Aucune recette trouvée</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="recettes && recettes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="type"><span>Type de recette</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autreRecette"><span>Autre Recette</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="typeRessource"><span>Type ressource</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="montant"><span>Montant</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="date"><span>Date</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="depense.id"><span>Depense</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <!-- <th scope="col" jhiSortBy="comptableFinancier.nomPrenom"><span>Comptable Financier</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let recette of recettes; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/recette', recette.id, 'view']">{{ recette.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="recette.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', recette.lyceesTechniques?.id, 'view']">{{
+                    recette.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="recette.type != 'AUTRES'">
+                  {{ recette.type }}
+                </div>
+                <div *ngIf="recette.type === 'AUTRES'">
+                  {{ recette.autreRecette }}
+                </div>
+              </td>
+              <!-- <td>{{ recette.type }}</td>
+          <td>{{ recette.autreRecette }}</td> -->
+              <td>
+                <div *ngIf="recette.type != 'RESSOURCES_GENEREES'">
+                  {{ recette.type }}
+                </div>
+                <div *ngIf="recette.type === 'RESSOURCES_GENEREES'">
+                  {{ recette.typeRessource }}
+                </div>
+              </td>
+              <!-- <td>{{ recette.typeRessource }}</td> -->
+              <td>{{ recette.montant }}</td>
+              <td>{{ recette.date | formatMediumDate }}</td>
+              <!-- <td>
+            <div *ngIf="recette.depense">
+              <a [routerLink]="['/depense', recette.depense?.id, 'view']">{{ recette.depense?.id }}</a>
+            </div>
+          </td> -->
+
+              <!-- <td>
+            <div *ngIf="recette.comptableFinancier">
+              <a [routerLink]="['/comptable-financier', recette.comptableFinancier?.id, 'view']">{{
+                recette.comptableFinancier?.nomPrenom
+              }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/recette', recette.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/recette', recette.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(recette)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="pagi" *ngIf="recettes && recettes.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+    <br />
+  </div>
+</div>

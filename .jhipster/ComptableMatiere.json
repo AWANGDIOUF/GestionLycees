@@ -1,0 +1,55 @@
+{
+  "name": "ComptableMatiere",
+  "fields": [
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "comptableMatiere",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "comptableMatiere",
+      "relationshipName": "nomLycee",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "iventaireDesMatetiere",
+      "otherEntityRelationshipName": "comptableMatiere",
+      "relationshipName": "iventaireDesMatetiere"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "mouvementMatiere",
+      "otherEntityRelationshipName": "comptableMatiere",
+      "relationshipName": "mouvementMatiere"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "reformeMatiere",
+      "otherEntityRelationshipName": "comptableMatiere",
+      "relationshipName": "reformeMatiere"
+    }
+  ],
+  "entityTableName": "comptable_matiere",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211216163415"
+}

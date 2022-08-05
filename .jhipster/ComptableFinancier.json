@@ -1,0 +1,49 @@
+{
+  "name": "ComptableFinancier",
+  "fields": [
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "comptableFinancier",
+      "relationshipName": "user",
+      "otherEntityField": "login",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "comptableFinancie",
+      "relationshipName": "nomLycee",
+      "ownerSide": true
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "recette",
+      "otherEntityRelationshipName": "comptableFinancier",
+      "relationshipName": "recette"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "depense",
+      "otherEntityRelationshipName": "comptableFinancier",
+      "relationshipName": "depense"
+    }
+  ],
+  "entityTableName": "comptable_financier",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211216163416"
+}

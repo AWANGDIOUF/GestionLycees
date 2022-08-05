@@ -1,0 +1,712 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-lycee-technique-heading" data-cy="LyceeTechniqueCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier les identifications du lycée technique
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-6">
+            <br />
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nomLycee">Nom du lycée</label>
+              <select class="form-control" id="field_nomLycee" data-cy="nomLycee" name="nomLycee" formControlName="nomLycee">
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.nomLycee === editForm.get('nomLycee')!.value?.nomLycee
+                      ? editForm.get('nomLycee')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of nomLyceesCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="field_prenomNom">Prénom et nom du proviseur</label>
+              <input
+                type="text"
+                class="form-control"
+                name="prenomNom"
+                id="field_prenomNom"
+                data-cy="prenomNom"
+                formControlName="prenomNom"
+              />
+              <div *ngIf="editForm.get('prenomNom')!.invalid && (editForm.get('prenomNom')!.dirty || editForm.get('prenomNom')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('prenomNom')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_adresse">Adresse</label>
+              <input type="text" class="form-control" name="adresse" id="field_adresse" data-cy="adresse" formControlName="adresse" />
+              <div *ngIf="editForm.get('adresse')!.invalid && (editForm.get('adresse')!.dirty || editForm.get('adresse')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('adresse')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_mail">E-Mail</label>
+              <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail" formControlName="mail" />
+              <div *ngIf="editForm.get('mail')!.invalid && (editForm.get('mail')!.dirty || editForm.get('mail')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('mail')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_tel1">Téléphone 1</label>
+              <input type="text" class="form-control" name="tel1" id="field_tel1" data-cy="tel1" formControlName="tel1" />
+              <div *ngIf="editForm.get('tel1')!.invalid && (editForm.get('tel1')!.dirty || editForm.get('tel1')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('tel1')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_tel2">Téléphone 2</label>
+              <input type="text" class="form-control" name="tel2" id="field_tel2" data-cy="tel2" formControlName="tel2" />
+              <div *ngIf="editForm.get('tel2')!.invalid && (editForm.get('tel2')!.dirty || editForm.get('tel2')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('tel2')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_boitePostal">Boite postal</label>
+              <input
+                type="text"
+                class="form-control"
+                name="boitePostal"
+                id="field_boitePostal"
+                data-cy="boitePostal"
+                formControlName="boitePostal"
+              />
+              <div
+                *ngIf="editForm.get('boitePostal')!.invalid && (editForm.get('boitePostal')!.dirty || editForm.get('boitePostal')!.touched)"
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('boitePostal')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <br />
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_decretCreation">Decret de création</label>
+              <input
+                type="text"
+                class="form-control"
+                name="decretCreation"
+                id="field_decretCreation"
+                data-cy="decretCreation"
+                formControlName="decretCreation"
+              />
+              <div
+                *ngIf="
+                  editForm.get('decretCreation')!.invalid &&
+                  (editForm.get('decretCreation')!.dirty || editForm.get('decretCreation')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('decretCreation')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_dateCreation">Date de création</label>
+              <div class="input-group">
+                <input
+                  id="field_dateCreation"
+                  data-cy="dateCreation"
+                  type="text"
+                  class="form-control"
+                  name="dateCreation"
+                  ngbDatepicker
+                  #dateCreationDp="ngbDatepicker"
+                  formControlName="dateCreation"
+                />
+                <span class="input-group-append">
+                  <button type="button" class="btn btn-secondary" (click)="dateCreationDp.toggle()">
+                    <fa-icon icon="calendar-alt"></fa-icon>
+                  </button>
+                </span>
+              </div>
+              <div
+                *ngIf="
+                  editForm.get('dateCreation')!.invalid && (editForm.get('dateCreation')!.dirty || editForm.get('dateCreation')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('dateCreation')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_region">Région</label>
+              <select class="form-control" name="region" formControlName="region" id="field_region" data-cy="region">
+                <option [ngValue]="null"></option>
+                <option value="DAKAR">DAKAR</option>
+                <option value="DIOURBEL">DIOURBEL</option>
+                <option value="FATICK">FATICK</option>
+                <option value="KAFFRINE">KAFFRINE</option>
+                <option value="KAOLACK">KAOLACK</option>
+                <option value="KEDOUGOU">KEDOUGOU</option>
+                <option value="KOLDA">KOLDA</option>
+                <option value="LOUGA">LOUGA</option>
+                <option value="MATAM">MATAM</option>
+                <option value="SAINT_LOUIS">SAINT_LOUIS</option>
+                <option value="SEDHIOU">SEDHIOU</option>
+                <option value="TAMBACOUNDA">TAMBACOUNDA</option>
+                <option value="THIES">THIES</option>
+                <option value="ZIGINCHOR">ZIGINCHOR</option>
+                <option value="AUTRE">AUTRE</option>
+              </select>
+              <div *ngIf="editForm.get('region')!.invalid && (editForm.get('region')!.dirty || editForm.get('region')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('region')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autreRegion">Autre région</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autreRegion"
+                  id="field_autreRegion"
+                  data-cy="autreRegion"
+                  formControlName="autreRegion"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'DAKAR'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementDakar">Département Dakar</label>
+                <select
+                  class="form-control"
+                  name="departementDakar"
+                  formControlName="departementDakar"
+                  id="field_departementDakar"
+                  data-cy="departementDakar"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="DAKAR">DAKAR</option>
+                  <option value="GUEDIAWAYE">GUEDIAWAYE</option>
+                  <option value="PIKINE">PIKINE</option>
+                  <option value="RUFISQUE">RUFISQUE</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'DIOURBEL'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementDiourbel">Département Diourbel</label>
+                <select
+                  class="form-control"
+                  name="departementDiourbel"
+                  formControlName="departementDiourbel"
+                  id="field_departementDiourbel"
+                  data-cy="departementDiourbel"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="BAMBAEY">BAMBAEY</option>
+                  <option value="DIOURBEL">DIOURBEL</option>
+                  <option value="MBACKE">MBACKE</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'FATICK'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementFatick">Departement Fatick</label>
+                <select
+                  class="form-control"
+                  name="departementFatick"
+                  formControlName="departementFatick"
+                  id="field_departementFatick"
+                  data-cy="departementFatick"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="FATICK">FATICK</option>
+                  <option value="FOUNDIOUGNE">FOUNDIOUGNE</option>
+                  <option value="GOSSAS">GOSSAS</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'KAFFRINE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementKaffrine">Departement Kaffrine</label>
+                <select
+                  class="form-control"
+                  name="departementKaffrine"
+                  formControlName="departementKaffrine"
+                  id="field_departementKaffrine"
+                  data-cy="departementKaffrine"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="BIRKILANE">BIRKILANE</option>
+                  <option value="KAFFRINE">KAFFRINE</option>
+                  <option value="KOUNGHEUR">KOUNGHEUR</option>
+                  <option value="MALEM_HODAR">MALEM_HODAR</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'KAOLACK'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementKaolack">Departement Kaolack</label>
+                <select
+                  class="form-control"
+                  name="departementKaolack"
+                  formControlName="departementKaolack"
+                  id="field_departementKaolack"
+                  data-cy="departementKaolack"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="GUINGUINEO">GUINGUINEO</option>
+                  <option value="KAOLOACK">KAOLOACK</option>
+                  <option value="NIORO">NIORO</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'KEDOUGOU'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementKedougou">Departement Kedougou</label>
+                <select
+                  class="form-control"
+                  name="departementKedougou"
+                  formControlName="departementKedougou"
+                  id="field_departementKedougou"
+                  data-cy="departementKedougou"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="KEDOUGOU">KEDOUGOU</option>
+                  <option value="SALAMATA">SALAMATA</option>
+                  <option value="SARAYA">SARAYA</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'KOLDA'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementKolda">Departement Kolda</label>
+                <select
+                  class="form-control"
+                  name="departementKolda"
+                  formControlName="departementKolda"
+                  id="field_departementKolda"
+                  data-cy="departementKolda"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="KOLDA">KOLDA</option>
+                  <option value="MEDINA_YORO_FOULAH">MEDINA_YORO_FOULAH</option>
+                  <option value="VELINGARA">VELINGARA</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'LOUGA'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementLouga">Departement Louga</label>
+                <select
+                  class="form-control"
+                  name="departementLouga"
+                  formControlName="departementLouga"
+                  id="field_departementLouga"
+                  data-cy="departementLouga"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="KEBEMERE">KEBEMERE</option>
+                  <option value="LINGUERE">LINGUERE</option>
+                  <option value="LOUGA">LOUGA</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'MATAM'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementMatam">Departement Matam</label>
+                <select
+                  class="form-control"
+                  name="departementMatam"
+                  formControlName="departementMatam"
+                  id="field_departementMatam"
+                  data-cy="departementMatam"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="KANELKANEL">KANELKANEL</option>
+                  <option value="MATAM">MATAM</option>
+                  <option value="RANEROU_FERLO">RANEROU_FERLO</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'SAINT_LOUIS'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementSaint">Departement Saint</label>
+                <select
+                  class="form-control"
+                  name="departementSaint"
+                  formControlName="departementSaint"
+                  id="field_departementSaint"
+                  data-cy="departementSaint"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="DAGANA">DAGANA</option>
+                  <option value="PODOR">PODOR</option>
+                  <option value="SAINT_LOUIS">SAINT_LOUIS</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'SEDHIOU'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementSedhiou">Departement Sedhiou</label>
+                <select
+                  class="form-control"
+                  name="departementSedhiou"
+                  formControlName="departementSedhiou"
+                  id="field_departementSedhiou"
+                  data-cy="departementSedhiou"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="BOUNKILING">BOUNKILING</option>
+                  <option value="GOUDOMP">GOUDOMP</option>
+                  <option value="SEDHIOU">SEDHIOU</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'TAMBACOUNDA'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementTambacounda">Departement Tambacounda</label>
+                <select
+                  class="form-control"
+                  name="departementTambacounda"
+                  formControlName="departementTambacounda"
+                  id="field_departementTambacounda"
+                  data-cy="departementTambacounda"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="BAKEL">BAKEL</option>
+                  <option value="GOUDIRY">GOUDIRY</option>
+                  <option value="KOUMPENTOUM">KOUMPENTOUM</option>
+                  <option value="TAMBACOUNDA">TAMBACOUNDA</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'THIES'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementThis">Departement This</label>
+                <select
+                  class="form-control"
+                  name="departementThis"
+                  formControlName="departementThis"
+                  id="field_departementThis"
+                  data-cy="departementThis"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="MBOUR">MBOUR</option>
+                  <option value="THIES">THIES</option>
+                  <option value="TIVAOUANE">TIVAOUANE</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.region === 'ZICHUINCHOR'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_departementZiguinchor">Departement Ziguinchor</label>
+                <select
+                  class="form-control"
+                  name="departementZiguinchor"
+                  formControlName="departementZiguinchor"
+                  id="field_departementZiguinchor"
+                  data-cy="departementZiguinchor"
+                >
+                  <option [ngValue]="null"></option>
+                  <option value="BIGNONA">BIGNONA</option>
+                  <option value="OUSSOUYE">OUSSOUYE</option>
+                  <option value="ZICHUINCHOR">ZICHUINCHOR</option>
+                  <option value="AUTRE">AUTRE</option>
+                </select>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementDakar === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementDakar">Autre département de Dakar</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementDakar"
+                  id="field_autredepartementDakar"
+                  data-cy="autredepartementDakar"
+                  formControlName="autredepartementDakar"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementDiourbel === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementDiourbel">Autre département de Diourbel</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementDiourbel"
+                  id="field_autredepartementDiourbel"
+                  data-cy="autredepartementDiourbel"
+                  formControlName="autredepartementDiourbel"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementFatick === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementFatick">Autre département de Fatick</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementFatick"
+                  id="field_autredepartementFatick"
+                  data-cy="autredepartementFatick"
+                  formControlName="autredepartementFatick"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementKaffrine === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementKaffrine">Autre département de Kaffrine</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementKaffrine"
+                  id="field_autredepartementKaffrine"
+                  data-cy="autredepartementKaffrine"
+                  formControlName="autredepartementKaffrine"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementKaolack === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementKaolack">Autre département de Kaolack</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementKaolack"
+                  id="field_autredepartementKaolack"
+                  data-cy="autredepartementKaolack"
+                  formControlName="autredepartementKaolack"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementKedougou === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementKedougou">Autre département de Kedougou</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementKedougou"
+                  id="field_autredepartementKedougou"
+                  data-cy="autredepartementKedougou"
+                  formControlName="autredepartementKedougou"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementKolda === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementKolda">Autre département de Kolda</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementKolda"
+                  id="field_autredepartementKolda"
+                  data-cy="autredepartementKolda"
+                  formControlName="autredepartementKolda"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementLouga === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementLouga">Autre département de Louga</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementLouga"
+                  id="field_autredepartementLouga"
+                  data-cy="autredepartementLouga"
+                  formControlName="autredepartementLouga"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementMatam === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementMatam">Autre département de Matam</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementMatam"
+                  id="field_autredepartementMatam"
+                  data-cy="autredepartementMatam"
+                  formControlName="autredepartementMatam"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementSaint === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementSaint">Autre département de Saint</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementSaint"
+                  id="field_autredepartementSaint"
+                  data-cy="autredepartementSaint"
+                  formControlName="autredepartementSaint"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementSedhiou === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementSedhiou">Autre département de Sedhiou</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementSedhiou"
+                  id="field_autredepartementSedhiou"
+                  data-cy="autredepartementSedhiou"
+                  formControlName="autredepartementSedhiou"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementTambacounda === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementTambacounda">Autre département de Tambacounda</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementTambacounda"
+                  id="field_autredepartementTambacounda"
+                  data-cy="autredepartementTambacounda"
+                  formControlName="autredepartementTambacounda"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementThis === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementThis">Autre département de This</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementThis"
+                  id="field_autredepartementThis"
+                  data-cy="autredepartementThis"
+                  formControlName="autredepartementThis"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.departementZiguinchor === 'AUTRE'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autredepartementZiguinchor">Autre département de Ziguinchor</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autredepartementZiguinchor"
+                  id="field_autredepartementZiguinchor"
+                  data-cy="autredepartementZiguinchor"
+                  formControlName="autredepartementZiguinchor"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_commune">Commune</label>
+              <input type="text" class="form-control" name="commune" id="field_commune" data-cy="commune" formControlName="commune" />
+              <div *ngIf="editForm.get('commune')!.invalid && (editForm.get('commune')!.dirty || editForm.get('commune')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('commune')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_ia">IA</label>
+              <input type="text" class="form-control" name="ia" id="field_ia" data-cy="ia" formControlName="ia" />
+              <div *ngIf="editForm.get('ia')!.invalid && (editForm.get('ia')!.dirty || editForm.get('ia')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('ia')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_proviseur">Proviseur</label>
+          <select class="form-control" id="field_proviseur" data-cy="proviseur" name="proviseur" formControlName="proviseur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="proviseurOption.id === editForm.get('proviseur')!.value?.id ? editForm.get('proviseur')!.value : proviseurOption"
+              *ngFor="let proviseurOption of proviseursCollection; trackBy: trackProviseurById"
+            >
+              {{ proviseurOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

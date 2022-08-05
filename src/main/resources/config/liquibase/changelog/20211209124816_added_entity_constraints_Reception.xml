@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+    <!--
+        Added the constraints for entity Reception.
+    -->
+    <changeSet id="20211209124816-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lycees_techniques_id"
+                                 baseTableName="reception"
+                                 constraintName="fk_reception__lycees_techniques_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lycees_techniques"/>
+
+        <addForeignKeyConstraint baseColumnNames="comptable_matiere_id"
+                                 baseTableName="reception"
+                                 constraintName="fk_reception__comptable_matiere_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="comptable_matiere"/>
+    </changeSet>
+</databaseChangeLog>

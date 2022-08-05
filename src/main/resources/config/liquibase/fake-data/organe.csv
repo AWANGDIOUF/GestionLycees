@@ -1,0 +1,11 @@
+id;type;fonctionnel;description
+1;AUTRES;OUI;../fake-data/blob/hipster.txt
+2;AUTRES;OUI;../fake-data/blob/hipster.txt
+3;COMMITE_GESTION;OUI;../fake-data/blob/hipster.txt
+4;CONSEIL_ETABLISSEEMENT;OUI;../fake-data/blob/hipster.txt
+5;AUTRES;NON;../fake-data/blob/hipster.txt
+6;AUTRES;OUI;../fake-data/blob/hipster.txt
+7;CONSEIL_GESTION_ETABLISSEMENT;NON;../fake-data/blob/hipster.txt
+8;AUTRES;NON;../fake-data/blob/hipster.txt
+9;CONSEIL_PEDAGOGIQUE;NON;../fake-data/blob/hipster.txt
+10;AUTRES;NON;../fake-data/blob/hipster.txt

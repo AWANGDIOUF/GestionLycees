@@ -1,0 +1,59 @@
+{
+  "name": "Filiere",
+  "fields": [
+    {
+      "fieldName": "nomFiliere",
+      "fieldType": "Filieres",
+      "fieldValues": "AGRICULTURE,BATIMENTS_ET_TRAVAUX_PUBLICS,MINES_ET_CARRIERES,MECANIQUE,ELECTROTECHNIQUE_ELECTRONIQUE_ENERGETIQUE,HYDRAULIQUE,STRUCTURE_METALLIQUE,STRUCTURE_PLASTIQUE,ECONOMIE_GESTION_COMMERCE_ET_LOGISTIQUE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomAutre",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "enseignant",
+      "otherEntityRelationshipName": "filiere",
+      "relationshipName": "enseignant"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "programme",
+      "otherEntityRelationshipName": "filiere",
+      "relationshipName": "programme"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "examen",
+      "otherEntityRelationshipName": "filiere",
+      "relationshipName": "examen"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "filiere",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "filiere",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "filiere",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115807"
+}

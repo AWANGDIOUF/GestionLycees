@@ -1,0 +1,149 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="ExamenHeading">
+    <p class="list">Examens <br /></p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-examen"
+        [routerLink]="['/examen/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau examen </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="examen?.length === 0">
+    <span>Aucun examen trouvé</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="table-responsive" id="entities" *ngIf="examen && examen.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="type"><span>Type d'examen</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="autres"><span>Autres</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="apprenant.nomPrenom"><span>Apprenant</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="status"><span>Status</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="option"><span>Option</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="serie.nomSerie"><span>Série</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="filiere.nomFiliere"><span>Filiére</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let examen of examen; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/examen', examen.id, 'view']">{{ examen.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="examen.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', examen.lyceesTechniques?.id, 'view']">{{ examen.lyceesTechniques?.nomLycee }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="examen.type != 'AUTRES'">
+                  {{ examen.type }}
+                </div>
+                <div *ngIf="examen.type === 'AUTRES'">
+                  {{ examen.autres }}
+                </div>
+              </td>
+              <!-- <td>{{ examen.type }}</td>
+          <td>{{ examen.autres }}</td> -->
+              <!-- <td>{{ examen.option }}</td> -->
+              <td>
+                <div *ngIf="examen.apprenant">
+                  <a [routerLink]="['/apprenant', examen.apprenant?.id, 'view']">{{ examen.apprenant?.nomPrenom }}</a>
+                </div>
+              </td>
+              <td>{{ examen.status }}</td>
+
+              <!-- <td>
+            <div *ngIf="examen.directeur">
+              <a [routerLink]="['/directeur-etude', examen.directeur?.id, 'view']">{{ examen.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <!-- <td>
+                <div *ngIf="examen.serie">
+                  <a [routerLink]="['/serie', examen.serie?.id, 'view']">{{ examen.serie?.nomSerie }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="examen.filiere">
+                  <a [routerLink]="['/filiere', examen.filiere?.id, 'view']">{{ examen.filiere?.nomFiliere }}</a>
+                </div>
+              </td> -->
+
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/examen', examen.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/examen', examen.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(examen)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="examen && examen.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

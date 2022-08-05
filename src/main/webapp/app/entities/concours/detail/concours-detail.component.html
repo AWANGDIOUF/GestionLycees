@@ -1,0 +1,76 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="concours">
+      <h2 data-cy="concoursDetailsHeading" style="font-weight: bold"><span>concours</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ concours.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="concours.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', concours.lyceesTechniques?.id, 'view']">{{
+                  concours.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Nom concours</span></dt>
+            <dd>
+              <span>{{ concours.nomConcours }}</span>
+            </dd>
+            <dt><span>Date d'ouverture</span></dt>
+            <dd>
+              <span>{{ concours.dateOuverture | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Date de cloture</span></dt>
+            <dd>
+              <span>{{ concours.dateCloture | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Nombre de candidat</span></dt>
+            <dd>
+              <span>{{ concours.nbreCandidats }}</span>
+            </dd>
+            <dt><span>Date concour</span></dt>
+            <dd>
+              <span>{{ concours.dateConcours | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Date de déelibération</span></dt>
+            <dd>
+              <span>{{ concours.dateDeliberation | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Nombre d'admis</span></dt>
+            <dd>
+              <span>{{ concours.nbreAdmis }}</span>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+        <dd>
+          <div *ngIf="concours.directeur">
+            <a [routerLink]="['/directeur-etude', concours.directeur?.id, 'view']">{{ concours.directeur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/concours', concours.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

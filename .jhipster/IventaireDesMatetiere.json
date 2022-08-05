@@ -1,0 +1,46 @@
+{
+  "name": "IventaireDesMatetiere",
+  "fields": [
+    {
+      "fieldName": "group",
+      "fieldType": "Group",
+      "fieldValues": "GROUP1,GROUP2"
+    },
+    {
+      "fieldName": "designationMembre",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pvDinventaire",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "iventaireDesMatetiere",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "iventaireDesMatetiere",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "iventaire_des_matetiere",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220613130024"
+}

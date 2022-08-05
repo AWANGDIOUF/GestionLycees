@@ -1,0 +1,88 @@
+{
+  "name": "Salle",
+  "fields": [
+    {
+      "fieldName": "nombreSalleclasse",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nombreAteliers",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "specialiase",
+      "fieldType": "Specialise",
+      "fieldValues": "OUI,NON"
+    },
+    {
+      "fieldName": "nombreSalleSpecialise",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "justificationSalleSpe",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "cdi",
+      "fieldType": "Cdi",
+      "fieldValues": "OUI,NON"
+    },
+    {
+      "fieldName": "nombreCDI",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "justifiactifSalleCDI",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "jum",
+      "fieldType": "Jum",
+      "fieldValues": "OUI,NON"
+    },
+    {
+      "fieldName": "salleJum",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "justifiactifSalleJum",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "autreSalle",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "salle",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "salle",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "salle",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115816"
+}

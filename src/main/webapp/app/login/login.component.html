@@ -1,0 +1,68 @@
+<div>
+  <!-- <p class="list" >Authentification </p> -->
+   <br>
+   <br>
+      <div class="row">
+        <br>
+        <!-- <div class="col-md-2"></div> -->
+      <div class="col-md-7">
+        <div class="logo"></div>
+      </div>
+      <br>
+       <!-- <div class="col-md-1"></div> -->
+      <br><br><br><br><br><br><br>
+      <div class="col-md-4 navbar-dark bg-primary">
+        <div class="alert alert-danger" *ngIf="authenticationError" data-cy="loginError">
+          <strong>Echec de la connexion !</strong>Veuillez vérifier vos informations d'identification et réessayer.
+        </div>
+      <form class="form" role="form" (ngSubmit)="login()" [formGroup]="loginForm">
+          <div class="form-group">
+          
+            <fa-icon icon="user"></fa-icon>
+            <label class="username-label" for="username">Votre nom d'utilisateur</label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              id="username"
+              placeholder="Votre nom d'utilisateur"
+              formControlName="username"
+              #username
+              data-cy="username"
+            />
+          </div>
+          <br>
+
+          <div class="form-group">
+            <fa-icon icon="lock" [fixedWidth]="true"></fa-icon>
+            <label for="password">Votre mot de passe</label>
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              id="password"
+              placeholder="Votre mot de passe"
+              formControlName="password"
+              data-cy="password"
+            />
+          </div>
+          <br>
+
+          <div class="form-check">
+            <label class="form-check-label" for="rememberMe">
+              <input class="form-check-input" type="checkbox" name="rememberMe" id="rememberMe" formControlName="rememberMe" />
+              <span>Souviens-toi de moi</span>
+            </label>
+          </div>
+          <br>
+          
+          <button type="submit" class="btn btn-primary" data-cy="submit" >Se connecter</button>
+
+          <div class="mt-3 alert alert-warning">
+            <a class="alert-link" routerLink="/account/reset/request" data-cy="forgetYourPasswordSelector">Avez-vous oublié votre mot de passe?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  <br>
+</div>

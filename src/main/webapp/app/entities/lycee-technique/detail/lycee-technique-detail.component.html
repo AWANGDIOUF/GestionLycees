@@ -1,0 +1,206 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="lyceeTechnique">
+      <h2 data-cy="lyceeTechniqueDetailsHeading" style="font-weight: bold"><span>Lycee Technique</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.id }}</span>
+        </dd> -->
+            <!-- <dt><span>Nom du lycée</span></dt>
+        <dd>
+          <div *ngIf="lyceeTechnique.nomLycee">
+            <a [routerLink]="['/lycees-techniques', lyceeTechnique.nomLycee?.id, 'view']">{{ lyceeTechnique.nomLycee?.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Prénom et nom</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.prenomNom }}</span>
+        </dd>
+        <dt><span>Adresse</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.adresse }}</span>
+        </dd> -->
+            <dt><span>Mail</span></dt>
+            <dd>
+              <span>{{ lyceeTechnique.mail }}</span>
+            </dd>
+            <!-- <dt><span>Tel 1</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.tel1 }}</span>
+        </dd> -->
+            <dt><span>Tel 2</span></dt>
+            <dd>
+              <span>{{ lyceeTechnique.tel2 }}</span>
+            </dd>
+            <dt><span>Boite postal</span></dt>
+            <dd>
+              <span>{{ lyceeTechnique.boitePostal }}</span>
+            </dd>
+            <dt><span>Decret de creation</span></dt>
+            <dd>
+              <span>{{ lyceeTechnique.decretCreation }}</span>
+            </dd>
+            <dt><span>Date de creation</span></dt>
+            <dd>
+              <span>{{ lyceeTechnique.dateCreation | formatMediumDate }}</span>
+            </dd>
+            <!-- <dt><span>Région</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.region }}</span>
+        </dd> -->
+            <!-- <dt><span>Autre Region</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autreRegion }}</span>
+        </dd> -->
+            <!-- <dt><span>Departement</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementDakar }}</span>
+        </dd> -->
+            <!-- <dt><span>Departement Diourbel</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementDiourbel }}</span>
+        </dd>
+        <dt><span>Departement Fatick</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementFatick }}</span>
+        </dd>
+        <dt><span>Departement Kaffrine</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementKaffrine }}</span>
+        </dd>
+        <dt><span>Departement Kaolack</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementKaolack }}</span>
+        </dd>
+        <dt><span>Departement Kedougou</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementKedougou }}</span>
+        </dd>
+        <dt><span>Departement Kolda</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementKolda }}</span>
+        </dd>
+        <dt><span>Departement Louga</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementLouga }}</span>
+        </dd>
+        <dt><span>Departement Matam</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementMatam }}</span>
+        </dd>
+        <dt><span>Departement Saint</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementSaint }}</span>
+        </dd>
+        <dt><span>Departement Sedhiou</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementSedhiou }}</span>
+        </dd>
+        <dt><span>Departement Tambacounda</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementTambacounda }}</span>
+        </dd>
+        <dt><span>Departement This</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementThis }}</span>
+        </dd>
+        <dt><span>Departement Ziguinchor</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.departementZiguinchor }}</span>
+        </dd>
+        <dt><span>Autredepartement Dakar</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementDakar }}</span>
+        </dd>
+        <dt><span>Autredepartement Diourbel</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementDiourbel }}</span>
+        </dd>
+        <dt><span>Autredepartement Fatick</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementFatick }}</span>
+        </dd>
+        <dt><span>Autredepartement Kaffrine</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementKaffrine }}</span>
+        </dd>
+        <dt><span>Autredepartement Kaolack</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementKaolack }}</span>
+        </dd>
+        <dt><span>Autredepartement Kedougou</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementKedougou }}</span>
+        </dd>
+        <dt><span>Autredepartement Kolda</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementKolda }}</span>
+        </dd>
+        <dt><span>Autredepartement Louga</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementLouga }}</span>
+        </dd>
+        <dt><span>Autredepartement Matam</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementMatam }}</span>
+        </dd>
+        <dt><span>Autredepartement Saint</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementSaint }}</span>
+        </dd>
+        <dt><span>Autredepartement Sedhiou</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementSedhiou }}</span>
+        </dd>
+        <dt><span>Autredepartement Tambacounda</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementTambacounda }}</span>
+        </dd>
+        <dt><span>Autredepartement This</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementThis }}</span>
+        </dd>
+        <dt><span>Autredepartement Ziguinchor</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.autredepartementZiguinchor }}</span>
+        </dd> -->
+            <!-- <dt><span>Commune</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.commune }}</span>
+        </dd> -->
+            <!-- <dt><span>Ia</span></dt>
+        <dd>
+          <span>{{ lyceeTechnique.ia }}</span>
+        </dd> -->
+            <!-- <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="lyceeTechnique.proviseur">
+            <a [routerLink]="['/proviseur', lyceeTechnique.proviseur?.id, 'view']">{{ lyceeTechnique.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/lycee-technique', lyceeTechnique.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

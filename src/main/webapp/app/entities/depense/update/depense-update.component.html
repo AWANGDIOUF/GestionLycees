@@ -1,0 +1,157 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-depense-heading" data-cy="DepenseCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier une dépense
+      </h2>
+
+      <br />
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_typeDepense">Type de dépense</label>
+              <select class="form-control" name="typeDepense" formControlName="typeDepense" id="field_typeDepense" data-cy="typeDepense">
+                <option [ngValue]="null"></option>
+                <option value="INVESTISSEMENT">INVESTISSEMENT</option>
+                <option value="PERSONNEL">PERSONNEL</option>
+                <option value="BIENS_ET_SERVICES">BIENS_ET_SERVICES</option>
+                <option value="TRANSFERTS_COURANTS">TRANSFERTS_COURANTS</option>
+                <option value="AUTRES">AUTRES</option>
+              </select>
+              <div
+                *ngIf="editForm.get('typeDepense')!.invalid && (editForm.get('typeDepense')!.dirty || editForm.get('typeDepense')!.touched)"
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('typeDepense')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.typeDepense === 'AUTRES'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autreDepense">Autre dépense</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autreDepense"
+                  id="field_autreDepense"
+                  data-cy="autreDepense"
+                  formControlName="autreDepense"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_description">Description de la dépense</label>
+              <textarea
+                class="form-control"
+                name="description"
+                id="field_description"
+                data-cy="description"
+                formControlName="description"
+              ></textarea>
+              <div
+                *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)"
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_montantDepense">Montant de la dépense</label>
+              <input
+                type="text"
+                class="form-control"
+                name="montantDepense"
+                id="field_montantDepense"
+                data-cy="montantDepense"
+                formControlName="montantDepense"
+              />
+              <div
+                *ngIf="
+                  editForm.get('montantDepense')!.invalid &&
+                  (editForm.get('montantDepense')!.dirty || editForm.get('montantDepense')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('montantDepense')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_comptableFinancier">Comptable Financier</label>
+          <select
+            class="form-control"
+            id="field_comptableFinancier"
+            data-cy="comptableFinancier"
+            name="comptableFinancier"
+            formControlName="comptableFinancier"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                comptableFinancierOption.id === editForm.get('comptableFinancier')!.value?.id
+                  ? editForm.get('comptableFinancier')!.value
+                  : comptableFinancierOption
+              "
+              *ngFor="let comptableFinancierOption of comptableFinanciersSharedCollection; trackBy: trackComptableFinancierById"
+            >
+              {{ comptableFinancierOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

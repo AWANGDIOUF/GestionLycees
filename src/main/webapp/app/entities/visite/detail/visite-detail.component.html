@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="visite">
+      <h2 data-cy="visiteDetailsHeading" style="font-weight: bold"><span>Visite</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ visite.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="visite.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', visite.lyceesTechniques?.id, 'view']">{{ visite.lyceesTechniques?.nomLycee }}</a>
+              </div>
+            </dd>
+            <dt><span>Nature</span></dt>
+            <dd>
+              <span>{{ visite.nature }}</span>
+            </dd>
+            <dt><span>Autre nature</span></dt>
+            <dd>
+              <span>{{ visite.autreNature }}</span>
+            </dd>
+            <dt><span>Provenance</span></dt>
+            <dd>
+              <span>{{ visite.provenance }}</span>
+            </dd>
+            <dt><span>Autre provenance</span></dt>
+            <dd>
+              <span>{{ visite.autreProvenance }}</span>
+            </dd>
+            <dt><span>Objet</span></dt>
+            <dd>
+              <span>{{ visite.objet }}</span>
+            </dd>
+            <dt><span>Resultats</span></dt>
+            <dd>
+              <span>{{ visite.resultats }}</span>
+            </dd>
+            <dt><span>Priode</span></dt>
+            <dd>
+              <span>{{ visite.periode | formatMediumDate }}</span>
+            </dd>
+
+            <!-- <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="visite.proviseur">
+            <a [routerLink]="['/proviseur', visite.proviseur?.id, 'view']">{{ visite.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/visite', visite.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

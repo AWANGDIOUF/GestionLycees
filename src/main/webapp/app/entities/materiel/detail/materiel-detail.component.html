@@ -1,0 +1,54 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="materiel">
+      <h2 data-cy="materielDetailsHeading"><span>Materiel</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ materiel.id }}</span>
+        </dd>
+        <dt><span>Categorie Materiel</span></dt>
+        <dd>
+          <span>{{ materiel.categorieMateriel }}</span>
+        </dd>
+        <dt><span>Etat Materiel</span></dt>
+        <dd>
+          <span>{{ materiel.etatMateriel }}</span>
+        </dd>
+        <dt><span>Lycees Techniques</span></dt>
+        <dd>
+          <div *ngIf="materiel.lyceesTechniques">
+            <a [routerLink]="['/lycees-techniques', materiel.lyceesTechniques?.id, 'view']">{{ materiel.lyceesTechniques?.nomLycee }}</a>
+          </div>
+        </dd>
+        <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="materiel.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', materiel.comptableMatiere?.id, 'view']">{{ materiel.comptableMatiere?.nomPrenom }}</a>
+          </div>
+        </dd>
+        <dt><span>Reception</span></dt>
+        <dd>
+          <div *ngIf="materiel.reception">
+            <a [routerLink]="['/reception', materiel.reception?.id, 'view']">{{ materiel.reception?.libelleMateriel }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/materiel', materiel.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

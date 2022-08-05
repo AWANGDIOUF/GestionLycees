@@ -1,0 +1,132 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-formation-heading" data-cy="FormationCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier une formation
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nomFormation">Nom de la formation</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nomFormation"
+                id="field_nomFormation"
+                data-cy="nomFormation"
+                formControlName="nomFormation"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_typeFormation">Type de formation</label>
+              <input
+                type="text"
+                class="form-control"
+                name="typeFormation"
+                id="field_typeFormation"
+                data-cy="typeFormation"
+                formControlName="typeFormation"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_niveauFormation">Niveau de la formation</label>
+              <input
+                type="text"
+                class="form-control"
+                name="niveauFormation"
+                id="field_niveauFormation"
+                data-cy="niveauFormation"
+                formControlName="niveauFormation"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_duree">Durée</label>
+              <input type="text" class="form-control" name="duree" id="field_duree" data-cy="duree" formControlName="duree" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_secteur">Secteur</label>
+              <input type="text" class="form-control" name="secteur" id="field_secteur" data-cy="secteur" formControlName="secteur" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_modalite">Modalité</label>
+              <input type="text" class="form-control" name="modalite" id="field_modalite" data-cy="modalite" formControlName="modalite" />
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_directeur">Directeur</label>
+          <select class="form-control" id="field_directeur" data-cy="directeur" name="directeur" formControlName="directeur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                directeurEtudeOption.id === editForm.get('directeur')!.value?.id ? editForm.get('directeur')!.value : directeurEtudeOption
+              "
+              *ngFor="let directeurEtudeOption of directeurEtudesSharedCollection; trackBy: trackDirecteurEtudeById"
+            >
+              {{ directeurEtudeOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

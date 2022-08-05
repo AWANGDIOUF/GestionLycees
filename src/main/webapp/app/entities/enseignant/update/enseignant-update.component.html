@@ -1,0 +1,212 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-enseignant-heading" data-cy="EnseignantCreateUpdateHeading">Create or edit a Enseignant</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_matriculeEns">Matricule Ens</label>
+          <input
+            type="text"
+            class="form-control"
+            name="matriculeEns"
+            id="field_matriculeEns"
+            data-cy="matriculeEns"
+            formControlName="matriculeEns"
+          />
+          <div
+            *ngIf="editForm.get('matriculeEns')!.invalid && (editForm.get('matriculeEns')!.dirty || editForm.get('matriculeEns')!.touched)"
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('matriculeEns')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_nomPrenom">Nom Prenom</label>
+          <input type="text" class="form-control" name="nomPrenom" id="field_nomPrenom" data-cy="nomPrenom" formControlName="nomPrenom" />
+          <div *ngIf="editForm.get('nomPrenom')!.invalid && (editForm.get('nomPrenom')!.dirty || editForm.get('nomPrenom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nomPrenom')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_sexe">Sexe</label>
+          <select class="form-control" name="sexe" formControlName="sexe" id="field_sexe" data-cy="sexe">
+            <option [ngValue]="null"></option>
+            <option value="F">F</option>
+            <option value="M">M</option>
+          </select>
+          <div *ngIf="editForm.get('sexe')!.invalid && (editForm.get('sexe')!.dirty || editForm.get('sexe')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('sexe')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" id="field_telephone" data-cy="telephone" formControlName="telephone" />
+          <div *ngIf="editForm.get('telephone')!.invalid && (editForm.get('telephone')!.dirty || editForm.get('telephone')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('telephone')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_mail">Mail</label>
+          <input type="text" class="form-control" name="mail" id="field_mail" data-cy="mail" formControlName="mail" />
+          <div *ngIf="editForm.get('mail')!.invalid && (editForm.get('mail')!.dirty || editForm.get('mail')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('mail')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_grade">Grade</label>
+          <input type="text" class="form-control" name="grade" id="field_grade" data-cy="grade" formControlName="grade" />
+          <div *ngIf="editForm.get('grade')!.invalid && (editForm.get('grade')!.dirty || editForm.get('grade')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('grade')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_option">Option</label>
+          <select class="form-control" name="option" formControlName="option" id="field_option" data-cy="option">
+            <option [ngValue]="null"></option>
+            <option value="ENSEIGNEMENT_TECHNIQUE">ENSEIGNEMENT_TECHNIQUE</option>
+            <option value="FORMATION_PROFESSIONNELLE">FORMATION_PROFESSIONNELLE</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_situationMatrimoniale">Situation Matrimoniale</label>
+          <select
+            class="form-control"
+            name="situationMatrimoniale"
+            formControlName="situationMatrimoniale"
+            id="field_situationMatrimoniale"
+            data-cy="situationMatrimoniale"
+          >
+            <option [ngValue]="null"></option>
+            <option value="MARIE">MARIE</option>
+            <option value="MARIEE">MARIEE</option>
+            <option value="CELIBATAIRE">CELIBATAIRE</option>
+            <option value="VEUVE">VEUVE</option>
+            <option value="AUTRES">AUTRES</option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('situationMatrimoniale')!.invalid &&
+              (editForm.get('situationMatrimoniale')!.dirty || editForm.get('situationMatrimoniale')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('situationMatrimoniale')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null"></option>
+            <option value="FONCTIONNAIRE">FONCTIONNAIRE</option>
+            <option value="CONTRACTUEL">CONTRACTUEL</option>
+            <option value="VOCATAIRE">VOCATAIRE</option>
+            <option value="PROFESSIONNEL">PROFESSIONNEL</option>
+            <option value="AUTRES">AUTRES</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fonction">Fonction</label>
+          <input type="text" class="form-control" name="fonction" id="field_fonction" data-cy="fonction" formControlName="fonction" />
+          <div *ngIf="editForm.get('fonction')!.invalid && (editForm.get('fonction')!.dirty || editForm.get('fonction')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('fonction')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_lyceesTechniques">Lycees Techniques</label>
+          <select
+            class="form-control"
+            id="field_lyceesTechniques"
+            data-cy="lyceesTechniques"
+            name="lyceesTechniques"
+            formControlName="lyceesTechniques"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                  ? editForm.get('lyceesTechniques')!.value
+                  : lyceesTechniquesOption
+              "
+              *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+            >
+              {{ lyceesTechniquesOption.nomLycee }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_serie">Serie</label>
+          <select class="form-control" id="field_serie" data-cy="serie" name="serie" formControlName="serie">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="serieOption.id === editForm.get('serie')!.value?.id ? editForm.get('serie')!.value : serieOption"
+              *ngFor="let serieOption of seriesSharedCollection; trackBy: trackSerieById"
+            >
+              {{ serieOption.nomSerie }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_filiere">Filiere</label>
+          <select class="form-control" id="field_filiere" data-cy="filiere" name="filiere" formControlName="filiere">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="filiereOption.id === editForm.get('filiere')!.value?.id ? editForm.get('filiere')!.value : filiereOption"
+              *ngFor="let filiereOption of filieresSharedCollection; trackBy: trackFiliereById"
+            >
+              {{ filiereOption.nomFiliere }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_proviseur">Proviseur</label>
+          <select class="form-control" id="field_proviseur" data-cy="proviseur" name="proviseur" formControlName="proviseur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="proviseurOption.id === editForm.get('proviseur')!.value?.id ? editForm.get('proviseur')!.value : proviseurOption"
+              *ngFor="let proviseurOption of proviseursSharedCollection; trackBy: trackProviseurById"
+            >
+              {{ proviseurOption.nomPrenom }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

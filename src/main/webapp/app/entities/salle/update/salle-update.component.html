@@ -1,0 +1,248 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-salle-heading" data-cy="SalleCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier une salle
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nombreSalleclasse">Nombre de salle de classe</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombreSalleclasse"
+                id="field_nombreSalleclasse"
+                data-cy="nombreSalleclasse"
+                formControlName="nombreSalleclasse"
+              />
+              <div
+                *ngIf="
+                  editForm.get('nombreSalleclasse')!.invalid &&
+                  (editForm.get('nombreSalleclasse')!.dirty || editForm.get('nombreSalleclasse')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('nombreSalleclasse')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_nombreAteliers">Nombre d'atelier</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombreAteliers"
+                id="field_nombreAteliers"
+                data-cy="nombreAteliers"
+                formControlName="nombreAteliers"
+              />
+              <div
+                *ngIf="
+                  editForm.get('nombreAteliers')!.invalid &&
+                  (editForm.get('nombreAteliers')!.dirty || editForm.get('nombreAteliers')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('nombreAteliers')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_specialiase">Avez-vous des salles specialiasées</label>
+              <select class="form-control" name="specialiase" formControlName="specialiase" id="field_specialiase" data-cy="specialiase">
+                <option [ngValue]="null"></option>
+                <option value="OUI">OUI</option>
+                <option value="NON">NON</option>
+              </select>
+            </div>
+
+            <div *ngIf="editForm.value.specialiase === 'OUI'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_nombreSalleSpecialise">Nombre Salle Specialise</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="nombreSalleSpecialise"
+                  id="field_nombreSalleSpecialise"
+                  data-cy="nombreSalleSpecialise"
+                  formControlName="nombreSalleSpecialise"
+                />
+                <div
+                  *ngIf="
+                    editForm.get('nombreSalleSpecialise')!.invalid &&
+                    (editForm.get('nombreSalleSpecialise')!.dirty || editForm.get('nombreSalleSpecialise')!.touched)
+                  "
+                >
+                  <small class="form-text text-danger" *ngIf="editForm.get('nombreSalleSpecialise')?.errors?.required">
+                    This field is required.
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.specialiase === 'NON'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_justificationSalleSpe">Justification </label>
+                <textarea
+                  class="form-control"
+                  name="justificationSalleSpe"
+                  id="field_justificationSalleSpe"
+                  data-cy="justificationSalleSpe"
+                  formControlName="justificationSalleSpe"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_cdi">Avez-vous des CDI</label>
+              <select class="form-control" name="cdi" formControlName="cdi" id="field_cdi" data-cy="cdi">
+                <option [ngValue]="null"></option>
+                <option value="OUI">OUI</option>
+                <option value="NON">NON</option>
+              </select>
+            </div>
+
+            <div *ngIf="editForm.value.cdi === 'OUI'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_nombreCDI">Nombre CDI</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="nombreCDI"
+                  id="field_nombreCDI"
+                  data-cy="nombreCDI"
+                  formControlName="nombreCDI"
+                />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.cdi === 'NON'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_justifiactifSalleCDI">JustifiactiON</label>
+                <textarea
+                  class="form-control"
+                  name="justifiactifSalleCDI"
+                  id="field_justifiactifSalleCDI"
+                  data-cy="justifiactifSalleCDI"
+                  formControlName="justifiactifSalleCDI"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_jum">Avez-vous des salles de jum</label>
+              <select class="form-control" name="jum" formControlName="jum" id="field_jum" data-cy="jum">
+                <option [ngValue]="null"></option>
+                <option value="OUI">OUI</option>
+                <option value="NON">NON</option>
+              </select>
+            </div>
+
+            <div *ngIf="editForm.value.jum === 'OUI'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_salleJum">Salle Jum</label>
+                <input type="text" class="form-control" name="salleJum" id="field_salleJum" data-cy="salleJum" formControlName="salleJum" />
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.jum === 'NON'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_justifiactifSalleJum">Justifiaction</label>
+                <textarea
+                  class="form-control"
+                  name="justifiactifSalleJum"
+                  id="field_justifiactifSalleJum"
+                  data-cy="justifiactifSalleJum"
+                  formControlName="justifiactifSalleJum"
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_autreSalle">Autre salle</label>
+              <input
+                type="text"
+                class="form-control"
+                name="autreSalle"
+                id="field_autreSalle"
+                data-cy="autreSalle"
+                formControlName="autreSalle"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_directeur">Directeur</label>
+          <select class="form-control" id="field_directeur" data-cy="directeur" name="directeur" formControlName="directeur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                directeurEtudeOption.id === editForm.get('directeur')!.value?.id ? editForm.get('directeur')!.value : directeurEtudeOption
+              "
+              *ngFor="let directeurEtudeOption of directeurEtudesSharedCollection; trackBy: trackDirecteurEtudeById"
+            >
+              {{ directeurEtudeOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+      <br />
+    </form>
+  </div>
+</div>

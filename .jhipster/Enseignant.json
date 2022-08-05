@@ -1,0 +1,97 @@
+{
+  "name": "Enseignant",
+  "fields": [
+    {
+      "fieldName": "matriculeEns",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "nomPrenom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "sexe",
+      "fieldType": "Genre",
+      "fieldValues": "F,M",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "mail",
+      "fieldType": "String",
+      "fieldValidateRules": ["unique", "required"]
+    },
+    {
+      "fieldName": "grade",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "option",
+      "fieldType": "Option",
+      "fieldValues": "ENSEIGNEMENT_TECHNIQUE,FORMATION_PROFESSIONNELLE"
+    },
+    {
+      "fieldName": "situationMatrimoniale",
+      "fieldType": "Situation",
+      "fieldValues": "MARIE,MARIEE,CELIBATAIRE,VEUVE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "StatusEns",
+      "fieldValues": "FONCTIONNAIRE,CONTRACTUEL,VOCATAIRE,PROFESSIONNEL,AUTRES"
+    },
+    {
+      "fieldName": "fonction",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "enseignant",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "serie",
+      "otherEntityRelationshipName": "enseignant",
+      "relationshipName": "serie",
+      "otherEntityField": "nomSerie"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "filiere",
+      "otherEntityRelationshipName": "enseignant",
+      "relationshipName": "filiere",
+      "otherEntityField": "nomFiliere"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "enseignant",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "enseignant",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115805"
+}

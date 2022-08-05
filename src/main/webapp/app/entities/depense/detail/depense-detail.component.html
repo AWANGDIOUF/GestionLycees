@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="depense">
+      <h2 data-cy="depenseDetailsHeading" style="font-weight: bold"><span>Dépense</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ depense.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="depense.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', depense.lyceesTechniques?.id, 'view']">{{ depense.lyceesTechniques?.nomLycee }}</a>
+              </div>
+            </dd>
+            <dt><span>Type de dépense</span></dt>
+            <dd>
+              <span>{{ depense.typeDepense }}</span>
+            </dd>
+            <dt><span>Autre dépense</span></dt>
+            <dd>
+              <span>{{ depense.autreDepense }}</span>
+            </dd>
+            <dt><span>Description de la dépense</span></dt>
+            <dd>
+              <span>{{ depense.description }}</span>
+            </dd>
+            <dt><span>Montant de la dépense</span></dt>
+            <dd>
+              <span>{{ depense.montantDepense }}</span>
+            </dd>
+
+            <!-- <dt><span>Comptable Financier</span></dt>
+        <dd>
+          <div *ngIf="depense.comptableFinancier">
+            <a [routerLink]="['/comptable-financier', depense.comptableFinancier?.id, 'view']">{{
+              depense.comptableFinancier?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/depense', depense.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="ApprenantHeading">
+    <p class="list">Apprenants</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-apprenant"
+        [routerLink]="['/apprenant/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau apprenant </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+  <jhi-alert></jhi-alert>
+   
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive" id="entities" *ngIf="apprenants && apprenants.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomPrenom"><span>Nom et prénom</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="dateNaissance"><span>Date de naissance</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="lieuNaissance"><span>Lieu de naissance</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="telephone"><span>Téléphone</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="adresse"><span>Adresse</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="sexe"><span>Sexe</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="option"><span>Option</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="situationMatrimoniale"><span>Situation matrimoniale</span><fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="tuteur"><span>Tuteur</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="contactTuteur"><span>Contact du tuteur</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="serie.nomSerie"><span>Série/Filiére</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="filiere.nomFiliere"><span>Filiére</span> <fa-icon icon="sort"></fa-icon></th> -->
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let apprenant of apprenants; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/apprenant', apprenant.id, 'view']">{{ apprenant.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="apprenant.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', apprenant.lyceesTechniques?.id, 'view']">{{
+                    apprenant.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ apprenant.nomPrenom }}</td>
+              <!-- <td>{{ apprenant.dateNaissance | formatMediumDate }}</td>
+              <td>{{ apprenant.lieuNaissance }}</td> -->
+              <!-- <td>{{ apprenant.telephone }}</td> -->
+              <td>{{ apprenant.adresse }}</td>
+              <td>{{ apprenant.sexe }}</td>
+
+              <td>{{ apprenant.situationMatrimoniale }}</td>
+              <td>{{ apprenant.tuteur }}</td>
+              <td>{{ apprenant.contactTuteur }}</td>
+              <!-- <td>{{ apprenant.option }}</td> -->
+              <td>
+                <div *ngIf="apprenant.serie">
+                  <a [routerLink]="['/serie', apprenant.serie?.id, 'view']">{{ apprenant.serie?.nomSerie }}</a>
+                </div>
+                <div *ngIf="apprenant.filiere">
+                  <a [routerLink]="['/filiere', apprenant.filiere?.id, 'view']">{{ apprenant.filiere?.nomFiliere }}</a>
+                </div>
+              </td>
+              <!-- <td>
+                <div *ngIf="apprenant.filiere">
+                  <a [routerLink]="['/filiere', apprenant.filiere?.id, 'view']">{{ apprenant.filiere?.nomFiliere }}</a>
+                </div>
+              </td> -->
+
+              <!-- <td>
+            <div *ngIf="apprenant.directeur">
+              <a [routerLink]="['/directeur-etude', apprenant.directeur?.id, 'view']">{{ apprenant.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/apprenant', apprenant.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/apprenant', apprenant.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(apprenant)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="pagi" *ngIf="apprenants && apprenants.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

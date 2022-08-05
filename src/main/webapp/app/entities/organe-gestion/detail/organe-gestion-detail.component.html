@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="organeGestion">
+      <h2 data-cy="organeGestionDetailsHeading" style="font-weight: bold"><span>Organe de gestion</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ organeGestion.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="organeGestion.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', organeGestion.lyceesTechniques?.id, 'view']">{{
+                  organeGestion.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <!-- <dt><span>Type d'organe</span></dt>
+        <dd>
+          <span>{{ organeGestion.type }}</span>
+        </dd> -->
+            <!-- <dt><span>Autre Type</span></dt>
+        <dd>
+          <span>{{ organeGestion.autreType }}</span>
+        </dd> -->
+            <dt><span>Fonctionnel</span></dt>
+            <dd>
+              <span>{{ organeGestion.fonctionnel }}</span>
+            </dd>
+            <!-- <dt><span>Activité</span></dt>
+        <dd>
+          <span>{{ organeGestion.activite }}</span>
+        </dd>
+        <dt><span>Date de l'activité</span></dt>
+        <dd>
+          <span>{{ organeGestion.dateActivite | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Rapport</span></dt>
+        <dd>
+          <div *ngIf="organeGestion.rapport">
+            <a (click)="openFile(organeGestion.rapport, organeGestion.rapportContentType)">open</a>
+            {{ organeGestion.rapportContentType }}, {{ byteSize(organeGestion.rapport) }}
+          </div>
+        </dd>
+         -->
+            <!-- <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="organeGestion.proviseur">
+            <a [routerLink]="['/proviseur', organeGestion.proviseur?.id, 'view']">{{ organeGestion.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/organe-gestion', organeGestion.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

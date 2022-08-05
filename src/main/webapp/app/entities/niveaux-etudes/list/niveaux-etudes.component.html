@@ -1,0 +1,128 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="NiveauxEtudesHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Niveaux d'études</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-niveaux-etudes"
+        [routerLink]="['/niveaux-etudes/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau niveau d'étude </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="niveauxEtudes?.length === 0">
+    <span>Aucun niveau d'étude trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="niveauxEtudes && niveauxEtudes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="serie.nomSerie"><span>Serie</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomNiveau"><span>Niveau d'étude</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let niveauxEtudes of niveauxEtudes; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/niveaux-etudes', niveauxEtudes.id, 'view']">{{ niveauxEtudes.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="niveauxEtudes.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', niveauxEtudes.lyceesTechniques?.id, 'view']">{{
+                    niveauxEtudes.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="niveauxEtudes.serie">
+                  <a [routerLink]="['/serie', niveauxEtudes.serie?.id, 'view']">{{ niveauxEtudes.serie?.nomSerie }}</a>
+                </div>
+              </td>
+              <td>{{ niveauxEtudes.nomNiveau }}</td>
+
+              <!-- <td>
+            <div *ngIf="niveauxEtudes.directeur">
+              <a [routerLink]="['/directeur-etude', niveauxEtudes.directeur?.id, 'view']">{{ niveauxEtudes.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/niveaux-etudes', niveauxEtudes.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/niveaux-etudes', niveauxEtudes.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(niveauxEtudes)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+
+  <div class="pagi" *ngIf="niveauxEtudes && niveauxEtudes.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+  <br />
+</div>

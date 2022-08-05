@@ -1,0 +1,84 @@
+<div>
+  <h2 id="page-heading" data-cy="BonHeading">
+    <span>Bons</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-bon"
+        [routerLink]="['/bon/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Bon </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="bons?.length === 0">
+    <span>No bons found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="bons && bons.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>ID</span></th>
+          <th scope="col"><span>Type Bon</span></th>
+          <th scope="col"><span>Beneficiaire</span></th>
+          <th scope="col"><span>Fonction</span></th>
+          <th scope="col"><span>Fournisseur</span></th>
+          <th scope="col"><span>Numero Facture</span></th>
+          <th scope="col"><span>Date</span></th>
+          <th scope="col"><span>Materiel</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bon of bons; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/bon', bon.id, 'view']">{{ bon.id }}</a>
+          </td>
+          <td>{{ bon.typeBon }}</td>
+          <td>{{ bon.beneficiaire }}</td>
+          <td>{{ bon.fonction }}</td>
+          <td>{{ bon.fournisseur }}</td>
+          <td>{{ bon.numeroFacture }}</td>
+          <td>{{ bon.date | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="bon.materiel">
+              <a [routerLink]="['/materiel', bon.materiel?.id, 'view']">{{ bon.materiel?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/bon', bon.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/bon', bon.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(bon)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

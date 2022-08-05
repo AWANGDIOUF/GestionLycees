@@ -1,0 +1,82 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="reformeMatiere">
+      <h2 data-cy="reformeMatiereDetailsHeading" style="font-weight: bold"><span>Réforme des matiéres</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ reformeMatiere.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="reformeMatiere.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', reformeMatiere.lyceesTechniques?.id, 'view']">{{
+                  reformeMatiere.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+
+            <dt><span>Groupe</span></dt>
+            <dd>
+              <span>{{ reformeMatiere.group }}</span>
+            </dd>
+            <dt><span>Désignation des membre</span></dt>
+            <dd>
+              <div *ngIf="reformeMatiere.designationDesmembre">
+                <a (click)="openFile(reformeMatiere.designationDesmembre, reformeMatiere.designationDesmembreContentType)">open</a>
+                {{ reformeMatiere.designationDesmembreContentType }}, {{ byteSize(reformeMatiere.designationDesmembre) }}
+              </div>
+            </dd>
+            <dt><span>PV de réforme</span></dt>
+            <dd>
+              <div *ngIf="reformeMatiere.pvReforme">
+                <a (click)="openFile(reformeMatiere.pvReforme, reformeMatiere.pvReformeContentType)">open</a>
+                {{ reformeMatiere.pvReformeContentType }}, {{ byteSize(reformeMatiere.pvReforme) }}
+              </div>
+            </dd>
+            <dt><span>Sortie définitive</span></dt>
+            <dd>
+              <div *ngIf="reformeMatiere.sortieDefinitive">
+                <a (click)="openFile(reformeMatiere.sortieDefinitive, reformeMatiere.sortieDefinitiveContentType)">open</a>
+                {{ reformeMatiere.sortieDefinitiveContentType }}, {{ byteSize(reformeMatiere.sortieDefinitive) }}
+              </div>
+            </dd>
+            <dt><span>Certificat administratif</span></dt>
+            <dd>
+              <div *ngIf="reformeMatiere.certificatAdministratif">
+                <a (click)="openFile(reformeMatiere.certificatAdministratif, reformeMatiere.certificatAdministratifContentType)">open</a>
+                {{ reformeMatiere.certificatAdministratifContentType }}, {{ byteSize(reformeMatiere.certificatAdministratif) }}
+              </div>
+            </dd>
+
+            <!-- <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="reformeMatiere.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', reformeMatiere.comptableMatiere?.id, 'view']">{{
+              reformeMatiere.comptableMatiere?.nomPrenom
+            }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reforme-matiere', reformeMatiere.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

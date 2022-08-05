@@ -1,0 +1,37 @@
+{
+  "name": "Probleme",
+  "fields": [
+    {
+      "fieldName": "nature",
+      "fieldType": "Nature",
+      "fieldValues": "TECHNIQUE,RH,PEDAGOGIQUE,SOCIAUX,ADMINISTRATIF,FINANCIER,AUTRES"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text"
+    },
+    {
+      "fieldName": "solution",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceeTechnique",
+      "otherEntityRelationshipName": "probleme",
+      "relationshipName": "lyceeTechnique"
+    }
+  ],
+  "entityTableName": "probleme",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115812"
+}

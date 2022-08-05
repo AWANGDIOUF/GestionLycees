@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="besoin">
+      <h2 data-cy="besoinDetailsHeading" style="font-weight: bold"><span>Besoin</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+            <dd>
+              <span>{{ besoin.id }}</span>
+            </dd> -->
+            <dt><span>Lycees Techniques</span></dt>
+            <dd>
+              <div *ngIf="besoin.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', besoin.lyceesTechniques?.id, 'view']">{{ besoin.lyceesTechniques?.nomLycee }}</a>
+              </div>
+            </dd>
+            <dt><span>Type de besoin</span></dt>
+            <dd>
+              <span>{{ besoin.type }}</span>
+            </dd>
+            <dt><span>Autre besoin</span></dt>
+            <dd>
+              <span>{{ besoin.autreBesoin }}</span>
+            </dd>
+            <dt><span>Désignation du besoin</span></dt>
+            <dd>
+              <span>{{ besoin.designation }}</span>
+            </dd>
+            <dt><span>Etat actuel</span></dt>
+            <dd>
+              <span>{{ besoin.etatActuel }}</span>
+            </dd>
+            <dt><span>Intervention souhaitée</span></dt>
+            <dd>
+              <span>{{ besoin.interventionSouhaitee }}</span>
+            </dd>
+            <dt><span>Justification</span></dt>
+            <dd>
+              <span>{{ besoin.justification }}</span>
+            </dd>
+
+            <!-- <dt><span>Proviseur</span></dt>
+            <dd>
+              <div *ngIf="besoin.proviseur">
+                <a [routerLink]="['/proviseur', besoin.proviseur?.id, 'view']">{{ besoin.proviseur?.nomPrenom }}</a>
+              </div>
+            </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/besoin', besoin.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

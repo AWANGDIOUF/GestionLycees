@@ -1,0 +1,62 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="attribution">
+      <h2 data-cy="attributionDetailsHeading"><span>Attribution</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ attribution.id }}</span>
+        </dd>
+        <dt><span>Beneficiaire</span></dt>
+        <dd>
+          <span>{{ attribution.beneficiaire }}</span>
+        </dd>
+        <dt><span>Fonction</span></dt>
+        <dd>
+          <span>{{ attribution.fonction }}</span>
+        </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+          <span>{{ attribution.date | formatMediumDate }}</span>
+        </dd>
+        <dt><span>Lycees Techniques</span></dt>
+        <dd>
+          <div *ngIf="attribution.lyceesTechniques">
+            <a [routerLink]="['/lycees-techniques', attribution.lyceesTechniques?.id, 'view']">{{
+              attribution.lyceesTechniques?.nomLycee
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="attribution.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', attribution.comptableMatiere?.id, 'view']">{{
+              attribution.comptableMatiere?.nomPrenom
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Reception</span></dt>
+        <dd>
+          <div *ngIf="attribution.reception">
+            <a [routerLink]="['/reception', attribution.reception?.id, 'view']">{{ attribution.reception?.libelleMateriel }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/attribution', attribution.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

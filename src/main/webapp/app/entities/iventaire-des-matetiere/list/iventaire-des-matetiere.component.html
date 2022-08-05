@@ -1,0 +1,143 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="IventaireDesMatetiereHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Inventaire des matières</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-iventaire-des-matetiere"
+        [routerLink]="['/iventaire-des-matetiere/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouveau iventaire des matetières </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="iventaireDesMatetieres?.length === 0">
+    <span>Aucun iventaire des matetières trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="iventaireDesMatetieres && iventaireDesMatetieres.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="group"><span>Groupe</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="designationMembre"><span>Designation Membre</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="pvDinventaire"><span>PV d'inventaire</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="comptableMatiere.nomPrenom"><span>Comptable Matiere</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let iventaireDesMatetiere of iventaireDesMatetieres; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/iventaire-des-matetiere', iventaireDesMatetiere.id, 'view']">{{ iventaireDesMatetiere.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="iventaireDesMatetiere.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', iventaireDesMatetiere.lyceesTechniques?.id, 'view']">{{
+                    iventaireDesMatetiere.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>{{ iventaireDesMatetiere.group }}</td>
+              <td>
+                <a
+                  *ngIf="iventaireDesMatetiere.designationMembre"
+                  (click)="openFile(iventaireDesMatetiere.designationMembre, iventaireDesMatetiere.designationMembreContentType)"
+                  >open</a
+                >
+                <span *ngIf="iventaireDesMatetiere.designationMembre"
+                  >{{ iventaireDesMatetiere.designationMembreContentType }}, {{ byteSize(iventaireDesMatetiere.designationMembre) }}</span
+                >
+              </td>
+              <td>
+                <a
+                  *ngIf="iventaireDesMatetiere.pvDinventaire"
+                  (click)="openFile(iventaireDesMatetiere.pvDinventaire, iventaireDesMatetiere.pvDinventaireContentType)"
+                  >open</a
+                >
+                <span *ngIf="iventaireDesMatetiere.pvDinventaire"
+                  >{{ iventaireDesMatetiere.pvDinventaireContentType }}, {{ byteSize(iventaireDesMatetiere.pvDinventaire) }}</span
+                >
+              </td>
+
+              <!-- <td>
+            <div *ngIf="iventaireDesMatetiere.comptableMatiere">
+              <a [routerLink]="['/comptable-matiere', iventaireDesMatetiere.comptableMatiere?.id, 'view']">{{
+                iventaireDesMatetiere.comptableMatiere?.nomPrenom
+              }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/iventaire-des-matetiere', iventaireDesMatetiere.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/iventaire-des-matetiere', iventaireDesMatetiere.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(iventaireDesMatetiere)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="pagi" *ngIf="iventaireDesMatetieres && iventaireDesMatetieres.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

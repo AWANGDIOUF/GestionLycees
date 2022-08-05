@@ -1,0 +1,101 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="apprenant">
+      <h2 data-cy="apprenantDetailsHeading" style="font-weight: bold"><span>Apprenant</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+            <dd>
+              <span>{{ apprenant.id }}</span>
+            </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="apprenant.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', apprenant.lyceesTechniques?.id, 'view']">{{
+                  apprenant.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Nom et prénom</span></dt>
+            <dd>
+              <span>{{ apprenant.nomPrenom }}</span>
+            </dd>
+            <dt><span>Date de naissance</span></dt>
+            <dd>
+              <span>{{ apprenant.dateNaissance | formatMediumDate }}</span>
+            </dd>
+            <dt><span>Lieu de naissance</span></dt>
+            <dd>
+              <span>{{ apprenant.lieuNaissance }}</span>
+            </dd>
+            <dt><span>Téléphone</span></dt>
+            <dd>
+              <span>{{ apprenant.telephone }}</span>
+            </dd>
+            <dt><span>Adresse</span></dt>
+            <dd>
+              <span>{{ apprenant.adresse }}</span>
+            </dd>
+            <dt><span>Sexe</span></dt>
+            <dd>
+              <span>{{ apprenant.sexe }}</span>
+            </dd>
+
+            <dt><span>Situation Matrimoniale</span></dt>
+            <dd>
+              <span>{{ apprenant.situationMatrimoniale }}</span>
+            </dd>
+            <dt><span>Tuteur</span></dt>
+            <dd>
+              <span>{{ apprenant.tuteur }}</span>
+            </dd>
+            <dt><span>Contact tuteur</span></dt>
+            <dd>
+              <span>{{ apprenant.contactTuteur }}</span>
+            </dd>
+            <dt><span>Option</span></dt>
+            <dd>
+              <span>{{ apprenant.option }}</span>
+            </dd>
+            <dt><span>Série</span></dt>
+            <dd>
+              <div *ngIf="apprenant.serie">
+                <a [routerLink]="['/serie', apprenant.serie?.id, 'view']">{{ apprenant.serie?.nomSerie }}</a>
+              </div>
+            </dd>
+            <dt><span>Filiére</span></dt>
+            <dd>
+              <div *ngIf="apprenant.filiere">
+                <a [routerLink]="['/filiere', apprenant.filiere?.id, 'view']">{{ apprenant.filiere?.nomFiliere }}</a>
+              </div>
+            </dd>
+
+            <!-- <dt><span>Directeur</span></dt>
+            <dd>
+              <div *ngIf="apprenant.directeur">
+                <a [routerLink]="['/directeur-etude', apprenant.directeur?.id, 'view']">{{ apprenant.directeur?.nomPrenom }}</a>
+              </div>
+            </dd> -->
+          </dl>
+        </div>
+      </div>
+      <br />
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/apprenant', apprenant.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+    <br />
+  </div>
+</div>

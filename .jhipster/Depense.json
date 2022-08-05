@@ -1,0 +1,59 @@
+{
+  "name": "Depense",
+  "fields": [
+    {
+      "fieldName": "typeDepense",
+      "fieldType": "TypeDepense",
+      "fieldValues": "INVESTISSEMENT,PERSONNEL,BIENS_ET_SERVICES,TRANSFERTS_COURANTS,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreDepense",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "text",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "montantDepense",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "depense",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableFinancier",
+      "otherEntityRelationshipName": "depense",
+      "relationshipName": "comptableFinancier",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "recette",
+      "otherEntityRelationshipName": "depense",
+      "relationshipName": "recette",
+      "otherEntityField": "type"
+    }
+  ],
+  "entityTableName": "depense",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115818"
+}

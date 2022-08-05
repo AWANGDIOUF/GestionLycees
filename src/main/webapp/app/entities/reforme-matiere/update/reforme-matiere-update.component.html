@@ -1,0 +1,276 @@
+<div class="row justify-content-center">
+  <div class="col-6">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-reforme-matiere-heading" data-cy="ReformeMatiereCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou éditer une réforme des matiére
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <br />
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <br />
+
+            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_group">Groupe</label>
+              <select class="form-control" name="group" formControlName="group" id="field_group" data-cy="group">
+                <option [ngValue]="null"></option>
+                <option value="GROUP1">Groupe 1</option>
+                <option value="GROUP2">Groupe 2</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_designationDesmembre">Désignation des membres</label>
+              <div>
+                <div *ngIf="editForm.get('designationDesmembre')!.value" class="form-text text-danger clearfix">
+                  <a
+                    class="pull-left"
+                    (click)="openFile(editForm.get('designationDesmembre')!.value, editForm.get('designationDesmembreContentType')!.value)"
+                    >open</a
+                  ><br />
+                  <span class="pull-left"
+                    >{{ editForm.get('designationDesmembreContentType')!.value }},
+                    {{ byteSize(editForm.get('designationDesmembre')!.value) }}</span
+                  >
+                  <button
+                    type="button"
+                    (click)="
+                      editForm.patchValue({ designationDesmembre: null }); editForm.patchValue({ designationDesmembreContentType: null })
+                    "
+                    class="btn btn-secondary btn-xs pull-right"
+                  >
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+                <input
+                  type="file"
+                  id="file_designationDesmembre"
+                  data-cy="designationDesmembre"
+                  (change)="setFileData($event, 'designationDesmembre', false)"
+                />
+              </div>
+              <input
+                type="hidden"
+                class="form-control"
+                name="designationDesmembre"
+                id="field_designationDesmembre"
+                data-cy="designationDesmembre"
+                formControlName="designationDesmembre"
+              />
+              <input
+                type="hidden"
+                class="form-control"
+                name="designationDesmembreContentType"
+                id="field_designationDesmembreContentType"
+                formControlName="designationDesmembreContentType"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_pvReforme">PV de réforme</label>
+              <div>
+                <div *ngIf="editForm.get('pvReforme')!.value" class="form-text text-danger clearfix">
+                  <a class="pull-left" (click)="openFile(editForm.get('pvReforme')!.value, editForm.get('pvReformeContentType')!.value)"
+                    >open</a
+                  ><br />
+                  <span class="pull-left"
+                    >{{ editForm.get('pvReformeContentType')!.value }}, {{ byteSize(editForm.get('pvReforme')!.value) }}</span
+                  >
+                  <button
+                    type="button"
+                    (click)="editForm.patchValue({ pvReforme: null }); editForm.patchValue({ pvReformeContentType: null })"
+                    class="btn btn-secondary btn-xs pull-right"
+                  >
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+                <input type="file" id="file_pvReforme" data-cy="pvReforme" (change)="setFileData($event, 'pvReforme', false)" />
+              </div>
+              <input
+                type="hidden"
+                class="form-control"
+                name="pvReforme"
+                id="field_pvReforme"
+                data-cy="pvReforme"
+                formControlName="pvReforme"
+              />
+              <input
+                type="hidden"
+                class="form-control"
+                name="pvReformeContentType"
+                id="field_pvReformeContentType"
+                formControlName="pvReformeContentType"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_sortieDefinitive">Sortie définitive</label>
+              <div>
+                <div *ngIf="editForm.get('sortieDefinitive')!.value" class="form-text text-danger clearfix">
+                  <a
+                    class="pull-left"
+                    (click)="openFile(editForm.get('sortieDefinitive')!.value, editForm.get('sortieDefinitiveContentType')!.value)"
+                    >open</a
+                  ><br />
+                  <span class="pull-left"
+                    >{{ editForm.get('sortieDefinitiveContentType')!.value }}, {{ byteSize(editForm.get('sortieDefinitive')!.value) }}</span
+                  >
+                  <button
+                    type="button"
+                    (click)="editForm.patchValue({ sortieDefinitive: null }); editForm.patchValue({ sortieDefinitiveContentType: null })"
+                    class="btn btn-secondary btn-xs pull-right"
+                  >
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+                <input
+                  type="file"
+                  id="file_sortieDefinitive"
+                  data-cy="sortieDefinitive"
+                  (change)="setFileData($event, 'sortieDefinitive', false)"
+                />
+              </div>
+              <input
+                type="hidden"
+                class="form-control"
+                name="sortieDefinitive"
+                id="field_sortieDefinitive"
+                data-cy="sortieDefinitive"
+                formControlName="sortieDefinitive"
+              />
+              <input
+                type="hidden"
+                class="form-control"
+                name="sortieDefinitiveContentType"
+                id="field_sortieDefinitiveContentType"
+                formControlName="sortieDefinitiveContentType"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_certificatAdministratif">Certificat administratif</label>
+              <div>
+                <div *ngIf="editForm.get('certificatAdministratif')!.value" class="form-text text-danger clearfix">
+                  <a
+                    class="pull-left"
+                    (click)="
+                      openFile(editForm.get('certificatAdministratif')!.value, editForm.get('certificatAdministratifContentType')!.value)
+                    "
+                    >open</a
+                  ><br />
+                  <span class="pull-left"
+                    >{{ editForm.get('certificatAdministratifContentType')!.value }},
+                    {{ byteSize(editForm.get('certificatAdministratif')!.value) }}</span
+                  >
+                  <button
+                    type="button"
+                    (click)="
+                      editForm.patchValue({ certificatAdministratif: null });
+                      editForm.patchValue({ certificatAdministratifContentType: null })
+                    "
+                    class="btn btn-secondary btn-xs pull-right"
+                  >
+                    <fa-icon icon="times"></fa-icon>
+                  </button>
+                </div>
+                <input
+                  type="file"
+                  id="file_certificatAdministratif"
+                  data-cy="certificatAdministratif"
+                  (change)="setFileData($event, 'certificatAdministratif', false)"
+                />
+              </div>
+              <input
+                type="hidden"
+                class="form-control"
+                name="certificatAdministratif"
+                id="field_certificatAdministratif"
+                data-cy="certificatAdministratif"
+                formControlName="certificatAdministratif"
+              />
+              <input
+                type="hidden"
+                class="form-control"
+                name="certificatAdministratifContentType"
+                id="field_certificatAdministratifContentType"
+                formControlName="certificatAdministratifContentType"
+              />
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_comptableMatiere">Comptable Matiere</label>
+          <select
+            class="form-control"
+            id="field_comptableMatiere"
+            data-cy="comptableMatiere"
+            name="comptableMatiere"
+            formControlName="comptableMatiere"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                comptableMatiereOption.id === editForm.get('comptableMatiere')!.value?.id
+                  ? editForm.get('comptableMatiere')!.value
+                  : comptableMatiereOption
+              "
+              *ngFor="let comptableMatiereOption of comptableMatieresSharedCollection; trackBy: trackComptableMatiereById"
+            >
+              {{ comptableMatiereOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+      <br />
+    </form>
+  </div>
+</div>

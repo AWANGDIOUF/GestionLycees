@@ -1,0 +1,43 @@
+{
+  "name": "NiveauxEtudes",
+  "fields": [
+    {
+      "fieldName": "nomNiveau",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "niveauetude",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "niveau",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "serie",
+      "otherEntityRelationshipName": "niveau",
+      "relationshipName": "serie",
+      "otherEntityField": "nomSerie"
+    }
+  ],
+  "entityTableName": "niveaux_etudes",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115804"
+}

@@ -1,0 +1,163 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="SalleHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Salles</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-salle"
+        [routerLink]="['/salle/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer une nouvelle Salle </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="salles?.length === 0">
+    <span>Aucune salle trouvée</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="salles && salles.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nombreSalleclasse"><span>Nombre de salle de classe</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nombreAteliers"><span>Nombre d'atelier</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="specialiase"><span>Spécialiase</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="nombreSalleSpecialise"><span>Nombre de salle spécialisé</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="justificationSalleSpe"><span>Justification Salle Spe</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="cdi"><span>Cdi</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="nombreCDI"><span>Nombre de CDI</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="justifiactifSalleCDI"><span>Justifiactif Salle CDI</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="jum"><span>Jum</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="salleJum"><span>Nombre de salle de jum</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="justifiactifSalleJum"><span>Justifiactif Salle Jum</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="autreSalle"><span>Autre Salle</span> <fa-icon icon="sort"></fa-icon></th>
+              <!-- <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycees Techniques</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let salle of salles; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/salle', salle.id, 'view']">{{ salle.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="salle.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', salle.lyceesTechniques?.id, 'view']">{{ salle.lyceesTechniques?.nomLycee }}</a>
+                </div>
+              </td>
+              <td>{{ salle.nombreSalleclasse }}</td>
+              <td>{{ salle.nombreAteliers }}</td>
+              <td>
+                <div *ngIf="salle.specialiase === 'OUI'">
+                  {{ salle.nombreSalleSpecialise }}
+                </div>
+                <div *ngIf="salle.specialiase === 'NON'">
+                  {{ salle.justificationSalleSpe }}
+                </div>
+              </td>
+              <!-- <td>{{ salle.specialiase }}</td>
+          <td>{{ salle.nombreSalleSpecialise }}</td> -->
+              <!-- <td>{{ salle.justificationSalleSpe }}</td> -->
+              <td>
+                <div *ngIf="salle.cdi === 'OUI'">
+                  {{ salle.nombreCDI }}
+                </div>
+                <div *ngIf="salle.cdi != 'OUI'">
+                  {{ salle.justifiactifSalleCDI }}
+                </div>
+              </td>
+              <!-- <td>{{ salle.cdi }}</td>
+          <td>{{ salle.nombreCDI }}</td> -->
+              <!-- <td>{{ salle.justifiactifSalleCDI }}</td> -->
+              <td>
+                <div *ngIf="salle.jum === 'OUI'">
+                  {{ salle.salleJum }}
+                </div>
+                <div *ngIf="salle.jum != 'OUI'">
+                  {{ salle.justifiactifSalleJum }}
+                </div>
+              </td>
+              <!-- <td>{{ salle.jum }}</td>
+          <td>{{ salle.salleJum }}</td> -->
+              <!-- <td>{{ salle.justifiactifSalleJum }}</td> -->
+              <td>{{ salle.autreSalle }}</td>
+
+              <!-- <td>
+            <div *ngIf="salle.directeur">
+              <a [routerLink]="['/directeur-etude', salle.directeur?.id, 'view']">{{ salle.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/salle', salle.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/salle', salle.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+
+                  <button type="submit" (click)="delete(salle)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"></span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="pagi" *ngIf="salles && salles.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

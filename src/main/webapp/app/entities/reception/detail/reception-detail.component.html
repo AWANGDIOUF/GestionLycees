@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="reception">
+      <h2 data-cy="receptionDetailsHeading" style="font-weight: bold"><span>Réception</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ reception.id }}</span>
+        </dd> -->
+            <dt><span>Lycée technique</span></dt>
+            <dd>
+              <div *ngIf="reception.lyceesTechniques">
+                <a [routerLink]="['/lycees-techniques', reception.lyceesTechniques?.id, 'view']">{{
+                  reception.lyceesTechniques?.nomLycee
+                }}</a>
+              </div>
+            </dd>
+            <dt><span>Libelle matériel</span></dt>
+            <dd>
+              <span>{{ reception.libelleMateriel }}</span>
+            </dd>
+            <dt><span>Type groupe</span></dt>
+            <dd>
+              <span>{{ reception.typeGroup }}</span>
+            </dd>
+            <dt><span>Provenance</span></dt>
+            <dd>
+              <span>{{ reception.provenance }}</span>
+            </dd>
+            <dt><span>Fournisseur</span></dt>
+            <dd>
+              <span>{{ reception.fournisseur }}</span>
+            </dd>
+            <dt><span>Date</span></dt>
+            <dd>
+              <span>{{ reception.date | formatMediumDate }}</span>
+            </dd>
+
+            <!-- <dt><span>Comptable Matiere</span></dt>
+        <dd>
+          <div *ngIf="reception.comptableMatiere">
+            <a [routerLink]="['/comptable-matiere', reception.comptableMatiere?.id, 'view']">{{ reception.comptableMatiere?.nomPrenom }}</a>
+          </div>
+        </dd> -->
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reception', reception.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

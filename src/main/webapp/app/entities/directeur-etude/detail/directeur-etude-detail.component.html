@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="directeurEtude">
+      <h2 data-cy="directeurEtudeDetailsHeading"><span>Directeur des études</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ directeurEtude.id }}</span>
+        </dd> -->
+            <dt><span>Nom lycée</span></dt>
+            <dd>
+              <div *ngIf="directeurEtude.nomLycee">
+                <a [routerLink]="['/lycees-techniques', directeurEtude.nomLycee?.id, 'view']">{{ directeurEtude.nomLycee?.id }}</a>
+              </div>
+            </dd>
+            <dt><span>Nom et prénom</span></dt>
+            <dd>
+              <span>{{ directeurEtude.nomPrenom }}</span>
+            </dd>
+            <dt><span>User</span></dt>
+            <dd>
+              <span>{{ directeurEtude.user?.login }}</span>
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/directeur-etude', directeurEtude.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+    </div>
+  </div>
+</div>

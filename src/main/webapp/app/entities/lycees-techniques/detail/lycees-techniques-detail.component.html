@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+  <div class="col-5">
+    <div *ngIf="lyceesTechniques">
+      <h2 data-cy="lyceesTechniquesDetailsHeading" style="font-weight: bold"><span>Lycées techniques</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <div class="row">
+        <div class="col-md-12">
+          <dl class="row-md jh-entity-details">
+            <!-- <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ lyceesTechniques.id }}</span>
+        </dd> -->
+            <dt><span>Nom lycée</span></dt>
+            <dd>
+              <span>{{ lyceesTechniques.nomLycee }}</span>
+            </dd>
+          </dl>
+        </div>
+      </div>
+      <br />
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Retour</span>
+      </button>
+
+      <button type="button" [routerLink]="['/lycees-techniques', lyceesTechniques.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Editer</span>
+      </button>
+
+      <br />
+    </div>
+    <br />
+  </div>
+</div>

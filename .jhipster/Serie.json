@@ -1,0 +1,59 @@
+{
+  "name": "Serie",
+  "fields": [
+    {
+      "fieldName": "nomSerie",
+      "fieldType": "Series",
+      "fieldValues": "S3,S4,S5,STEG,T1,T2,F6,STIDD,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreSerie",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "enseignant",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "enseignant"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "niveauxEtudes",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "niveau"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "examen",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "examen"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "directeurEtude",
+      "otherEntityRelationshipName": "serie",
+      "relationshipName": "directeur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "serie",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115817"
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Bon",
+  "fields": [
+    {
+      "fieldName": "typeBon",
+      "fieldType": "TypeBon",
+      "fieldValues": "ENTREE,SORTIE"
+    },
+    {
+      "fieldName": "beneficiaire",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fonction",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fournisseur",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroFacture",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "materiel",
+      "otherEntityRelationshipName": "bon",
+      "relationshipName": "materiel"
+    }
+  ],
+  "entityTableName": "bon",
+  "dto": "no",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20211007123936"
+}

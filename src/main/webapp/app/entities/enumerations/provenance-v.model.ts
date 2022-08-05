@@ -1,0 +1,7 @@
+export enum ProvenanceV {
+  NIVEAU_CENTRAL = 'NIVEAU_CENTRAL',
+
+  PEDAGOGIQUE = 'PEDAGOGIQUE',
+
+  AUTRES = 'AUTRES',
+}

@@ -1,0 +1,114 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-bon-heading" data-cy="BonCreateUpdateHeading">Create or edit a Bon</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_typeBon">Type Bon</label>
+          <select class="form-control" name="typeBon" formControlName="typeBon" id="field_typeBon" data-cy="typeBon">
+            <option [ngValue]="null"></option>
+            <option value="ENTREE">ENTREE</option>
+            <option value="SORTIE">SORTIE</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_beneficiaire">Beneficiaire</label>
+          <input
+            type="text"
+            class="form-control"
+            name="beneficiaire"
+            id="field_beneficiaire"
+            data-cy="beneficiaire"
+            formControlName="beneficiaire"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fonction">Fonction</label>
+          <input type="text" class="form-control" name="fonction" id="field_fonction" data-cy="fonction" formControlName="fonction" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_fournisseur">Fournisseur</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fournisseur"
+            id="field_fournisseur"
+            data-cy="fournisseur"
+            formControlName="fournisseur"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_numeroFacture">Numero Facture</label>
+          <input
+            type="text"
+            class="form-control"
+            name="numeroFacture"
+            id="field_numeroFacture"
+            data-cy="numeroFacture"
+            formControlName="numeroFacture"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_date">Date</label>
+          <div class="input-group">
+            <input
+              id="field_date"
+              data-cy="date"
+              type="text"
+              class="form-control"
+              name="date"
+              ngbDatepicker
+              #dateDp="ngbDatepicker"
+              formControlName="date"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="dateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" for="field_materiel">Materiel</label>
+          <select class="form-control" id="field_materiel" data-cy="materiel" name="materiel" formControlName="materiel">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="materielOption.id === editForm.get('materiel')!.value?.id ? editForm.get('materiel')!.value : materielOption"
+              *ngFor="let materielOption of materielsSharedCollection; trackBy: trackMaterielById"
+            >
+              {{ materielOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

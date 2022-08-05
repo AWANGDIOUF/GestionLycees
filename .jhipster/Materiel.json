@@ -1,0 +1,50 @@
+{
+  "name": "Materiel",
+  "fields": [
+    {
+      "fieldName": "categorieMateriel",
+      "fieldType": "Categorie",
+      "fieldValues": "INFORMATIQUE,MOBILIER,CONSOMMABLE,MATERIELETACCESSOIRE,ELECTRONIQUE,EQUIPEMENT,MATERIEL_PEDAGOGIQUE,MATERIEL_DIDACTIQUE",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "etatMateriel",
+      "fieldType": "EtatMateriel",
+      "fieldValues": "BON,MOYEN,MAUVAIS,HORS_SERVICE,AUTRE",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "materiel",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "materiel",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "reception",
+      "otherEntityRelationshipName": "materiel",
+      "relationshipName": "reception",
+      "otherEntityField": "libelleMateriel"
+    }
+  ],
+  "entityTableName": "materiel",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115809"
+}

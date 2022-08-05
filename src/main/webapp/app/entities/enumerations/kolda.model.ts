@@ -1,0 +1,9 @@
+export enum KOLDA {
+  KOLDA = 'KOLDA',
+
+  MEDINA_YORO_FOULAH = 'MEDINA_YORO_FOULAH',
+
+  VELINGARA = 'VELINGARA',
+
+  AUTRE = 'AUTRE',
+}

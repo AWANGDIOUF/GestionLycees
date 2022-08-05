@@ -1,0 +1,56 @@
+{
+  "name": "Partenaire",
+  "fields": [
+    {
+      "fieldName": "denominationPartenaire",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "categorieProvenaire",
+      "fieldType": "Provenance",
+      "fieldValues": "ENTREPRISE,ONG,ORGANISATION_SOCIALE,ORGANISATION_PROFESSIONNELLE,PATRONAT,APE,SYNDICAT,COLLECTIVITE_TERRITORIALE,SERVICE_DECONCENTRE,COOPERATION_DECENTRALISEE,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreCategorie",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nature",
+      "fieldType": "NaturePart",
+      "fieldValues": "TECHNIQUE,FINANCIER,TECHNIQUEETFINANCIER,FORMATION,AUTRES",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autreNature",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "partenaire",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "proviseur",
+      "otherEntityRelationshipName": "partenaire",
+      "relationshipName": "proviseur",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "partenaire",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210910115811"
+}

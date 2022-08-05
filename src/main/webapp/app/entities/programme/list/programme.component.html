@@ -1,0 +1,126 @@
+<div class="log">
+  <h2 id="page-heading" data-cy="ProgrammeHeading">
+    <p class="list" style="font-weight: bold; text-align: center">Programmes</p>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Rafraîchir la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-programme"
+        [routerLink]="['/programme/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Créer un nouveau programme </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="programmes?.length === 0">
+    <span>Aucun programme trouvé</span>
+  </div>
+
+  <br />
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <br />
+      <div class="table-responsive" id="entities" *ngIf="programmes && programmes.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+          <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+              <!-- <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycée technique</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="filiere.nomFiliere"><span>Filiére</span> <fa-icon icon="sort"></fa-icon></th>
+              <th scope="col" jhiSortBy="nomProgramme"><span>Nom du programme</span> <fa-icon icon="sort"></fa-icon></th>
+
+              <!-- <th scope="col" jhiSortBy="directeur.nomPrenom"><span>Directeur</span> <fa-icon icon="sort"></fa-icon></th> -->
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let programme of programmes; trackBy: trackId" data-cy="entityTable">
+              <!-- <td>
+            <a [routerLink]="['/programme', programme.id, 'view']">{{ programme.id }}</a>
+          </td> -->
+              <td>
+                <div *ngIf="programme.lyceesTechniques">
+                  <a [routerLink]="['/lycees-techniques', programme.lyceesTechniques?.id, 'view']">{{
+                    programme.lyceesTechniques?.nomLycee
+                  }}</a>
+                </div>
+              </td>
+              <td>
+                <div *ngIf="programme.filiere">
+                  <a [routerLink]="['/filiere', programme.filiere?.id, 'view']">{{ programme.filiere?.nomFiliere }}</a>
+                </div>
+              </td>
+              <td>{{ programme.nomProgramme }}</td>
+
+              <!-- <td>
+            <div *ngIf="programme.directeur">
+              <a [routerLink]="['/directeur-etude', programme.directeur?.id, 'view']">{{ programme.directeur?.nomPrenom }}</a>
+            </div>
+          </td> -->
+
+              <td class="text-right">
+                <div class="btn-group">
+                  <button
+                    type="submit"
+                    [routerLink]="['/programme', programme.id, 'view']"
+                    class="btn btn-info btn-sm"
+                    data-cy="entityDetailsButton"
+                  >
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline"> </span>
+                  </button>
+
+                  <button
+                    type="submit"
+                    [routerLink]="['/programme', programme.id, 'edit']"
+                    class="btn btn-primary btn-sm"
+                    data-cy="entityEditButton"
+                  >
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline"> </span>
+                  </button>
+
+                  <button type="submit" (click)="delete(programme)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline"> </span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="pagi" *ngIf="programmes && programmes.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

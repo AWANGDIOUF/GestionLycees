@@ -1,0 +1,89 @@
+{
+  "name": "MouvementMatiere",
+  "fields": [
+    {
+      "fieldName": "typeMouvement",
+      "fieldType": "Mouvement",
+      "fieldValues": "RECEPTION,SORTIE_DEFINITIVE"
+    },
+    {
+      "fieldName": "group",
+      "fieldType": "Group",
+      "fieldValues": "GROUP1,GROUP2"
+    },
+    {
+      "fieldName": "organisation",
+      "fieldType": "Organisation",
+      "fieldValues": "ETAT,PATENAIRE,AUTRES"
+    },
+    {
+      "fieldName": "autreOrganisation",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "ressource",
+      "fieldType": "Ressouces",
+      "fieldValues": "BUDGET,AUTRES"
+    },
+    {
+      "fieldName": "autreRessource",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "designation",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pvReception",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "bordeauDeLivraison",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "groupe",
+      "fieldType": "Groupe",
+      "fieldValues": "GROUPE1,GROUPE2"
+    },
+    {
+      "fieldName": "bonDeSortie",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "certificatAdministratif",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "mouvementMatiere",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "mouvementMatiere",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "mouvement_matiere",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220613130025"
+}

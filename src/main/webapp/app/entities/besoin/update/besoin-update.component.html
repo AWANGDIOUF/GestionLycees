@@ -1,0 +1,174 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-besoin-heading" data-cy="BesoinCreateUpdateHeading" style="font-weight: bold; text-align: center">
+        Créer ou modifier un besoin
+      </h2>
+      <br />
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div> -->
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
+              <select
+                class="form-control"
+                id="field_lyceesTechniques"
+                data-cy="lyceesTechniques"
+                name="lyceesTechniques"
+                formControlName="lyceesTechniques"
+              >
+                <option [ngValue]="null"></option>
+                <option
+                  [ngValue]="
+                    lyceesTechniquesOption.id === editForm.get('lyceesTechniques')!.value?.id
+                      ? editForm.get('lyceesTechniques')!.value
+                      : lyceesTechniquesOption
+                  "
+                  *ngFor="let lyceesTechniquesOption of lyceesTechniquesSharedCollection; trackBy: trackLyceesTechniquesById"
+                >
+                  {{ lyceesTechniquesOption.nomLycee }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-control-label" for="field_type">Type de besoin</label>
+              <select class="form-control" name="type" formControlName="type" id="field_type" data-cy="type">
+                <option [ngValue]="null"></option>
+                <option value="PERSONNEL_APPOINT">PERSONNEL_APPOINT</option>
+                <option value="PERSONNEL_ADMINISTRATIF">PERSONNEL_ADMINISTRATIF</option>
+                <option value="RENFORCEMENT_CAPACITE">RENFORCEMENT_CAPACITE</option>
+                <option value="PERSONNE_RESSOURCE">PERSONNE_RESSOURCE</option>
+                <option value="SOCIAUX">SOCIAUX</option>
+                <option value="INFRASTRUCTURE">INFRASTRUCTURE</option>
+                <option value="EQUIPEMENT">EQUIPEMENT</option>
+                <option value="FORMATION">FORMATION</option>
+                <option value="INFRASTRUCTURES">INFRASTRUCTURES</option>
+                <option value="AUTRES">AUTRES</option>
+              </select>
+              <div *ngIf="editForm.get('type')!.invalid && (editForm.get('type')!.dirty || editForm.get('type')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('type')?.errors?.required"> This field is required. </small>
+              </div>
+            </div>
+
+            <div *ngIf="editForm.value.type === 'AUTRES'">
+              <div class="form-group">
+                <label class="form-control-label" for="field_autreBesoin">Autre besoin</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="autreBesoin"
+                  id="field_autreBesoin"
+                  data-cy="autreBesoin"
+                  formControlName="autreBesoin"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_designation">Désignation</label>
+              <textarea
+                class="form-control"
+                name="designation"
+                id="field_designation"
+                data-cy="designation"
+                formControlName="designation"
+              ></textarea>
+            </div>
+
+            <!-- <div *ngIf="editForm.value.type==='INFRASTRUCTURE'">
+        <div class="form-group">
+          <label class="form-control-label" for="field_etatActuel">Etat actuel</label>
+          <input
+            type="text"
+            class="form-control"
+            name="etatActuel"
+            id="field_etatActuel"
+            data-cy="etatActuel"
+            formControlName="etatActuel"
+          />
+        </div> -->
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_interventionSouhaitee">Intervention souhaitée</label>
+              <textarea
+                class="form-control"
+                name="interventionSouhaitee"
+                id="field_interventionSouhaitee"
+                data-cy="interventionSouhaitee"
+                formControlName="interventionSouhaitee"
+              ></textarea>
+              <div
+                *ngIf="
+                  editForm.get('interventionSouhaitee')!.invalid &&
+                  (editForm.get('interventionSouhaitee')!.dirty || editForm.get('interventionSouhaitee')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('interventionSouhaitee')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-control-label" for="field_justification">Justification</label>
+              <textarea
+                class="form-control"
+                name="justification"
+                id="field_justification"
+                data-cy="justification"
+                formControlName="justification"
+              ></textarea>
+              <div
+                *ngIf="
+                  editForm.get('justification')!.invalid && (editForm.get('justification')!.dirty || editForm.get('justification')!.touched)
+                "
+              >
+                <small class="form-text text-danger" *ngIf="editForm.get('justification')?.errors?.required">
+                  This field is required.
+                </small>
+              </div>
+            </div>
+
+            <!-- <div class="form-group">
+          <label class="form-control-label" for="field_proviseur">Proviseur</label>
+          <select class="form-control" id="field_proviseur" data-cy="proviseur" name="proviseur" formControlName="proviseur">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="proviseurOption.id === editForm.get('proviseur')!.value?.id ? editForm.get('proviseur')!.value : proviseurOption"
+              *ngFor="let proviseurOption of proviseursSharedCollection; trackBy: trackProviseurById"
+            >
+              {{ proviseurOption.nomPrenom }}
+            </option>
+          </select>
+        </div> -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="can-sav">
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>
+</div>

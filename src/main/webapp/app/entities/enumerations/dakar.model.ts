@@ -1,0 +1,11 @@
+export enum DAKAR {
+  DAKAR = 'DAKAR',
+
+  GUEDIAWAYE = 'GUEDIAWAYE',
+
+  PIKINE = 'PIKINE',
+
+  RUFISQUE = 'RUFISQUE',
+
+  AUTRE = 'AUTRE',
+}

@@ -1,0 +1,94 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="enseignant">
+      <h2 data-cy="enseignantDetailsHeading"><span>Enseignant</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ enseignant.id }}</span>
+        </dd>
+        <dt><span>Matricule Ens</span></dt>
+        <dd>
+          <span>{{ enseignant.matriculeEns }}</span>
+        </dd>
+        <dt><span>Nom Prenom</span></dt>
+        <dd>
+          <span>{{ enseignant.nomPrenom }}</span>
+        </dd>
+        <dt><span>Sexe</span></dt>
+        <dd>
+          <span>{{ enseignant.sexe }}</span>
+        </dd>
+        <dt><span>Telephone</span></dt>
+        <dd>
+          <span>{{ enseignant.telephone }}</span>
+        </dd>
+        <dt><span>Mail</span></dt>
+        <dd>
+          <span>{{ enseignant.mail }}</span>
+        </dd>
+        <dt><span>Grade</span></dt>
+        <dd>
+          <span>{{ enseignant.grade }}</span>
+        </dd>
+        <dt><span>Option</span></dt>
+        <dd>
+          <span>{{ enseignant.option }}</span>
+        </dd>
+        <dt><span>Situation Matrimoniale</span></dt>
+        <dd>
+          <span>{{ enseignant.situationMatrimoniale }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ enseignant.status }}</span>
+        </dd>
+        <dt><span>Fonction</span></dt>
+        <dd>
+          <span>{{ enseignant.fonction }}</span>
+        </dd>
+        <dt><span>Lycees Techniques</span></dt>
+        <dd>
+          <div *ngIf="enseignant.lyceesTechniques">
+            <a [routerLink]="['/lycees-techniques', enseignant.lyceesTechniques?.id, 'view']">{{
+              enseignant.lyceesTechniques?.nomLycee
+            }}</a>
+          </div>
+        </dd>
+        <dt><span>Serie</span></dt>
+        <dd>
+          <div *ngIf="enseignant.serie">
+            <a [routerLink]="['/serie', enseignant.serie?.id, 'view']">{{ enseignant.serie?.nomSerie }}</a>
+          </div>
+        </dd>
+        <dt><span>Filiere</span></dt>
+        <dd>
+          <div *ngIf="enseignant.filiere">
+            <a [routerLink]="['/filiere', enseignant.filiere?.id, 'view']">{{ enseignant.filiere?.nomFiliere }}</a>
+          </div>
+        </dd>
+        <dt><span>Proviseur</span></dt>
+        <dd>
+          <div *ngIf="enseignant.proviseur">
+            <a [routerLink]="['/proviseur', enseignant.proviseur?.id, 'view']">{{ enseignant.proviseur?.nomPrenom }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/enseignant', enseignant.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

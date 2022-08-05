@@ -1,0 +1,56 @@
+{
+  "name": "ReformeMatiere",
+  "fields": [
+    {
+      "fieldName": "group",
+      "fieldType": "Group",
+      "fieldValues": "GROUP1,GROUP2"
+    },
+    {
+      "fieldName": "designationDesmembre",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "pvReforme",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "sortieDefinitive",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    },
+    {
+      "fieldName": "certificatAdministratif",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "any"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lyceesTechniques",
+      "otherEntityRelationshipName": "reformeMatiere",
+      "relationshipName": "lyceesTechniques",
+      "otherEntityField": "nomLycee"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "comptableMatiere",
+      "otherEntityRelationshipName": "reformeMatiere",
+      "relationshipName": "comptableMatiere",
+      "otherEntityField": "nomPrenom"
+    }
+  ],
+  "entityTableName": "reforme_matiere",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20220613130026"
+}

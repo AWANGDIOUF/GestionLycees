@@ -1,0 +1,122 @@
+<div>
+  <h2 id="page-heading" data-cy="AttributionHeading">
+    <span>Attributions</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-attribution"
+        [routerLink]="['/attribution/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Attribution </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="attributions?.length === 0">
+    <span>No attributions found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="attributions && attributions.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span>ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="beneficiaire"><span>Beneficiaire</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="fonction"><span>Fonction</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="date"><span>Date</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="lyceesTechniques.nomLycee"><span>Lycees Techniques</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="comptableMatiere.nomPrenom"><span>Comptable Matiere</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="reception.libelleMateriel"><span>Reception</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attribution of attributions; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/attribution', attribution.id, 'view']">{{ attribution.id }}</a>
+          </td>
+          <td>{{ attribution.beneficiaire }}</td>
+          <td>{{ attribution.fonction }}</td>
+          <td>{{ attribution.date | formatMediumDate }}</td>
+          <td>
+            <div *ngIf="attribution.lyceesTechniques">
+              <a [routerLink]="['/lycees-techniques', attribution.lyceesTechniques?.id, 'view']">{{
+                attribution.lyceesTechniques?.nomLycee
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="attribution.comptableMatiere">
+              <a [routerLink]="['/comptable-matiere', attribution.comptableMatiere?.id, 'view']">{{
+                attribution.comptableMatiere?.nomPrenom
+              }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="attribution.reception">
+              <a [routerLink]="['/reception', attribution.reception?.id, 'view']">{{ attribution.reception?.libelleMateriel }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/attribution', attribution.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/attribution', attribution.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(attribution)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="attributions && attributions.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

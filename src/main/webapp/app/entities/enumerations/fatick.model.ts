@@ -1,0 +1,9 @@
+export enum FATICK {
+  FATICK = 'FATICK',
+
+  FOUNDIOUGNE = 'FOUNDIOUGNE',
+
+  GOSSAS = 'GOSSAS',
+
+  AUTRE = 'AUTRE',
+}
