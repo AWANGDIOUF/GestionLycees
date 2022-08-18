@@ -13,7 +13,7 @@ function setupProxy() {
         '/auth',
         '/health',
       ],
-      target: `http${tls ? 's' : ''}://10.42.3.103:8787`,
+      target: `http${tls ? 's' : ''}://localhost:8787`,
       secure: false,
       changeOrigin: tls,
     },
