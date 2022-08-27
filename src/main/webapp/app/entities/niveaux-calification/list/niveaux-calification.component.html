@@ -1,7 +1,7 @@
 <div class="log">
   <h2 id="page-heading" data-cy="NiveauxCalificationHeading">
     <br />
-    <p class="list" style="font-weight: bold; text-align: center">Niveaux califications</p>
+    <p class="list" style="font-weight: bold; text-align: center">Niveaux qualifications</p>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
@@ -16,7 +16,7 @@
         [routerLink]="['/niveaux-calification/new']"
       >
         <fa-icon icon="plus"></fa-icon>
-        <span> Créer un nouveau niveau calification </span>
+        <span> Créer un nouveau niveau qualification </span>
       </button>
     </div>
   </h2>
@@ -26,7 +26,7 @@
   <jhi-alert></jhi-alert>
 
   <div class="alert alert-warning" id="no-result" *ngIf="niveauxCalifications?.length === 0">
-    <span>Aucun niveau de calification trouvé</span>
+    <span>Aucun niveau de qualification trouvé</span>
   </div>
 
   <br />

@@ -1,7 +1,8 @@
 <div class="row justify-content-center">
   <div class="col-8">
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
-      <h2 id="jhi-partenaire-heading" data-cy="PartenaireCreateUpdateHeading" style="font-weight: bold; text-align: center">
+      <h2 id="jhi-partenaire-heading" data-cy="PartenaireCreateUpdateHeading" 
+        style="font-weight: bold; text-align: center">
         Créer ou modifier un partenaire
       </h2>
 
@@ -13,11 +14,10 @@
           <div class="col-md-3"></div>
           <div class="col-md-6">
             <br />
-
-            <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
-          <label class="form-control-label" for="field_id">ID</label>
-          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
-        </div> -->
+          <!-- <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+            <label class="form-control-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div> -->
 
             <div class="form-group">
               <label class="form-control-label" for="field_lyceesTechniques">Lycée technique</label>
@@ -100,7 +100,7 @@
 
             <div *ngIf="editForm.value.categorieProvenaire === 'AUTRES'">
               <div class="form-group">
-                <label class="form-control-label" for="field_autreCategorie">Nom du Categorie</label>
+                <label class="form-control-label" for="field_autreCategorie">Nom du Catégorie</label>
                 <input
                   type="text"
                   class="form-control"
@@ -118,7 +118,7 @@
                 <option [ngValue]="null"></option>
                 <option value="TECHNIQUE">TECHNIQUE</option>
                 <option value="FINANCIER">FINANCIER</option>
-                <option value="TECHNIQUEETFINANCIER">TECHNIQUEETFINANCIER</option>
+                <option value="TECHNIQUEETFINANCIER">TECHNIQUE ET FINANCIER</option>
                 <option value="FORMATION">FORMATION</option>
                 <option value="AUTRES">AUTRES</option>
               </select>
@@ -156,7 +156,6 @@
           </div>
         </div>
       </div>
-
       <br />
       <br />
       <div class="can-sav">
