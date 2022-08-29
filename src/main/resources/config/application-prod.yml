@@ -35,7 +35,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://10.42.3.103:3306/gestion_lycees?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
     username: root
-    password: passer123
+    password: Passer@123
     hikari:
       poolName: Hikari
       auto-commit: false
